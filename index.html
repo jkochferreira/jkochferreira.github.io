@@ -7,7 +7,7 @@
   <meta name="description" content="Product Designer based in Porto, Portugal, with 8+ years of experience across B2B SaaS, B2C and Fintech.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400&family=Inter:wght@500&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -16,7 +16,7 @@
       --nav-text: #1a1a1a;
       --base: #c7c2d0;
       --serif: "Instrument Serif", Georgia, serif;
-      --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       --gutter: clamp(24px, 6.95vw, 120px);
       --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
     }
@@ -41,7 +41,7 @@
     .page {
       max-width: 1728px;
       margin: 0 auto;
-      padding: 0 var(--gutter) 154px;
+      padding: 0 var(--gutter) 39px;
     }
 
     /* Menu principal */
@@ -79,23 +79,24 @@
     /* About */
     .about {
       margin-top: 70px;
-      font-size: 22px;
-      line-height: 32px;
+      font-size: 18px;
+      line-height: 28px;
     }
-    .about p + p.about__spaced { margin-top: 32px; }
+    .about p + p.about__spaced { margin-top: 28px; }
 
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 210px;
-      height: 60px;
-      margin-top: 60px;
-      padding: 0 28px;
-      border-radius: 4px;
+      width: 156px;
+      height: 44px;
+      margin-top: 27px;
+      padding: 0 20px;
+      border-radius: 3px;
       background: var(--ink);
       color: #fff;
-      font-size: 20px;
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
       font-weight: 500;
       line-height: 1.4;
       text-decoration: none;
@@ -105,7 +106,7 @@
     .button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
     /* Experience */
-    .experience { margin-top: 154px; }
+    .experience { margin-top: 120px; }
     .experience h2 {
       font-family: var(--serif);
       font-weight: 400;
@@ -124,9 +125,10 @@
     .job {
       padding-bottom: 16px;
       border-bottom: 1px solid var(--ink);
-      font-size: 20px;
+      font-size: 18px;
       line-height: 28px;
     }
+    .job:last-child { border-bottom: 0; }
     .job__row {
       display: flex;
       justify-content: space-between;
@@ -135,23 +137,52 @@
     .job__dates { text-align: right; white-space: nowrap; }
     .job__role { margin-top: 8px; line-height: 27px; color: var(--text-muted); }
 
+    /* Get in touch */
+    .footer {
+      max-width: calc(var(--indent) + 768px);
+      height: 108px;
+      margin-top: 191px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer__title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 38px;
+      line-height: 0.98;
+      letter-spacing: -0.019em;
+      color: var(--ink);
+    }
+    .footer__links { display: flex; gap: 60px; }
+    .footer__links a {
+      font-size: 20px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
     @media (max-width: 900px) {
       .content { margin-left: 0; }
       .hero { margin-top: 96px; }
-      .about { margin-top: 48px; font-size: 18px; line-height: 28px; }
-      .about p + p.about__spaced { margin-top: 28px; }
-      .button { margin-top: 40px; }
+      .about { margin-top: 48px; }
       .experience { margin-top: 96px; }
       .experience h2 { font-size: 36px; }
       .job { font-size: 17px; line-height: 24px; }
-      .page { padding-bottom: 96px; }
+      .footer { margin-top: 96px; }
+      .footer__links { gap: 32px; }
     }
 
     @media (max-width: 480px) {
       .nav { height: 80px; }
       .nav__name { font-size: 17px; }
       .hero { margin-top: 56px; font-size: 40px; }
-      .button { width: 100%; }
+      .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
+      .footer__title { font-size: 32px; }
+      .footer__links a { font-size: 18px; }
     }
   </style>
 </head>
@@ -196,6 +227,14 @@
         </section>
       </div>
     </main>
+
+    <footer class="footer">
+      <p class="footer__title">Get in touch</p>
+      <nav class="footer__links">
+        <a href="mailto:jkochferreira@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/joana-koch-ferreira/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </footer>
   </div>
 </body>
 </html>
