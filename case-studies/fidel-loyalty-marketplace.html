@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -361,6 +361,39 @@
       .intro__visual { width: min(280px, 70%); margin-top: 0; }
     }
 
+    /* Subhead inside a section: body size, bold */
+    .kicker { margin: 56px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
+
+    /* Maze results as ring charts */
+    .rings {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+    }
+    .ring-stat { text-align: center; }
+    .ring-stat__chart { position: relative; width: 136px; height: 136px; margin: 0 auto 20px; }
+    .ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring circle { fill: none; stroke-width: 10; }
+    .ring__track { stroke: rgba(41, 0, 114, .12); }
+    .ring__value { stroke: var(--ink); stroke-linecap: round; }
+    .ring-stat__value {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 40px;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .ring-stat p { max-width: 300px; margin: 0 auto; font-size: 16px; line-height: 24px; color: var(--text-muted); }
+    .ring-stat strong { font-weight: 600; color: var(--ink); }
+    @media (max-width: 600px) {
+      .rings { grid-template-columns: 1fr; gap: 40px; }
+    }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -529,10 +562,24 @@
             <p>Each filter had its own search, so customers working with hundreds of brands could type a name instead of scrolling. Applied filters showed what was selected and how many options were active. Filters could also be combined, with a "Clear all" option to reset them.</p>
             <p>I moved sorting into the column headers, making it easier to sort by reward, locations, creation date and programmes. I also designed an empty state for cases where no offers matched the selected filters.</p>
             <p>The result worked for different types of customers, from small businesses looking for a single brand to larger teams combining several filters.</p>
-            <p>In Maze, 80% of participants rated the new experience 10/10, and all said the new capabilities would help them go live with offers faster.</p>
           </div>
-          <div class="prose" style="margin-top: 40px;">
-            <p>What customers said in the Maze study <span class="confirm">[confirm number of participants and date]</span>:</p>
+
+          <p class="kicker">Maze results</p>
+          <div class="prose">
+            <p>Usability test of the filtering and sorting prototype <span class="confirm">[confirm number of participants and date]</span>.</p>
+          </div>
+          <div class="rings">
+            <div class="ring-stat">
+              <div class="ring-stat__chart"><svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="ring__track"/><circle cx="60" cy="60" r="52" class="ring__value" stroke-dasharray="326.7" stroke-dashoffset="65.3"/></svg><span class="ring-stat__value">80%</span></div>
+              <p><strong>gave a 10/10 rating</strong> when asked how these features would improve their overall experience on the dashboard</p>
+            </div>
+            <div class="ring-stat">
+              <div class="ring-stat__chart"><svg class="ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52" class="ring__track"/><circle cx="60" cy="60" r="52" class="ring__value" stroke-dasharray="326.7" stroke-dashoffset="0.0"/></svg><span class="ring-stat__value">100%</span></div>
+              <p>said these capabilities <strong>would speed up the time</strong> they take to go live with offers</p>
+            </div>
+          </div>
+          <div class="prose" style="margin-top: 48px;">
+            <p>What customers said:</p>
           </div>
           <div class="quotes quotes--long">
             <blockquote>“With this new feature our work will speed up a lot and we can access relevant information about our merchants quickly.”</blockquote>
