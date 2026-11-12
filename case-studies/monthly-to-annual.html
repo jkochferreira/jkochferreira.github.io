@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -367,8 +367,8 @@
       background: #fff;
     }
 
-    /* Small caps subhead inside a section */
-    .kicker { margin-top: 48px; margin-bottom: 12px; }
+    /* Subhead inside a section: body size, bold */
+    .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
 
     /* Strategy pillars */
     .pillars {
@@ -650,7 +650,7 @@
             <p>The first experiment showed that a single dialog was easy to dismiss. Annual needed to be visible wherever customers already make billing decisions, without interrupting them. These permanent nudges are contextual: small, non-blocking messages placed next to the decision they relate to, on the billing page and at checkout.</p>
           </div>
 
-          <p class="stack__label kicker">Billing page</p>
+          <p class="kicker">Billing page</p>
           <div class="prose">
             <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. It got fewer clicks, but more of them converted. The same pattern can carry other gentle reminders and recommendations.</p>
           </div>
@@ -666,7 +666,7 @@
             <figcaption>The billing page plan card: a small text link before, a permanent nudge with the customer's own saving after.</figcaption>
           </figure>
 
-          <p class="stack__label kicker">Checkout</p>
+          <p class="kicker">Checkout</p>
           <div class="prose">
             <p>At checkout, we ran an A/B test in production with trial accounts, comparing two variants 50/50: a small savings card inside the plan card, always visible, and a tooltip that appears only when someone selects a monthly plan. After 14 days, the tooltip led on paid conversions (+6.9%), new-business MRR (+12%) and average revenue per account (+12.4%), and it was rolled out to all trials.</p>
           </div>
