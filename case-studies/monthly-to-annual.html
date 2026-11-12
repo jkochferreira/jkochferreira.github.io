@@ -369,19 +369,22 @@
 
     /* Strategy pillars */
     .pillars {
-      margin-top: 32px;
+      margin: 24px 0 32px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 16px;
     }
+    /* Each area in a tinted card, the same lilac as the side project panel */
     .pillar {
-      padding-top: 16px;
-      border-top: 1px solid var(--ink);
+      padding: 24px;
+      border-radius: 12px;
+      background: rgba(41, 0, 114, .045);
       font-size: 16px;
       line-height: 24px;
     }
+    .pillar p { margin: 0; }
     .pillar h4 {
-      margin-bottom: 8px;
+      margin: 0 0 12px;
       font-family: var(--serif);
       font-style: italic;
       font-weight: 400;
@@ -573,11 +576,11 @@
         <div class="prose" style="margin-top: 56px;">
           <p>Showing the savings once wasn't enough. We needed to reach the right customers at the right time, with a relevant offer and more than one chance to switch.</p>
           <p>I designed the strategy around three areas:</p>
-          <ul>
-            <li><strong>Segmentation:</strong> Focus on engaged customers, growing teams, power users and accounts at risk of churning.</li>
-            <li><strong>Timing:</strong> Use customer milestones and behaviours, such as team growth or add-on purchases, instead of relying on a single message.</li>
-            <li><strong>Offers:</strong> Explore extra discounts, annual-only perks and bundles based on customer needs.</li>
-          </ul>
+          <div class="pillars">
+            <div class="pillar"><h4>Segmentation</h4><p>Focus on engaged customers, growing teams, power users and accounts at risk of churning.</p></div>
+            <div class="pillar"><h4>Timing</h4><p>Use customer milestones and behaviours, such as team growth or add-on purchases, instead of relying on a single message.</p></div>
+            <div class="pillar"><h4>Offers</h4><p>Explore extra discounts, annual-only perks and bundles based on customer needs.</p></div>
+          </div>
           <p>From this point on, I led the design of the strategy and its touchpoints. I shared my proposals and worked through them with the PM and engineering manager. Together, we decided which ideas to take forward.</p>
         </div>
       </div>
