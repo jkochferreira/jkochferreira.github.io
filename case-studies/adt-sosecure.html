@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>ADT SoSecure — Joana Koch Ferreira</title>
+  <meta name="description" content="How we redesigned ADT's SoSecure around real-time location sharing, without losing the customers who relied on it in an emergency.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #290072;
+      --text: #0e0e0e;
+      --text-muted: #574774;
+      --nav-text: #1a1a1a;
+      --base: #c7c2d0;
+      --line: rgba(41, 0, 114, .25);
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(24px, 6.95vw, 120px);
+      --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
+      --wide: calc(var(--indent) + 768px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--text);
+      background-color: var(--base);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Intro: the stage stays pinned while vertical scroll pans the canvas of components sideways */
+    .intro { position: relative; }
+    .intro__stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+      background-color: var(--base);
+      background-image:
+        radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
+        radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
+        radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
+        radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+    }
+    .intro__inner { position: relative; z-index: 2; }
+    .intro .eyebrow { margin-top: clamp(8px, 3vh, 40px); }
+    .intro .hero {
+      margin-top: 16px;
+      max-width: 1000px;
+      font-size: clamp(36px, 4.4vw, 76px);
+    }
+
+    .canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3564px;
+      height: 750px;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .canvas__item {
+      position: absolute;
+      display: block;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    /* Opaque screenshots get a box shadow; transparent ones follow their own shape */
+    .canvas__item--box {
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(47, 47, 47, .08), 0 24px 48px -12px rgba(41, 0, 114, .22);
+    }
+    .canvas__item--shape {
+      filter: drop-shadow(0 1px 2px rgba(47, 47, 47, .08)) drop-shadow(0 20px 24px rgba(41, 0, 114, .16));
+    }
+
+    /* Sheet: white block that follows the intro */
+    .sheet {
+      position: relative;
+      background: #fff;
+      padding-top: 120px;
+    }
+    .sheet .placeholder {
+      background: #f4f2f8;
+      border-color: rgba(41, 0, 114, .2);
+    }
+    .sheet .lead { margin-top: 0; }
+
+    .page {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) 39px;
+    }
+
+    /* Menu principal */
+    .nav {
+      height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__name {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links { display: flex; gap: 60px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links a:hover,
+    .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Hero */
+    .eyebrow {
+      margin-top: clamp(32px, 9vh, 125px);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+    .hero {
+      margin-top: 24px;
+      max-width: 1104px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(44px, 5.16vw, 89.147px);
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .hero em { display: block; font-style: italic; }
+
+    .content {
+      margin-left: var(--indent);
+      max-width: 768px;
+    }
+    .wide { margin-left: var(--indent); max-width: 768px; }
+
+    .lead {
+      margin-top: 70px;
+      font-size: 22px;
+      line-height: 32px;
+    }
+
+    /* Text */
+    .prose { font-size: 18px; line-height: 28px; }
+    .prose > * + * { margin-top: 20px; }
+    .prose strong { font-weight: 500; }
+    .prose ul { list-style: none; }
+    .prose ul li { position: relative; padding-left: 20px; }
+    .prose ul li + li { margin-top: 8px; }
+    .prose ul li::before { content: "–"; position: absolute; left: 0; color: var(--text-muted); }
+
+    .section { margin-top: 120px; }
+    .section h2,
+    .label {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 42.635px;
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .section h2 + .prose { margin-top: 33px; }
+    .section h3 {
+      margin-top: 56px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .section h3 + .prose { margin-top: 20px; }
+
+    /* Summary meta */
+    .meta {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 32px;
+    }
+    .meta div {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--ink);
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .meta dt { color: var(--text-muted); }
+    .meta dd { margin-top: 4px; }
+    .meta .meta__full { grid-column: span 2; }
+
+    /* Results */
+    .stats {
+      margin-top: 33px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 32px;
+    }
+    .stat__value {
+      font-family: var(--serif);
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .stat__label {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--text-muted);
+    }
+    .footnote {
+      margin-top: 32px;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--text-muted);
+    }
+
+    /* Media placeholders */
+    .media { margin-top: 56px; }
+    .media + .prose, .carousel + .prose { margin-top: 56px; }
+    .placeholder {
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border: 1px dashed rgba(41, 0, 114, .35);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .28);
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 22px;
+      text-align: center;
+    }
+    figcaption {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--text-muted);
+    }
+    .carousel {
+      margin-top: 56px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min(72%, 720px);
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(41, 0, 114, .3) transparent;
+    }
+    .carousel figure { scroll-snap-align: start; }
+
+    /* Strategy pillars */
+    .pillars {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .pillar {
+      padding-top: 16px;
+      border-top: 1px solid var(--ink);
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .pillar h4 {
+      margin-bottom: 8px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    /* Table */
+    .table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 24px; }
+    .table th {
+      padding: 0 16px 12px 0;
+      font-weight: 400;
+      text-align: left;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--ink);
+    }
+    .table td {
+      padding: 14px 16px 14px 0;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+    .table td:first-child { white-space: nowrap; }
+
+    /* Quotes */
+    .quotes {
+      margin-top: 33px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px 32px;
+    }
+    .quotes blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 32px;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .quotes--long blockquote { font-size: 24px; line-height: 1.15; }
+
+    /* Simple intro: title on the gradient, no component canvas */
+    .intro--simple .intro__stage {
+      position: relative;
+      height: auto;
+      padding-bottom: clamp(64px, 14vh, 160px);
+    }
+    .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
+
+    /* Facts still to confirm */
+    .confirm {
+      background: rgba(255, 196, 0, .28);
+      color: #5a4300;
+      font-style: normal;
+      padding: 0 4px;
+      border-radius: 3px;
+    }
+    .stats { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); row-gap: 40px; }
+
+    /* Get in touch */
+    .footer {
+      max-width: var(--wide);
+      height: 108px;
+      margin-top: 191px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer__title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 38px;
+      line-height: 0.98;
+      letter-spacing: -0.019em;
+      color: var(--ink);
+    }
+    .footer__links { display: flex; gap: 60px; }
+    .footer__links a {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .content, .wide { margin-left: 0; }
+      .sheet { padding-top: 64px; }
+      .eyebrow { margin-top: 72px; }
+      .lead { margin-top: 48px; font-size: 18px; line-height: 28px; }
+      .section { margin-top: 96px; }
+      .section h2 { font-size: 36px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pillars { grid-template-columns: 1fr; }
+      .quotes { grid-template-columns: 1fr; }
+      .carousel { grid-auto-columns: 85%; }
+      .footer { margin-top: 96px; }
+      .footer__links, .nav__links { gap: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav { height: 80px; }
+      .eyebrow { margin-top: 48px; }
+      .hero { font-size: 40px; }
+      .meta { grid-template-columns: 1fr; }
+      .meta .meta__full { grid-column: auto; }
+      .stat__value { font-size: 48px; }
+      .table { font-size: 14px; }
+      .table td:first-child { white-space: normal; }
+      .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
+      .footer__title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="intro intro--simple">
+    <div class="intro__stage">
+      <div class="page intro__inner">
+        <nav class="nav">
+          <a class="nav__name" href="/">Joana Koch Ferreira</a>
+          <div class="nav__links">
+            <a href="/" aria-current="page">Work</a>
+            <a href="/about.html">About</a>
+          </div>
+        </nav>
+        <div class="intro__title">
+          <p class="eyebrow">Nagarro — ADT SoSecure</p>
+          <h1 class="hero">Turning an emergency-only safety app into <em>one families open every day</em></h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet">
+  <div class="page">
+    <main>
+      <div class="content">
+        <p class="lead">How we redesigned ADT's SoSecure around real-time location sharing, without losing the customers who relied on it in an emergency.</p>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder">Cover — current homepage next to the "Family and friends" group map</div>
+      </figure>
+
+      <div class="content">
+        <dl class="meta">
+          <div><dt>Role</dt><dd><span class="confirm">[confirm: job title]</span> at Nagarro, one of two product designers on the SoSecure team</dd></div>
+          <div><dt>Team</dt><dd>2 product designers, the engineering team, and ADT stakeholders <span class="confirm">[confirm: PM or other roles?]</span></dd></div>
+          <div><dt>Services</dt><dd>UX research, product strategy, product design, prototyping, usability testing, design system, accessibility and ADA compliance</dd></div>
+          <div><dt>Industry</dt><dd>Home and personal security, consumer mobile (iOS and Android)</dd></div>
+          <div class="meta__full"><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, matching LinkedIn]</span></dd></div>
+        </dl>
+
+        <div class="prose" style="margin-top: 56px;">
+          <p>At Nagarro, I worked with ADT on SoSecure, its mobile safety app. The app gave people discreet ways to call for help, but most of them opened it once and deleted it. With one other designer, I took the app from research and strategy through wireframes, final UI, a design system and an accessibility audit. Together we redesigned SoSecure around real-time location sharing, so families had a reason to open it every day. <span class="confirm">[confirm: anything you owned on your own, e.g. the homepage or the design system]</span></p>
+        </div>
+
+        <section class="section">
+          <h2>At a glance</h2>
+          <div class="stats">
+            <div><div class="stat__value">94%</div><div class="stat__label">Of users lost after day one before the redesign</div></div>
+            <div><div class="stat__value">Up to 10</div><div class="stat__label">People per private group</div></div>
+            <div><div class="stat__value">Unlimited</div><div class="stat__label">Location-sharing groups for free</div></div>
+            <div><div class="stat__value">2</div><div class="stat__label">Platforms, iOS and Android</div></div>
+          </div>
+          <p class="footnote"><em>Churn figure from ADT's brief for the project. <span class="confirm">[confirm: timeframe, if you know it]</span></em></p>
+        </section>
+
+        <section class="section">
+          <h2>The challenge</h2>
+          <div class="prose">
+            <p>SoSecure lost 94% of its users after their first day. People installed it, used it once and deleted it.</p>
+            <p>ADT wanted to reduce that churn, make the app something people used actively, and reach new users. Most of the existing users were ADT home security customers from an older demographic, and ADT wanted the app to appeal to Millennials.</p>
+            <p>The product was built entirely around emergencies. It had an SOS slider, SMS chat with an agent, video, and a hands-free secret phrase that worked from a locked screen. Those features mattered on a bad day, but they gave people no reason to open the app on a normal one.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>From an SOS button to a family map</h2>
+          <div class="prose">
+            <p>We started from the existing SoSecure app and the question of where it fit in the mobile market.</p>
+          </div>
+        </section>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder">The old SoSecure homepage</div>
+      </figure>
+
+      <div class="content">
+        <div class="prose" style="margin-top: 56px;">
+          <p>Using customer archetypes and competitive research, we found the mobile safety market was fragmented and not clearly defined. Safety on its own wasn't enough to bring people back. So we positioned the new SoSecure between a lifestyle app and a social network, built around one new feature, real-time location sharing.</p>
+          <p>That changed who the app was for. Instead of one ADT customer, the users were now whole families, from a man caring for his elderly mother to a teenager who wanted control over her personal data. We defined three personas to keep all of them in view.</p>
+        </div>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder">Personas — Robert, Lisa and Bella</div>
+      </figure>
+
+      <div class="content">
+        <div class="prose" style="margin-top: 56px;">
+          <p>We set three goals for the redesign:</p>
+          <ul>
+            <li><strong>Make it sticky:</strong> people remember and value the apps they use every day.</li>
+            <li><strong>Make it personal:</strong> put the user and their people at the centre of the app.</li>
+            <li><strong>Make it part of everyday:</strong> weave the app into normal routines, so it is already open when something goes wrong.</li>
+          </ul>
+          <p><span class="confirm">[confirm: your role in setting this direction — what you proposed and who you decided it with]</span></p>
+        </div>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder">Challenge slide — map with geofenced spots and arrival alerts</div>
+      </figure>
+
+      <div class="content">
+        <section class="section">
+          <h2>Designing the experience</h2>
+          <div class="prose">
+            <p>As a team of two designers working in an agile way, we ran several steps at the same time. We used wireframes for early ideation and to define the UX before moving to final designs, focusing first on patterns, flows and features. That was also when the engineering team got actively involved.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">Wireframes — homepage</div></figure>
+        <figure><div class="placeholder">Wireframes — groups</div></figure>
+        <figure><div class="placeholder">Wireframes — SOS detail</div></figure>
+        <figure><div class="placeholder">Wireframes — chat</div></figure>
+        <figure><div class="placeholder">Wireframes — member detail</div></figure>
+      </div>
+
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>The homepage</h3>
+          <div class="prose">
+            <p>The homepage had to carry the move from an emergency app to a daily one without losing the existing customers.</p>
+            <p>In our first concept, we removed the SOS slider and made groups the focus of the screen. User testing showed us the slider was the signature element of the app, and ADT wasn't ready for such a disruptive change. <span class="confirm">[confirm: how many people took part in testing?]</span></p>
+            <p>We kept the slider at the top, with the other emergency options (SOS chat and SOS video) right below it. The rest of the features moved into two blocks, My Safety Kit and My Groups. Existing customers found their emergency tools where they expected them, and new users saw their family's locations straight away.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">Old version</div></figure>
+        <figure><div class="placeholder">First concept</div></figure>
+        <figure><div class="placeholder">Current version</div></figure>
+      </div>
+
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>Real-time location sharing</h3>
+          <div class="prose">
+            <p>Location sharing was the feature the whole strategy rested on. We built it around three ideas.</p>
+            <ul>
+              <li><strong>Groups:</strong> private groups of up to 10 people, who see each other on a shared map.</li>
+              <li><strong>Spots:</strong> saved places such as home, school or work. With alerts on, the app sets up a geofence and tells the group when someone arrives or leaves.</li>
+              <li><strong>Check-ins:</strong> one tap shares where you are with the group, even somewhere that isn't a saved spot.</li>
+            </ul>
+            <p>People could create as many groups as they wanted for free. Because SoSecure ran on both iOS and Android, families with mixed phones could use one app.</p>
+            <p>We also designed the details that make groups work over time: joining with a six-character invite code, choosing which members' alerts you get, setting a spot's radius, snoozing group alerts, and transferring group ownership.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">Onboarding</div></figure>
+        <figure><div class="placeholder">Group map</div></figure>
+        <figure><div class="placeholder">Members list</div></figure>
+        <figure><div class="placeholder">Add spot</div></figure>
+        <figure><div class="placeholder">Spot radius</div></figure>
+        <figure><div class="placeholder">Customise alerts</div></figure>
+        <figure><div class="placeholder">Check-in</div></figure>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">Invite code</div></figure>
+        <figure><div class="placeholder">Join a group</div></figure>
+        <figure><div class="placeholder">Notification preferences</div></figure>
+        <figure><div class="placeholder">Snooze alerts</div></figure>
+        <figure><div class="placeholder">Transfer ownership</div></figure>
+      </div>
+
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>In-app chat</h3>
+          <div class="prose">
+            <p>Until then, people talked to an ADT agent by SMS. Once groups could share locations, we wanted members to be able to talk to each other too, so we rethought the agent conversation as well and moved it into an in-app chat.</p>
+            <p>In an emergency, the agent chat offers quick replies such as “I'm being followed” or “I had an accident”. Group chats let members share a pinned location, ask for a check-in or get driving directions.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">ADT agent chat</div></figure>
+        <figure><div class="placeholder">Inbox</div></figure>
+        <figure><div class="placeholder">Group member chat</div></figure>
+      </div>
+
+      <div class="content">
+        <section class="section">
+          <h2>A design system with accessibility built in</h2>
+          <div class="prose">
+            <p>We built a design system in Figma to standardise the work and make it faster: typography, colours, buttons, cards, icons and illustrations.</p>
+            <p>We wanted SoSecure to be accessible to everyone, which mattered even more for an app with many older users. We checked visual layout, text-to-speech compatibility and colour contrast against ADA standards. That covered ADT's legal requirements and helped it reach customers of all abilities.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide">
+        <figure><div class="placeholder">Typography</div></figure>
+        <figure><div class="placeholder">Colours</div></figure>
+        <figure><div class="placeholder">Buttons</div></figure>
+        <figure><div class="placeholder">Icons</div></figure>
+        <figure><div class="placeholder">Illustrations</div></figure>
+        <figure><div class="placeholder">ADA contrast checks</div></figure>
+      </div>
+
+      <div class="content">
+        <section class="section">
+          <h2>Outcomes</h2>
+          <div class="prose">
+            <ul>
+              <li>SoSecure moved from a single-purpose emergency app to a family safety app built around real-time location sharing, on iOS and Android. <span class="confirm">[confirm: launch date and any metrics]</span></li>
+              <li>The homepage kept the SOS slider that existing customers relied on, while bringing groups and safety features into everyday view.</li>
+              <li>The Figma design system and ADA checks gave ADT a shared, accessible foundation for the app. <span class="confirm">[confirm: was it used after the project?]</span></li>
+            </ul>
+            <p><span class="confirm">[LINK: clickable prototype]</span></p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>What I learned</h2>
+          <div class="prose">
+            <p>Our first homepage concept went too far. We removed the SOS slider to make room for groups, and user testing showed us how much that one component meant to people and to ADT.</p>
+            <p>When a product changes its purpose, existing users need something they still recognise. Keeping the slider at the top gave them that anchor, and the new features could grow around it instead of replacing it.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__title">Get in touch</p>
+      <nav class="footer__links">
+        <a href="mailto:jkochferreira@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/joana-koch-ferreira/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </footer>
+  </div>
+  </div>
+</body>
+</html>
