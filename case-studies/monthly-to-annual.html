@@ -268,71 +268,6 @@
       color: var(--text-muted);
     }
     .stack__img { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
-    /* Before/after comparison: the before image sits on top, clipped at the handle position */
-    .compare {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
-      user-select: none;
-    }
-    .compare img { display: block; width: 100%; height: auto; }
-    .compare__before {
-      position: absolute;
-      inset: 0;
-      clip-path: inset(0 calc(100% - var(--pos)) 0 0);
-    }
-    .compare__handle {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: var(--pos);
-      width: 2px;
-      margin-left: -1px;
-      background: var(--ink);
-      pointer-events: none;
-    }
-    .compare__handle::after {
-      content: "\2039\00a0\203A";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 40px;
-      height: 40px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: var(--ink);
-      color: #fff;
-      font-size: 18px;
-      line-height: 38px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(41, 0, 114, .25);
-    }
-    .compare__label {
-      position: absolute;
-      bottom: 12px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, .92);
-      color: var(--ink);
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      pointer-events: none;
-    }
-    .compare__label--before { left: 12px; }
-    .compare__label--after { right: 12px; }
-    .compare__range {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      opacity: 0;
-      cursor: ew-resize;
-    }
-    .compare:has(.compare__range:focus-visible) { outline: 2px solid var(--ink); outline-offset: 4px; }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
@@ -739,15 +674,6 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
       layout();
     })();
-  </script>
-  <script>
-    // Before/after comparison: the range input drives the clip position
-    document.querySelectorAll('.compare').forEach(function (el) {
-      var range = el.querySelector('.compare__range');
-      function update() { el.style.setProperty('--pos', range.value + '%'); }
-      range.addEventListener('input', update);
-      update();
-    });
   </script>
   <script src="/assets/lightbox.js"></script>
 </body>
