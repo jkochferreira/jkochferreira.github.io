@@ -316,21 +316,25 @@
 
     /* Quotes */
     .quotes {
-      margin-top: 33px;
+      margin-top: 24px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 40px 32px;
+      gap: 16px;
     }
+    /* Each quote in its own card, with the same thin outline as the before/after images */
     .quotes blockquote {
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
       font-family: var(--serif);
       font-style: italic;
-      font-size: 32px;
-      line-height: 1.05;
+      font-size: 22px;
+      line-height: 1.2;
       letter-spacing: -0.01em;
       color: var(--ink);
     }
 
-    .quotes--long blockquote { font-size: 24px; line-height: 1.15; }
+    .quotes--long blockquote { font-size: 20px; line-height: 1.25; }
 
     /* Simple intro: title on the gradient, no component canvas */
     .intro--simple .intro__stage {
