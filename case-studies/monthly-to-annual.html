@@ -37,13 +37,23 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Intro: full-screen hero that stays put while the sheet scrolls over it */
+    /* Intro: full-frame image; the image stays fixed while the title scrolls away with the page */
     .intro {
-      position: sticky;
-      top: 0;
+      position: relative;
       height: 100vh;
       height: 100svh;
-      overflow: hidden;
+      clip-path: inset(0);
+    }
+    .intro__image {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 140px;
+      color: var(--text-muted);
+      font-size: 15px;
       background-color: var(--base);
       background-image:
         radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
@@ -54,31 +64,19 @@
         radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
     }
     .intro__inner {
+      position: relative;
       height: 100%;
       display: flex;
       flex-direction: column;
-      padding-bottom: 0;
+      padding-bottom: clamp(40px, 8vh, 96px);
     }
-    .intro__media {
-      flex: 1;
-      min-height: 0;
-      margin-top: 56px;
-      width: 100%;
-    }
-    .intro__media .placeholder {
-      height: 100%;
-      aspect-ratio: auto;
-      border-bottom: 0;
-      border-radius: 8px 8px 0 0;
-    }
+    .intro__title { margin-top: auto; }
+    .intro .eyebrow { margin-top: 0; }
 
-    /* Sheet: white block that slides up over the intro */
+    /* Sheet: white block that follows the intro */
     .sheet {
       position: relative;
-      z-index: 1;
       background: #fff;
-      border-radius: 24px 24px 0 0;
-      box-shadow: 0 -24px 64px rgba(41, 0, 114, .10);
       padding-top: 120px;
     }
     .sheet .placeholder {
@@ -338,8 +336,7 @@
 
     @media (max-width: 900px) {
       .content, .wide { margin-left: 0; }
-      .sheet { padding-top: 64px; border-radius: 20px 20px 0 0; }
-      .intro__media { margin-top: 40px; }
+      .sheet { padding-top: 64px; }
       .eyebrow { margin-top: 72px; }
       .lead { margin-top: 48px; font-size: 18px; line-height: 28px; }
       .section { margin-top: 96px; }
@@ -368,16 +365,16 @@
 </head>
 <body>
   <header class="intro">
+    <div class="intro__image" aria-hidden="true">Hero image — full frame</div>
     <div class="page intro__inner">
       <nav class="nav">
         <a class="nav__name" href="/">Joana Koch Ferreira</a>
         <a class="nav__back" href="/">← Back</a>
       </nav>
-      <p class="eyebrow">PandaDoc — Monthly to Annual</p>
-      <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
-      <figure class="intro__media wide">
-        <div class="placeholder">Hero image</div>
-      </figure>
+      <div class="intro__title">
+        <p class="eyebrow">PandaDoc — Monthly to Annual</p>
+        <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
+      </div>
     </div>
   </header>
 
