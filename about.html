@@ -208,6 +208,25 @@
       .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
       .footer__title { font-size: 32px; }
     }
+
+    /* Trial layout (about.html?portrait=top): portrait at the top right, its bottom level with the title */
+    .portrait-top .hero-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 48px;
+      max-width: calc(var(--indent) + 768px);
+    }
+    .portrait-top .hero-row .portrait {
+      position: static;
+      flex: none;
+      width: clamp(200px, 19vw, 300px);
+      margin-bottom: 8px;
+    }
+    @media (max-width: 900px) {
+      .portrait-top .hero-row { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .portrait-top .hero-row .portrait { width: min(240px, 60%); margin: 0; }
+    }
   </style>
 </head>
 <body>
@@ -264,5 +283,17 @@
       </nav>
     </footer>
   </div>
+  <script>
+    // Trial layout: about.html?portrait=top moves the portrait up beside the title
+    if (new URLSearchParams(location.search).get('portrait') === 'top') {
+      document.body.classList.add('portrait-top');
+      var hero = document.querySelector('.hero'), portrait = document.querySelector('.portrait');
+      var row = document.createElement('div');
+      row.className = 'hero-row';
+      hero.parentNode.insertBefore(row, hero);
+      row.appendChild(hero);
+      row.appendChild(portrait);
+    }
+  </script>
 </body>
 </html>
