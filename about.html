@@ -86,8 +86,19 @@
     .hero em { font-style: italic; }
 
     .content {
+      position: relative;
       margin-left: var(--indent);
       max-width: 768px;
+    }
+
+    /* Portrait in the left column, beside the intro */
+    .portrait {
+      position: absolute;
+      top: 6px;
+      left: calc(-1 * var(--indent));
+      width: calc(var(--indent) - 56px);
+      height: auto;
+      border-radius: 8px;
     }
 
     /* About */
@@ -181,6 +192,7 @@
 
     @media (max-width: 900px) {
       .content { margin-left: 0; }
+      .portrait { position: static; display: block; width: min(240px, 60%); margin-top: 48px; }
       .hero { margin-top: 96px; }
       .about { margin-top: 48px; }
       .experience { margin-top: 96px; }
@@ -212,6 +224,7 @@
       <h1 class="hero">Hello, I’m Joana.<br>Thanks for visiting.</h1>
 
       <div class="content">
+        <img class="portrait" src="/images/joana-portrait.jpg" alt="Portrait of Joana Koch Ferreira" width="1000" height="1328">
         <section class="about">
           <p>I work across the product design process, from research and discovery to interaction design, prototyping and production. I take an AI-first approach to my work, using AI to support research, explore ideas, speed up prototyping and rethink how digital products are designed and experienced. I enjoy finding simple, useful solutions for complex problems that work for both users and businesses.</p>
           <p class="about__spaced">I’m currently open to new roles, so feel free to send me an email and say hi.</p>
