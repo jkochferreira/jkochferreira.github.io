@@ -427,6 +427,10 @@
     }
     .media__frame img { display: block; width: 100%; height: auto; border-radius: 4px; }
 
+    /* Screens that run off the top, right and bottom of their frame */
+    .media__frame--bleed { padding: 0 0 0 clamp(28px, 8%, 64px); }
+    .media__frame--bleed img { border-radius: 0; }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -643,7 +647,7 @@
       </div>
 
       <figure class="media wide">
-        <div class="media__frame" style="--frame-bg: #64748b;">
+        <div class="media__frame media__frame--bleed" style="--frame-bg: #64748b;">
           <img src="/case-studies/images/fidel/merchant-onboarding.webp" alt="Merchant self-onboarding screens: welcome, use your terminal to make a charge with a virtual card, transaction found, reject merchant ID, help finding a merchant ID, something went wrong, link expired and congratulations">
         </div>
         <figcaption>The self-onboarding flow and its states, from the welcome screen and test charge to a found transaction, errors and an expired link.</figcaption>
