@@ -107,7 +107,8 @@
       background: #fff;
       overflow: hidden;
     }
-    .project__cover img {
+    .project__cover img,
+    .project__cover video {
       display: block;
       width: 100%;
       height: 100%;
@@ -149,7 +150,8 @@
     }
     @media (hover: hover) {
       .project__cover { cursor: none; }
-      .project__cover:hover img { filter: blur(14px); }
+      .project__cover:hover img,
+      .project__cover:hover video { filter: blur(14px); }
       .project__cover:hover::after { opacity: 1; }
       .project__cover.is-hovered .project__cursor {
         opacity: 1;
@@ -241,7 +243,10 @@
       <ul class="projects">
         <li>
           <a class="project" href="/case-studies/monthly-to-annual.html">
-            <div class="project__cover"><span class="project__cursor" aria-hidden="true">View case study</span></div>
+            <div class="project__cover">
+              <video src="/images/projects/monthly-to-annual-cover.mp4" poster="/images/projects/monthly-to-annual-cover.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+              <span class="project__cursor" aria-hidden="true">View case study</span>
+            </div>
             <div class="project__info">
               <h2 class="project__title">From one renewal dialog to a broader <em>annual plan strategy</em></h2>
               <p class="project__desc">How a first experiment at PandaDoc led to a new approach to moving monthly customers to annual.</p>
