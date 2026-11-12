@@ -37,23 +37,14 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Intro: full-frame image; the image stays fixed while the title scrolls away with the page */
-    .intro {
-      position: relative;
+    /* Intro: the stage stays pinned while vertical scroll pans the canvas of components sideways */
+    .intro { position: relative; }
+    .intro__stage {
+      position: sticky;
+      top: 0;
       height: 100vh;
       height: 100svh;
-      clip-path: inset(0);
-    }
-    .intro__image {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 140px;
-      color: var(--text-muted);
-      font-size: 15px;
+      overflow: hidden;
       background-color: var(--base);
       background-image:
         radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
@@ -63,15 +54,38 @@
         radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
         radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
     }
-    .intro__inner {
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: clamp(40px, 8vh, 96px);
+    .intro__inner { position: relative; z-index: 2; }
+    .intro .eyebrow { margin-top: clamp(8px, 3vh, 40px); }
+    .intro .hero {
+      margin-top: 16px;
+      max-width: 1000px;
+      font-size: clamp(36px, 4.4vw, 76px);
     }
-    .intro__title { margin-top: auto; }
-    .intro .eyebrow { margin-top: 0; }
+
+    .canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3990px;
+      height: 750px;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .canvas__item {
+      position: absolute;
+      display: block;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    /* Opaque screenshots get a box shadow; transparent ones follow their own shape */
+    .canvas__item--box {
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(47, 47, 47, .08), 0 24px 48px -12px rgba(41, 0, 114, .22);
+    }
+    .canvas__item--shape {
+      filter: drop-shadow(0 1px 2px rgba(47, 47, 47, .08)) drop-shadow(0 20px 24px rgba(41, 0, 114, .16));
+    }
 
     /* Sheet: white block that follows the intro */
     .sheet {
@@ -364,16 +378,28 @@
   </style>
 </head>
 <body>
-  <header class="intro">
-    <div class="intro__image" aria-hidden="true">Hero image — full frame</div>
-    <div class="page intro__inner">
-      <nav class="nav">
-        <a class="nav__name" href="/">Joana Koch Ferreira</a>
-        <a class="nav__back" href="/">← Back</a>
-      </nav>
-      <div class="intro__title">
-        <p class="eyebrow">PandaDoc — Monthly to Annual</p>
-        <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
+  <header class="intro" id="intro">
+    <div class="intro__stage">
+      <div class="page intro__inner" id="intro-inner">
+        <nav class="nav">
+          <a class="nav__name" href="/">Joana Koch Ferreira</a>
+          <a class="nav__back" href="/">← Back</a>
+        </nav>
+        <div class="intro__title" id="intro-title">
+          <p class="eyebrow">PandaDoc — Monthly to Annual</p>
+          <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
+        </div>
+      </div>
+
+      <div class="canvas" id="canvas" aria-hidden="true">
+        <img class="canvas__item canvas__item--box" src="images/m2a/billing-plan-hero.webp" alt="" style="left: 0; top: 5px; width: 1084px;">
+        <img class="canvas__item canvas__item--shape" src="images/m2a/billing-callout.png" alt="" style="left: 1009px; top: 686px; width: 494px;">
+        <img class="canvas__item canvas__item--box" src="images/m2a/milestone-dialog.webp" alt="" style="left: 1284px; top: 122px; width: 800px;">
+        <img class="canvas__item canvas__item--shape" src="images/m2a/pricing-card.png" alt="" style="left: 2284px; top: 0; width: 368px;">
+        <img class="canvas__item canvas__item--shape" src="images/m2a/annual-card.png" alt="" style="left: 2804px; top: 78px; width: 270px;">
+        <img class="canvas__item canvas__item--box" src="images/m2a/banner-3-days-left.webp" alt="" style="left: 2815px; top: 567px; width: 1080px;">
+        <img class="canvas__item canvas__item--box" src="images/m2a/banner-3-months.webp" alt="" style="left: 2894px; top: 460px; width: 1080px;">
+        <img class="canvas__item" src="images/m2a/checkout-tooltips.png" alt="" style="left: 3231px; top: -10px; width: 755px;">
       </div>
     </div>
   </header>
@@ -633,5 +659,44 @@
     </footer>
   </div>
   </div>
+  <script>
+    // Pans the component canvas horizontally while the intro is pinned.
+    (function () {
+      var intro = document.getElementById('intro');
+      var inner = document.getElementById('intro-inner');
+      var title = document.getElementById('intro-title');
+      var canvas = document.getElementById('canvas');
+      var CANVAS_W = 3990, CANVAS_H = 750;
+      var scale = 1, startX = 0, endX = 0, distance = 0, ticking = false;
+
+      function layout() {
+        var vh = window.innerHeight, vw = window.innerWidth;
+        var gutter = inner.getBoundingClientRect().left + parseFloat(getComputedStyle(inner).paddingLeft);
+        var top = title.getBoundingClientRect().bottom - intro.getBoundingClientRect().top + 40;
+        scale = Math.max(0.45, Math.min(1, (vh - top - 32) / CANVAS_H));
+        startX = gutter;
+        endX = Math.min(startX, vw - gutter - CANVAS_W * scale);
+        distance = startX - endX;
+        canvas.style.top = top + 'px';
+        intro.style.height = (vh + distance) + 'px';
+        update();
+      }
+
+      function update() {
+        ticking = false;
+        var p = distance ? (window.scrollY - intro.offsetTop) / distance : 0;
+        p = Math.max(0, Math.min(1, p));
+        var x = startX + (endX - startX) * p;
+        canvas.style.transform = 'translate3d(' + x + 'px, 0, 0) scale(' + scale + ')';
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      window.addEventListener('resize', layout);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+      layout();
+    })();
+  </script>
 </body>
 </html>
