@@ -267,7 +267,8 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
-    .stack__img { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .stack__img,
+    .media__img--bordered { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
@@ -494,9 +495,7 @@
       </div>
 
       <figure class="media wide">
-        <div class="media__frame" style="--frame-bg: #f6f6f6;">
-          <img src="/case-studies/images/m2a/what-we-learned-board.webp" alt="Figma boards: what we learned from the first experiment, and the next steps with strategies and ideas">
-        </div>
+        <img class="media__img media__img--bordered" src="/case-studies/images/m2a/what-we-learned-board.webp" alt="Figma boards: what we learned from the first experiment, and the next steps with strategies and ideas">
         <figcaption>What we learned from the first experiment, and the strategies and ideas that came out of it.</figcaption>
       </figure>
 
