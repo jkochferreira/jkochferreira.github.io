@@ -256,6 +256,18 @@
       text-align: center;
     }
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    /* Before/after crops stacked, each at full column width */
+    .stack figure + figure { margin-top: 32px; }
+    .stack__label {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .stack__img { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     /* Before/after comparison: the before image sits on top, clipped at the handle position */
     .compare {
       position: relative;
@@ -593,14 +605,16 @@
           <div class="prose">
             <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. The same pattern can carry other gentle reminders and recommendations.</p>
           </div>
-          <figure class="media compare" style="--pos: 50%;">
-            <img src="/case-studies/images/m2a/billing-after.webp" alt="After: billing page with a permanent nudge in the plan card, Save $16 per month on a yearly billing, Switch to annual">
-            <img class="compare__before" src="/case-studies/images/m2a/billing-before.webp" alt="Before: billing page with a small Save with annual plan link next to Manage plan">
-            <span class="compare__label compare__label--before" aria-hidden="true">Before</span>
-            <span class="compare__label compare__label--after" aria-hidden="true">After</span>
-            <span class="compare__handle" aria-hidden="true"></span>
-            <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare the billing page before and after">
-          </figure>
+          <div class="media stack">
+            <figure>
+              <figcaption class="stack__label">Before</figcaption>
+              <img class="media__img stack__img" src="/case-studies/images/m2a/plan-card-before.webp" alt="Before: the plan card with a small Save with annual plan link next to Manage plan">
+            </figure>
+            <figure>
+              <figcaption class="stack__label">After</figcaption>
+              <img class="media__img stack__img" src="/case-studies/images/m2a/plan-card-after.webp" alt="After: the plan card with a permanent nudge, Save $16 per month on a yearly billing, Switch to annual">
+            </figure>
+          </div>
 
           <h3>Trial checkout</h3>
           <div class="prose">
