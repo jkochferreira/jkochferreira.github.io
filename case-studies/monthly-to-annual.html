@@ -788,7 +788,7 @@
       function layout() {
         var vh = window.innerHeight, vw = window.innerWidth;
         var gutter = inner.getBoundingClientRect().left + parseFloat(getComputedStyle(inner).paddingLeft);
-        var top = title.getBoundingClientRect().bottom - stage.getBoundingClientRect().top + 40;
+        var top = title.getBoundingClientRect().bottom - stage.getBoundingClientRect().top + Math.max(48, Math.min(96, window.innerHeight * 0.09));
         scale = Math.max(0.45, Math.min(1, (vh - top - 32) / CANVAS_H));
         startX = gutter;
         endX = Math.min(startX, vw - gutter - CANVAS_W * scale);
