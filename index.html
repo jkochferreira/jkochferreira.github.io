@@ -102,6 +102,7 @@
       text-decoration: none;
     }
     .project__cover {
+      position: relative;
       aspect-ratio: 1130 / 673;
       background: #fff;
       overflow: hidden;
@@ -111,9 +112,50 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform .4s ease;
+      transition: filter .4s ease;
     }
-    .project:hover .project__cover img { transform: scale(1.02); }
+    .project__cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(41, 0, 114, .18);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+
+    /* "View case study" label that follows the pointer over the cover */
+    .project__cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 3px;
+      background: var(--ink);
+      color: #fff;
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(var(--x, 50%), var(--y, 50%)) translate(-50%, -50%) scale(.6);
+      transition: opacity .25s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
+    }
+    @media (hover: hover) {
+      .project__cover { cursor: none; }
+      .project:hover .project__cover img { filter: blur(14px); }
+      .project:hover .project__cover::after { opacity: 1; }
+      .project__cover.is-hovered .project__cursor {
+        opacity: 1;
+        transform: translate(var(--x, 50%), var(--y, 50%)) translate(-50%, -50%) scale(1);
+      }
+    }
     .project__info {
       margin-top: 50px;
       display: grid;
@@ -200,7 +242,7 @@
       <ul class="projects">
         <li>
           <a class="project" href="/case-studies/monthly-to-annual.html">
-            <div class="project__cover"></div>
+            <div class="project__cover"><span class="project__cursor" aria-hidden="true">View case study</span></div>
             <div class="project__info">
               <h2 class="project__title">From one renewal dialog to a broader <em>annual plan strategy</em></h2>
               <p class="project__desc">How a first experiment at PandaDoc led to a new approach to moving monthly customers to annual.</p>
@@ -218,5 +260,18 @@
       </nav>
     </footer>
   </div>
+  <script>
+    // Moves the "View case study" label with the pointer while it is over a project cover.
+    document.querySelectorAll('.project__cover').forEach(function (cover) {
+      function place(e) {
+        var r = cover.getBoundingClientRect();
+        cover.style.setProperty('--x', (e.clientX - r.left) + 'px');
+        cover.style.setProperty('--y', (e.clientY - r.top) + 'px');
+      }
+      cover.addEventListener('pointerenter', function (e) { place(e); cover.classList.add('is-hovered'); });
+      cover.addEventListener('pointermove', place);
+      cover.addEventListener('pointerleave', function () { cover.classList.remove('is-hovered'); });
+    });
+  </script>
 </body>
 </html>
