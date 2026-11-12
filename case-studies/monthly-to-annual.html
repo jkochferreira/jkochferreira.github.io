@@ -369,6 +369,9 @@
       background: #fff;
     }
 
+    /* White-backed composition that takes on the colour of the panel behind it */
+    .media__img--blend { mix-blend-mode: multiply; border-radius: 0; }
+
     /* Strategy pillars */
     .pillars {
       margin-top: 32px;
@@ -737,11 +740,9 @@
           </section>
         </div>
 
-        <div class="carousel wide">
-          <figure><div class="placeholder">Callout explorations</div></figure>
-          <figure><div class="placeholder">Component decisions</div></figure>
-          <figure><div class="placeholder">Final variants</div></figure>
-        </div>
+        <figure class="media wide">
+          <img class="media__img media__img--blend" src="/case-studies/images/m2a/nudges-composition.webp" alt="Nudges in the product: a referral banner and a trial-ends banner on the home page, and a save-with-annual link and a switch-to-annual card on the billing page">
+        </figure>
       </aside>
 
       <div class="content">
