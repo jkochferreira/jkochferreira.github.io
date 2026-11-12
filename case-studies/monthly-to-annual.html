@@ -335,6 +335,30 @@
     }
     .carousel figure { scroll-snap-align: start; }
 
+    /* Side project: set apart in a tinted panel that reaches past the text column */
+    .side {
+      --side-pad: clamp(24px, 4vw, 64px);
+      margin: 120px 0 0 calc(var(--indent) - var(--side-pad));
+      max-width: calc(768px + 2 * var(--side-pad));
+      padding: var(--side-pad);
+      border-radius: 16px;
+      background: rgba(41, 0, 114, .045);
+    }
+    .side .content, .side .wide { margin-left: 0; }
+    .sheet .side .placeholder { background: #fff; }
+    .side__label {
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .side { --side-pad: 24px; margin-left: -12px; margin-right: -12px; }
+    }
+
     /* Strategy pillars */
     .pillars {
       margin-top: 32px;
@@ -643,37 +667,40 @@
         <figure><div class="placeholder">Milestone campaign</div></figure>
       </div>
 
-      <div class="content">
-        <section class="section">
-          <h2>A side project: a system for nudges</h2>
-          <div class="prose">
-            <p>While working on M2A, I noticed that most nudge ideas relied on banners or modals, with no shared guidance on which pattern to use for each message.</p>
-            <p>Together with another product designer, I reviewed the existing patterns and created guidelines to help teams choose the right one. We grouped nudges by trigger (action, signal, behaviour, time or static) and by whether they were contextual or non-contextual.</p>
-            <p>The guidelines covered when to use each pattern, how to write the message and its strengths and limitations. They also included practical rules, such as how long a toast should stay on screen and whether a dismissed nudge could appear again.</p>
-          </div>
-        </section>
-      </div>
+      <aside class="side" aria-label="Side project">
+        <div class="content">
+          <section class="section" style="margin-top: 0;">
+            <p class="side__label">Side project</p>
+            <h2>A system for nudges</h2>
+            <div class="prose">
+              <p>While working on M2A, I noticed that most nudge ideas relied on banners or modals, with no shared guidance on which pattern to use for each message.</p>
+              <p>Together with another product designer, I reviewed the existing patterns and created guidelines to help teams choose the right one. We grouped nudges by trigger (action, signal, behaviour, time or static) and by whether they were contextual or non-contextual.</p>
+              <p>The guidelines covered when to use each pattern, how to write the message and its strengths and limitations. They also included practical rules, such as how long a toast should stay on screen and whether a dismissed nudge could appear again.</p>
+            </div>
+          </section>
+        </div>
 
-      <figure class="media wide">
-        <div class="placeholder">Nudge patterns grouped by trigger type</div>
-      </figure>
+        <figure class="media wide">
+          <div class="placeholder">Nudge patterns grouped by trigger type</div>
+        </figure>
 
-      <div class="content">
-        <section class="section" style="margin-top: 0;">
-          <h3>The callout nudge</h3>
-          <div class="prose">
-            <p>One gap stood out: we needed a contextual message that sat between a tooltip and a dialog.</p>
-            <p>Together with the design system team, we explored whether to extend the existing Alert component or create a new one. We chose a separate callout because alerts need attention, while nudges should guide users without interrupting their work.</p>
-            <p>I worked with the team on its structure and visual details. The component supports five variants: Default, Highlight, Upsell, AI and Reminder, with different sizes and inverted versions. It was added to the design system for the wider team to use.</p>
-          </div>
-        </section>
-      </div>
+        <div class="content">
+          <section class="section" style="margin-top: 0;">
+            <h3>The callout nudge</h3>
+            <div class="prose">
+              <p>One gap stood out: we needed a contextual message that sat between a tooltip and a dialog.</p>
+              <p>Together with the design system team, we explored whether to extend the existing Alert component or create a new one. We chose a separate callout because alerts need attention, while nudges should guide users without interrupting their work.</p>
+              <p>I worked with the team on its structure and visual details. The component supports five variants: Default, Highlight, Upsell, AI and Reminder, with different sizes and inverted versions. It was added to the design system for the wider team to use.</p>
+            </div>
+          </section>
+        </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder">Callout explorations</div></figure>
-        <figure><div class="placeholder">Component decisions</div></figure>
-        <figure><div class="placeholder">Final variants</div></figure>
-      </div>
+        <div class="carousel wide">
+          <figure><div class="placeholder">Callout explorations</div></figure>
+          <figure><div class="placeholder">Component decisions</div></figure>
+          <figure><div class="placeholder">Final variants</div></figure>
+        </div>
+      </aside>
 
       <div class="content">
         <section class="section">
