@@ -256,6 +256,16 @@
       text-align: center;
     }
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    /* Breakout: an image wider than the text column (up to 1200px), centred on the page */
+    .media--breakout {
+      --page: min(100vw, 1728px);
+      --bw: min(1200px, calc(var(--page) - 2 * var(--gutter)));
+      width: var(--bw);
+      margin-left: calc((var(--page) - 2 * var(--gutter) - var(--bw)) / 2 - var(--indent));
+    }
+    @media (max-width: 900px) {
+      .media--breakout { width: 100%; margin-left: 0; }
+    }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
@@ -528,7 +538,7 @@
           <div class="prose">
             <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. The same pattern can carry other gentle reminders and recommendations.</p>
           </div>
-          <figure class="media">
+          <figure class="media media--breakout">
             <img class="media__img" src="/case-studies/images/m2a/permanent-contextual-nudge.webp" alt="Billing page before and after: a small Save with annual plan link replaced by a permanent nudge in the plan card, Save $16 per month on a yearly billing, Switch to annual">
           </figure>
 
