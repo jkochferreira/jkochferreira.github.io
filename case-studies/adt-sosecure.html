@@ -58,7 +58,7 @@
     .intro .eyebrow { margin-top: clamp(8px, 3vh, 40px); }
     .intro .hero {
       margin-top: 16px;
-      max-width: 1000px;
+      max-width: 1200px;
       font-size: clamp(36px, 4.4vw, 76px);
     }
 
@@ -238,6 +238,7 @@
 
     /* Media placeholders */
     .media { margin-top: 56px; }
+    .media video { display: block; width: 100%; height: auto; border-radius: 8px; }
     .media + .prose, .carousel + .prose { margin-top: 56px; }
     .placeholder {
       aspect-ratio: 16 / 10;
@@ -338,6 +339,30 @@
     }
     .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
 
+    /* Cover intro: full-screen hero with a large image under the title */
+    .intro--cover .intro__stage {
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      min-height: 560px;
+      overflow: hidden;
+    }
+    .intro__cover-img {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      /* Sized so the image starts below the title: its height is the viewport minus the title area */
+      width: clamp(900px, calc((100svh - 240px) * 16 / 9), 100%);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    .intro--cover .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
+
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media__img--portrait { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 35%; }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -406,7 +431,7 @@
   </style>
 </head>
 <body>
-  <header class="intro intro--simple">
+  <header class="intro intro--cover">
     <div class="intro__stage">
       <div class="page intro__inner">
         <nav class="nav">
@@ -421,6 +446,7 @@
           <h1 class="hero">Turning an emergency-only safety app into <em>one families open every day</em></h1>
         </div>
       </div>
+      <img class="intro__cover-img" src="/images/projects/adt-sosecure-cover.png" alt="SoSecure map with group members, saved spots and arrival alerts">
     </div>
   </header>
 
@@ -432,7 +458,7 @@
       </div>
 
       <figure class="media wide">
-        <div class="placeholder">Cover — current homepage next to the "Family and friends" group map</div>
+        <img class="media__img" src="/case-studies/images/sosecure/homepage-and-group-map.webp" alt="The new SoSecure homepage next to the Family and friends group map">
       </figure>
 
       <div class="content">
@@ -466,6 +492,9 @@
             <p>ADT wanted to reduce that churn, make the app something people used actively, and reach new users. Most of the existing users were ADT home security customers from an older demographic, and ADT wanted the app to appeal to Millennials.</p>
             <p>The product was built entirely around emergencies. It had an SOS slider, SMS chat with an agent, video, and a hands-free secret phrase that worked from a locked screen. Those features mattered on a bad day, but they gave people no reason to open the app on a normal one.</p>
           </div>
+          <figure class="media">
+            <img class="media__img media__img--portrait" src="/case-studies/images/sosecure/lifestyle.webp" alt="A young woman checking her phone on a train platform">
+          </figure>
         </section>
 
         <section class="section">
@@ -504,7 +533,7 @@
       </div>
 
       <figure class="media wide">
-        <div class="placeholder">Challenge slide — map with geofenced spots and arrival alerts</div>
+        <img class="media__img" src="/case-studies/images/sosecure/arrival-alerts-map.webp" alt="Map with group members, saved spots and arrival alerts">
       </figure>
 
       <div class="content">
@@ -535,11 +564,9 @@
         </section>
       </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder">Old version</div></figure>
-        <figure><div class="placeholder">First concept</div></figure>
-        <figure><div class="placeholder">Current version</div></figure>
-      </div>
+      <figure class="media wide">
+        <img class="media__img" src="/case-studies/images/sosecure/homepage-evolution.webp" alt="Old version, first concept and current version of the SoSecure homepage">
+      </figure>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
@@ -557,23 +584,17 @@
         </section>
       </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder">Onboarding</div></figure>
-        <figure><div class="placeholder">Group map</div></figure>
-        <figure><div class="placeholder">Members list</div></figure>
-        <figure><div class="placeholder">Add spot</div></figure>
-        <figure><div class="placeholder">Spot radius</div></figure>
-        <figure><div class="placeholder">Customise alerts</div></figure>
-        <figure><div class="placeholder">Check-in</div></figure>
-      </div>
+      <figure class="media wide">
+        <img class="media__img" src="/case-studies/images/sosecure/group-map-spot-checkin.webp" alt="Group map, a newly created spot and a check-in">
+      </figure>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder">Invite code</div></figure>
-        <figure><div class="placeholder">Join a group</div></figure>
-        <figure><div class="placeholder">Notification preferences</div></figure>
-        <figure><div class="placeholder">Snooze alerts</div></figure>
-        <figure><div class="placeholder">Transfer ownership</div></figure>
-      </div>
+      <figure class="media wide">
+        <img class="media__img" src="/case-studies/images/sosecure/location-sharing-screens.webp" alt="Location sharing screens: check-in, members, spot radius, onboarding, group settings">
+      </figure>
+
+      <figure class="media wide">
+        <img class="media__img" src="/case-studies/images/sosecure/group-details-screens.webp" alt="Group details: alerts, invite code, add spot, check-in, snooze, transfer ownership, members">
+      </figure>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
@@ -585,11 +606,13 @@
         </section>
       </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder">ADT agent chat</div></figure>
-        <figure><div class="placeholder">Inbox</div></figure>
-        <figure><div class="placeholder">Group member chat</div></figure>
-      </div>
+      <figure class="media wide">
+        <video src="/case-studies/images/sosecure/agent-chat.mp4" poster="/case-studies/images/sosecure/agent-chat.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Prototype of an SOS chat with an ADT agent, from starting the chat to the agent confirming they have the user's location"></video>
+      </figure>
+
+      <figure class="media wide">
+        <img class="media__img" src="/case-studies/images/sosecure/in-app-chat.webp" alt="ADT agent chat with quick replies, inbox, and a group member chat with a pinned location">
+      </figure>
 
       <div class="content">
         <section class="section">
