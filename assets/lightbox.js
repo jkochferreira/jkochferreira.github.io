@@ -89,6 +89,7 @@
   }
 
   document.querySelectorAll(SELECTOR).forEach(function (el) {
+    if (el.closest('.compare')) return; // the before/after slider handles its own interaction
     el.classList.add('is-zoomable');
     el.setAttribute('tabindex', '0');
     el.setAttribute('role', 'button');

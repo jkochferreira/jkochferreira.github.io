@@ -256,16 +256,71 @@
       text-align: center;
     }
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
-    /* Breakout: an image wider than the text column (up to 1200px), centred on the page */
-    .media--breakout {
-      --page: min(100vw, 1728px);
-      --bw: min(1200px, calc(var(--page) - 2 * var(--gutter)));
-      width: var(--bw);
-      margin-left: calc((var(--page) - 2 * var(--gutter) - var(--bw)) / 2 - var(--indent));
+    /* Before/after comparison: the before image sits on top, clipped at the handle position */
+    .compare {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
+      user-select: none;
     }
-    @media (max-width: 900px) {
-      .media--breakout { width: 100%; margin-left: 0; }
+    .compare img { display: block; width: 100%; height: auto; }
+    .compare__before {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 calc(100% - var(--pos)) 0 0);
     }
+    .compare__handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--pos);
+      width: 2px;
+      margin-left: -1px;
+      background: var(--ink);
+      pointer-events: none;
+    }
+    .compare__handle::after {
+      content: "\2039\00a0\203A";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 18px;
+      line-height: 38px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(41, 0, 114, .25);
+    }
+    .compare__label {
+      position: absolute;
+      bottom: 12px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, .92);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+    .compare__label--before { left: 12px; }
+    .compare__label--after { right: 12px; }
+    .compare__range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+    .compare:has(.compare__range:focus-visible) { outline: 2px solid var(--ink); outline-offset: 4px; }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
@@ -538,8 +593,13 @@
           <div class="prose">
             <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. The same pattern can carry other gentle reminders and recommendations.</p>
           </div>
-          <figure class="media media--breakout">
-            <img class="media__img" src="/case-studies/images/m2a/permanent-contextual-nudge.webp" alt="Billing page before and after: a small Save with annual plan link replaced by a permanent nudge in the plan card, Save $16 per month on a yearly billing, Switch to annual">
+          <figure class="media compare" style="--pos: 50%;">
+            <img src="/case-studies/images/m2a/billing-after.webp" alt="After: billing page with a permanent nudge in the plan card, Save $16 per month on a yearly billing, Switch to annual">
+            <img class="compare__before" src="/case-studies/images/m2a/billing-before.webp" alt="Before: billing page with a small Save with annual plan link next to Manage plan">
+            <span class="compare__label compare__label--before" aria-hidden="true">Before</span>
+            <span class="compare__label compare__label--after" aria-hidden="true">After</span>
+            <span class="compare__handle" aria-hidden="true"></span>
+            <input class="compare__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare the billing page before and after">
           </figure>
 
           <h3>Trial checkout</h3>
@@ -665,6 +725,15 @@
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
       layout();
     })();
+  </script>
+  <script>
+    // Before/after comparison: the range input drives the clip position
+    document.querySelectorAll('.compare').forEach(function (el) {
+      var range = el.querySelector('.compare__range');
+      function update() { el.style.setProperty('--pos', range.value + '%'); }
+      range.addEventListener('input', update);
+      update();
+    });
   </script>
   <script src="/assets/lightbox.js"></script>
 </body>
