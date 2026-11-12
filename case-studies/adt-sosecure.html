@@ -339,7 +339,8 @@
     }
     .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
 
-    /* Cover intro: full-screen hero with a large image under the title */
+    /* Cover intro: two columns. Title on the left, centred; on the right a map block with the people
+       and notifications on top, running to the right edge of the screen. Positions are set by the script below. */
     .intro--cover .intro__stage {
       position: relative;
       height: 100vh;
@@ -347,46 +348,39 @@
       min-height: 560px;
       overflow: hidden;
     }
+    .intro--cover .intro__inner { height: 100%; display: flex; flex-direction: column; }
+    .intro--cover .intro__title { margin: auto 0; padding-bottom: 40px; }
+    .intro--cover .hero {
+      max-width: min(560px, 34vw);
+      font-size: clamp(40px, 5.16vw, 89.147px);
+    }
     .intro__cover-img {
       position: absolute;
+      top: 108px;
       right: 0;
-      bottom: 0;
       z-index: 1;
-      /* Sized so the image starts below the title: its height is the viewport minus the title area */
-      width: clamp(900px, calc((100svh - 240px) * 16 / 9), 100%); /* fallback; JS sizes it to the free space */
+      width: 83.4vw;
       height: auto;
       pointer-events: none;
       user-select: none;
     }
-    .intro--cover .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
-    @media (max-width: 900px) { .br-wide { display: none; } }
-
-    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
-    .placeholder { aspect-ratio: 16 / 9; }
-    .media__img--portrait { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 35%; }
-
-    /* Map texture behind the people, fading out towards the title */
     .intro__map {
       position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
       z-index: 0;
-      width: 64%;
       background: url("/images/projects/adt-sosecure-hero-map-lines.webp") center / cover no-repeat;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%), linear-gradient(to bottom, transparent 0%, #000 30%);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
       -webkit-mask-composite: source-in;
-      mask-image: linear-gradient(to right, transparent 0%, #000 45%), linear-gradient(to bottom, transparent 0%, #000 30%);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
       mask-composite: intersect;
       pointer-events: none;
     }
     @media (max-width: 900px) {
-      .intro__map {
-        width: 100%;
-        -webkit-mask-image: linear-gradient(to bottom, transparent 30%, #000 65%);
-        mask-image: linear-gradient(to bottom, transparent 30%, #000 65%);
-      }
+      .intro--cover .intro__title { margin: clamp(32px, 9vh, 96px) 0 0; padding: 0; }
+      .intro--cover .hero { max-width: none; }
     }
+
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .placeholder { aspect-ratio: 16 / 9; }
 
     /* Facts still to confirm */
     .confirm {
@@ -467,8 +461,7 @@
           </div>
         </nav>
         <div class="intro__title">
-          <p class="eyebrow">Nagarro — ADT SoSecure</p>
-          <h1 class="hero" id="intro-title">Turning an emergency-only<br class="br-wide"> safety app into <em>one families open every day</em></h1>
+          <h1 class="hero" id="intro-title">Turning an emergency-only safety app into <em>one families open every day</em></h1>
         </div>
       </div>
       <div class="intro__map" aria-hidden="true"></div>
@@ -692,51 +685,37 @@
   </div>
   </div>
   <script>
-    // Makes the people-and-notifications layer as large as possible without any of them touching the title.
+    // Places the hero illustration. Desktop: a map block on the right with the people layer on top,
+    // proportions taken from the Figma frame (people image 1441 x 811 on a 1728-wide screen, flush right).
+    // Mobile: both sit under the title, sized to the space that is left.
     (function () {
       var stage = document.querySelector('#intro-cover .intro__stage');
       var img = document.getElementById('intro-cover-img');
+      var map = document.querySelector('#intro-cover .intro__map');
       var title = document.getElementById('intro-title');
-      var RATIO = 1125 / 2000;
-      // Parts of the image (fractions of its width/height) that must stay clear of the title
-      var PARTS = [
-        [0.455, 0.27, 0.63, 0.67],   // Lisa and the Campus card
-        [0.675, 0.10, 1.00, 0.24],   // Lisa notification
-        [0.725, 0.27, 1.00, 0.41],   // Mike notification
-        [0.69, 0.50, 0.87, 0.90]     // Mike and The Gym card
-      ];
-      var GAP = 32;
-
-      function titleBox(s) {
-        // Text lines only; the heading box and the block-level <em> span the full max-width
-        var r = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity };
-        var walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
-        while (walker.nextNode()) {
-          var range = document.createRange();
-          range.selectNodeContents(walker.currentNode);
-          Array.prototype.forEach.call(range.getClientRects(), function (q) {
-            r.left = Math.min(r.left, q.left - s.left); r.top = Math.min(r.top, q.top - s.top);
-            r.right = Math.max(r.right, q.right - s.left); r.bottom = Math.max(r.bottom, q.bottom - s.top);
-          });
-        }
-        return r;
-      }
-
-      function overlaps(w, vw, vh, t) {
-        var h = w * RATIO, left = vw - w, top = vh - h;
-        return PARTS.some(function (p) {
-          var x1 = left + p[0] * w, y1 = top + p[1] * h, x2 = left + p[2] * w, y2 = top + p[3] * h;
-          return x1 < t.right + GAP && x2 > t.left - GAP && y1 < t.bottom + GAP && y2 > t.top - GAP;
-        });
-      }
+      var RATIO = 1125 / 2000;          // people image height / width
+      var MAP_X1 = 0.372, MAP_X2 = 0.945; // map block edges as fractions of the people image width
+      var NAV = 108, BOTTOM = 100;
 
       function layout() {
-        var s = stage.getBoundingClientRect(), vw = s.width, vh = s.height, t = titleBox(s);
-        var maxW = (vh - 96) / RATIO;
-        var belowTitle = (vh - t.bottom - GAP) / RATIO;
-        var w = maxW;
-        while (w > belowTitle && overlaps(w, vw, vh, t)) w -= 10;
-        img.style.width = Math.max(w, belowTitle) + 'px';
+        var s = stage.getBoundingClientRect(), vw = s.width, vh = s.height;
+        var w, top;
+        if (vw > 900) {
+          w = Math.min(vw * 0.834, (vh - NAV - BOTTOM) / RATIO);
+          top = NAV + Math.max(0, (vh - NAV - BOTTOM - w * RATIO) / 2);
+        } else {
+          var tb = title.getBoundingClientRect().bottom - s.top;
+          w = Math.max(vw * 1.6, (vh - tb - 32) / RATIO);
+          w = Math.min(w, (vh - tb - 32) / RATIO);
+          top = vh - w * RATIO;
+        }
+        var h = w * RATIO, left = vw - w;
+        img.style.width = w + 'px';
+        img.style.top = top + 'px';
+        map.style.left = (left + MAP_X1 * w) + 'px';
+        map.style.width = ((MAP_X2 - MAP_X1) * w) + 'px';
+        map.style.top = top + 'px';
+        map.style.height = h + 'px';
       }
 
       window.addEventListener('resize', layout);
