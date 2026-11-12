@@ -256,12 +256,9 @@
       text-align: center;
     }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
-    /* Wide images sit centred in a 16:9 box filled with their own background colour */
+    /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
-      aspect-ratio: 16 / 9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: clamp(20px, 5%, 40px) clamp(28px, 8%, 64px);
       background: var(--frame-bg, #f4f2f8);
       border-radius: 8px;
       overflow: hidden;
