@@ -23,7 +23,6 @@
       --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       --gutter: clamp(24px, 6.95vw, 120px);
       --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
-      --project-indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.1263), 188px);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -90,8 +89,9 @@
     .projects {
       list-style: none;
       margin-top: 181px;
-      margin-left: var(--project-indent);
-      max-width: 1130px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 904px;
       display: flex;
       flex-direction: column;
       gap: 120px;
@@ -103,7 +103,7 @@
     }
     .project__cover {
       position: relative;
-      aspect-ratio: 1130 / 673;
+      aspect-ratio: 16 / 9;
       background: #fff;
       overflow: hidden;
     }
@@ -211,7 +211,7 @@
 
     @media (max-width: 900px) {
       .hero { margin-top: 96px; }
-      .projects { margin-top: 96px; margin-left: 0; gap: 80px; }
+      .projects { margin-top: 96px; gap: 80px; }
       .project__info { margin-top: 24px; grid-template-columns: 1fr; row-gap: 16px; }
       .project__title { font-size: 36px; }
       .footer { margin-top: 96px; }
