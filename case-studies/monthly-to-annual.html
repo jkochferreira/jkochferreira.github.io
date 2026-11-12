@@ -34,27 +34,6 @@
       font-family: var(--sans);
       color: var(--text);
       background-color: var(--base);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Intro: full-frame image; the image stays fixed while the title scrolls away with the page */
-    .intro {
-      position: relative;
-      height: 100vh;
-      height: 100svh;
-      clip-path: inset(0);
-    }
-    .intro__image {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 140px;
-      color: var(--text-muted);
-      font-size: 15px;
-      background-color: var(--base);
       background-image:
         radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
         radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
@@ -62,28 +41,8 @@
         radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
         radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
         radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+      -webkit-font-smoothing: antialiased;
     }
-    .intro__inner {
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: clamp(40px, 8vh, 96px);
-    }
-    .intro__title { margin-top: auto; }
-    .intro .eyebrow { margin-top: 0; }
-
-    /* Sheet: white block that follows the intro */
-    .sheet {
-      position: relative;
-      background: #fff;
-      padding-top: 120px;
-    }
-    .sheet .placeholder {
-      background: #f4f2f8;
-      border-color: rgba(41, 0, 114, .2);
-    }
-    .sheet .lead { margin-top: 0; }
 
     .page {
       max-width: 1728px;
@@ -109,7 +68,7 @@
 
     /* Hero */
     .eyebrow {
-      margin-top: clamp(32px, 9vh, 125px);
+      margin-top: 125px;
       font-size: 16px;
       line-height: 1.4;
       color: var(--text-muted);
@@ -336,7 +295,6 @@
 
     @media (max-width: 900px) {
       .content, .wide { margin-left: 0; }
-      .sheet { padding-top: 64px; }
       .eyebrow { margin-top: 72px; }
       .lead { margin-top: 48px; font-size: 18px; line-height: 28px; }
       .section { margin-top: 96px; }
@@ -364,26 +322,23 @@
   </style>
 </head>
 <body>
-  <header class="intro">
-    <div class="intro__image" aria-hidden="true">Hero image — full frame</div>
-    <div class="page intro__inner">
-      <nav class="nav">
-        <a class="nav__name" href="/">Joana Koch Ferreira</a>
-        <a class="nav__back" href="/">← Back</a>
-      </nav>
-      <div class="intro__title">
-        <p class="eyebrow">PandaDoc — Monthly to Annual</p>
-        <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
-      </div>
-    </div>
-  </header>
-
-  <div class="sheet">
   <div class="page">
+    <header class="nav">
+      <a class="nav__name" href="/">Joana Koch Ferreira</a>
+      <a class="nav__back" href="/">← Back</a>
+    </header>
+
     <main>
+      <p class="eyebrow">PandaDoc — Monthly to Annual</p>
+      <h1 class="hero">From one renewal dialog to a broader <em>annual plan strategy</em></h1>
+
       <div class="content">
         <p class="lead">How a first experiment at PandaDoc led to a new approach to moving monthly customers to annual.</p>
       </div>
+
+      <figure class="media wide">
+        <div class="placeholder">Hero image</div>
+      </figure>
 
       <div class="content">
         <dl class="meta">
@@ -631,7 +586,6 @@
         <a href="https://www.linkedin.com/in/joana-koch-ferreira/" target="_blank" rel="noopener">LinkedIn</a>
       </nav>
     </footer>
-  </div>
   </div>
 </body>
 </html>
