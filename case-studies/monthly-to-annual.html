@@ -367,6 +367,9 @@
       background: #fff;
     }
 
+    /* Small caps subhead inside a section */
+    .kicker { margin-top: 48px; margin-bottom: 12px; }
+
     /* Strategy pillars */
     .pillars {
       margin: 24px 0 32px;
@@ -642,14 +645,14 @@
             <blockquote>“It took only a few seconds, everything was clear.”</blockquote>
           </div>
 
-          <h3>Checkout and billing</h3>
+          <h3>Permanent nudges</h3>
           <div class="prose">
-            <p>At checkout, the saving moved inside the plan card, where it couldn't be missed or compete with the price. On the billing page, a more prominent savings component got fewer clicks, but more of them converted.</p>
+            <p>The first experiment showed that a single dialog was easy to dismiss. Annual needed to be visible wherever customers already make billing decisions, without interrupting them. These permanent nudges are contextual: small, non-blocking messages placed next to the decision they relate to, on the billing page and at checkout.</p>
           </div>
 
-          <h3>Permanent contextual nudge</h3>
+          <p class="stack__label kicker">Billing page</p>
           <div class="prose">
-            <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. The same pattern can carry other gentle reminders and recommendations.</p>
+            <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. It got fewer clicks, but more of them converted. The same pattern can carry other gentle reminders and recommendations.</p>
           </div>
           <figure class="media stack">
             <figure>
@@ -663,9 +666,9 @@
             <figcaption>The billing page plan card: a small text link before, a permanent nudge with the customer's own saving after.</figcaption>
           </figure>
 
-          <h3>Trial checkout</h3>
+          <p class="stack__label kicker">Checkout</p>
           <div class="prose">
-            <p>Instead of another message for everyone, I designed a tooltip that appears only when someone selects a monthly plan. It beat a persistent savings card in a 50/50 test and was rolled out to all trials.</p>
+            <p>At checkout, we ran an A/B test in production with trial accounts, comparing two variants 50/50: a small savings card inside the plan card, always visible, and a tooltip that appears only when someone selects a monthly plan. After 14 days, the tooltip led on paid conversions (+6.9%), new-business MRR (+12%) and average revenue per account (+12.4%), and it was rolled out to all trials.</p>
           </div>
 
           <h3>Customer milestones</h3>
