@@ -359,6 +359,16 @@
       .side { --side-pad: 24px; margin-left: -12px; margin-right: -12px; }
     }
 
+    /* Carousel whose slides keep each image's own shape at a shared height */
+    .carousel--fit { grid-auto-columns: max-content; }
+    .carousel--fit .media__img {
+      width: auto;
+      height: clamp(200px, 30vw, 300px);
+      max-width: 80vw;
+      object-fit: contain;
+      background: #fff;
+    }
+
     /* Strategy pillars */
     .pillars {
       margin-top: 32px;
@@ -684,6 +694,37 @@
           <img class="media__img" src="/case-studies/images/m2a/nudges-system.webp" alt="Nudges system overview: contextual nudges (callout, tooltip, hero banner, inline text, toast, widget chat) and non-contextual nudges (top banner, modal, email, push notifications), shown on wireframes, plus the five trigger types">
           <figcaption>The nudge system: contextual and non-contextual nudges, and the triggers that set them off (action, behaviour, signal, time or static).</figcaption>
         </figure>
+
+        <div class="carousel carousel--fit wide" aria-label="Nudge pattern guidelines">
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-callout.webp" alt="Callout nudge guideline: structure, variants, triggers, content rules and use case examples">
+            <figcaption>1. Callout nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-hero-card.webp" alt="Hero card nudge guideline with use case examples">
+            <figcaption>2. Hero card as a nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-tooltip.webp" alt="Tooltip nudge guideline with a use case example">
+            <figcaption>3. Tooltip as a nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-toast.webp" alt="Temporary toast nudge guideline with a use case example">
+            <figcaption>4. Toast as a nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-inline-text.webp" alt="Inline text nudge guideline with use case examples">
+            <figcaption>5. Inline text as a nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-widget.webp" alt="Widget chat nudge guideline with a use case example">
+            <figcaption>6. Widget as a nudge</figcaption>
+          </figure>
+          <figure>
+            <img class="media__img" src="/case-studies/images/m2a/nudge-pattern-non-contextual.webp" alt="Non-contextual nudge patterns: top banner, modal dialog, email and push notifications, with use case examples">
+            <figcaption>7. Non-contextual patterns</figcaption>
+          </figure>
+        </div>
 
         <div class="content">
           <section class="section" style="margin-top: 0;">
