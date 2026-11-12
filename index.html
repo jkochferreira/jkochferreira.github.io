@@ -149,8 +149,8 @@
     }
     @media (hover: hover) {
       .project__cover { cursor: none; }
-      .project:hover .project__cover img { filter: blur(14px); }
-      .project:hover .project__cover::after { opacity: 1; }
+      .project__cover:hover img { filter: blur(14px); }
+      .project__cover:hover::after { opacity: 1; }
       .project__cover.is-hovered .project__cursor {
         opacity: 1;
         transform: translate(var(--x, 50%), var(--y, 50%)) translate(-50%, -50%) scale(1);
@@ -177,7 +177,6 @@
       font-size: 18px;
       line-height: 28px;
     }
-    .project:hover .project__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
     .project:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; }
 
     /* Get in touch */
