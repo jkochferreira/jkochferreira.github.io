@@ -256,6 +256,17 @@
       text-align: center;
     }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
+    /* Wide images sit centred in a 16:9 box filled with their own background colour */
+    .media__frame {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--frame-bg, #f4f2f8);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .media__frame img { display: block; width: 100%; height: auto; }
     figcaption {
       margin-top: 12px;
       font-size: 14px;
@@ -472,7 +483,9 @@
       </div>
 
       <figure class="media wide">
-        <div class="placeholder">Figma "What we learned?" board</div>
+        <div class="media__frame" style="--frame-bg: #f6f6f6;">
+          <img src="/case-studies/images/m2a/what-we-learned-board.webp" alt="Figma boards: what we learned from the first experiment, and the next steps with strategies and ideas">
+        </div>
       </figure>
 
       <div class="content">
