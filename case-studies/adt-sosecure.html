@@ -368,9 +368,9 @@
       position: absolute;
       z-index: 0;
       background: url("/images/projects/adt-sosecure-hero-map-lines.webp") center / cover no-repeat;
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%);
       -webkit-mask-composite: source-in;
-      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 8%);
       mask-composite: intersect;
       pointer-events: none;
     }
@@ -686,7 +686,8 @@
   </div>
   <script>
     // Places the hero illustration. Desktop: a map block on the right with the people layer on top,
-    // proportions taken from the Figma frame (people image 1441 x 811 on a 1728-wide screen, flush right).
+    // proportions taken from the Figma frame (people image 1441 x 811 on a 1728-wide screen, flush right),
+    // sitting on the bottom edge so the lines meet the white sheet.
     // Mobile: both sit under the title, sized to the space that is left.
     (function () {
       var stage = document.querySelector('#intro-cover .intro__stage');
@@ -695,14 +696,15 @@
       var title = document.getElementById('intro-title');
       var RATIO = 1125 / 2000;          // people image height / width
       var MAP_X1 = 0.372, MAP_X2 = 0.945; // map block edges as fractions of the people image width
-      var NAV = 108, BOTTOM = 100;
+      var NAV = 108;
 
       function layout() {
         var s = stage.getBoundingClientRect(), vw = s.width, vh = s.height;
         var w, top;
         if (vw > 900) {
-          w = Math.min(vw * 0.834, (vh - NAV - BOTTOM) / RATIO);
-          top = NAV + Math.max(0, (vh - NAV - BOTTOM - w * RATIO) / 2);
+          // Anchored to the bottom of the hero so the map and route lines run into the white sheet
+          w = Math.min(vw * 0.834, (vh - NAV) / RATIO);
+          top = vh - w * RATIO;
         } else {
           var tb = title.getBoundingClientRect().bottom - s.top;
           w = Math.max(vw * 1.6, (vh - tb - 32) / RATIO);
