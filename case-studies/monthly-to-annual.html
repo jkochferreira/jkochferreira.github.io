@@ -256,14 +256,8 @@
       text-align: center;
     }
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
-    /* Screens shown inside an outlined box with room all around, label included */
-    .stack__box {
-      padding: clamp(16px, 4%, 32px);
-      border-radius: 8px;
-      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
-    }
-    .stack__box .stack__label { margin-bottom: 16px; }
-    .stack__box .media__img { border-radius: 4px; }
+    /* Plan comparison screens: label above, no outline */
+    .stack__box .stack__label { margin-bottom: 12px; }
     /* Note under a screen: an arrow drawn from the screen down to a caption-style line */
     .note {
       position: relative;
@@ -273,7 +267,7 @@
     .note__arrow {
       position: absolute;
       left: 0;
-      top: -56px;
+      top: -28px;
       width: 96px;
       height: 96px;
       fill: none;
@@ -291,7 +285,7 @@
     }
     @media (max-width: 600px) {
       .note { margin-left: 22%; padding: 22px 0 0 72px; }
-      .note__arrow { top: -40px; width: 68px; height: 68px; }
+      .note__arrow { top: -24px; width: 68px; height: 68px; }
     }
     /* Before/after crops stacked, each at full column width */
     .stack figure + figure { margin-top: 32px; }
