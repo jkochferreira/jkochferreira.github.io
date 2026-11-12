@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -112,14 +112,22 @@
       align-items: center;
       justify-content: space-between;
     }
-    .nav__name,
-    .nav__back {
+    .nav__name {
       font-size: 16px;
       line-height: 1.4;
       color: var(--nav-text);
       text-decoration: none;
     }
-    .nav__back:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .nav__links { display: flex; gap: 60px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links a:hover,
+    .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
 
     /* Hero */
     .eyebrow {
@@ -362,7 +370,7 @@
       .quotes { grid-template-columns: 1fr; }
       .carousel { grid-auto-columns: 85%; }
       .footer { margin-top: 96px; }
-      .footer__links { gap: 32px; }
+      .footer__links, .nav__links { gap: 32px; }
     }
 
     @media (max-width: 480px) {
@@ -385,7 +393,10 @@
       <div class="page intro__inner" id="intro-inner">
         <nav class="nav">
           <a class="nav__name" href="/">Joana Koch Ferreira</a>
-          <a class="nav__back" href="/">← Back</a>
+          <div class="nav__links">
+            <a href="/" aria-current="page">Work</a>
+            <a href="/about.html">About</a>
+          </div>
         </nav>
         <div class="intro__title" id="intro-title">
           <p class="eyebrow">PandaDoc — Monthly to Annual</p>

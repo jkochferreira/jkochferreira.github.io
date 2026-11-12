@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Joana Koch Ferreira</title>
+  <meta name="description" content="Product Designer based in Porto, Portugal, with 8+ years of experience across B2B SaaS, B2C and Fintech.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #290072;
+      --text: #0e0e0e;
+      --text-muted: #574774;
+      --nav-text: #1a1a1a;
+      --base: #c7c2d0;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(24px, 6.95vw, 120px);
+      --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--text);
+      background-color: var(--base);
+      background-image:
+        radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
+        radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
+        radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
+        radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) 39px;
+    }
+
+    /* Menu principal */
+    .nav {
+      height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__name {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links { display: flex; gap: 60px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links a:hover,
+    .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Hero */
+    .hero {
+      margin-top: 181px;
+      max-width: 1104px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(44px, 5.16vw, 89.147px);
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .hero em { font-style: italic; }
+
+    .content {
+      margin-left: var(--indent);
+      max-width: 768px;
+    }
+
+    /* About */
+    .about {
+      margin-top: 70px;
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .about p + p.about__spaced { margin-top: 28px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 156px;
+      height: 44px;
+      margin-top: 27px;
+      padding: 0 20px;
+      border-radius: 3px;
+      background: var(--ink);
+      color: #fff;
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-decoration: none;
+      transition: background-color .15s ease;
+    }
+    .button:hover { background: #3d0a9e; }
+    .button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+    /* Experience */
+    .experience { margin-top: 125px; }
+    .experience h2 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 42.635px;
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .jobs {
+      list-style: none;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .job {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--ink);
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .job:last-child { border-bottom: 0; }
+    .job__row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .job__dates { text-align: right; white-space: nowrap; }
+    .job__role { margin-top: 8px; line-height: 27px; color: var(--text-muted); }
+
+    /* Get in touch */
+    .footer {
+      max-width: calc(var(--indent) + 768px);
+      height: 108px;
+      margin-top: 191px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer__title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 38px;
+      line-height: 0.98;
+      letter-spacing: -0.019em;
+      color: var(--ink);
+    }
+    .footer__links { display: flex; gap: 60px; }
+    .footer__links a {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .content { margin-left: 0; }
+      .hero { margin-top: 96px; }
+      .about { margin-top: 48px; }
+      .experience { margin-top: 96px; }
+      .experience h2 { font-size: 36px; }
+      .job { font-size: 17px; line-height: 24px; }
+      .footer { margin-top: 96px; }
+      .footer__links, .nav__links { gap: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav { height: 80px; }
+      .hero { margin-top: 56px; font-size: 40px; }
+      .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
+      .footer__title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <a class="nav__name" href="/">Joana Koch Ferreira</a>
+      <nav class="nav__links">
+        <a href="/">Work</a>
+        <a href="/about.html" aria-current="page">About</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1 class="hero">Hello, I’m Joana.<br>Thanks for stopping by.</h1>
+
+      <div class="content">
+        <section class="about">
+          <p>I work across the product design process, from research and discovery to interaction design, prototyping and production. I take an AI-first approach to my work, using AI to support research, explore ideas, speed up prototyping and rethink how digital products are designed and experienced. I enjoy finding simple, useful solutions for complex problems that work for both users and businesses.</p>
+          <p class="about__spaced">I’m currently open to new roles, so feel free to send me an email and say hi.</p>
+        </section>
+
+        <a class="button" href="mailto:jkochferreira@gmail.com">Contact me</a>
+
+        <section class="experience">
+          <h2>Experience</h2>
+          <ul class="jobs">
+            <li class="job">
+              <div class="job__row"><span>PandaDoc</span><span class="job__dates">2024 - 2026</span></div>
+              <div class="job__role">Senior Product Designer</div>
+            </li>
+            <li class="job">
+              <div class="job__row"><span>Astrada (formerly Fidel API)</span><span class="job__dates">2022 - 2024</span></div>
+              <div class="job__role">Lead Product Designer</div>
+            </li>
+            <li class="job">
+              <div class="job__row"><span>Nagarro</span><span class="job__dates">2021 - 2022</span></div>
+              <div class="job__role">Product Designer: ADT SoSecure</div>
+            </li>
+            <li class="job">
+              <div class="job__row"><span>Jumia Group</span><span class="job__dates">2018 - 2021</span></div>
+              <div class="job__role">Product Designer</div>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__title">Get in touch</p>
+      <nav class="footer__links">
+        <a href="mailto:jkochferreira@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/joana-koch-ferreira/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

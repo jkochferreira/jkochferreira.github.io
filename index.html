@@ -11,7 +11,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400&family=Inter:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -23,6 +23,7 @@
       --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
       --gutter: clamp(24px, 6.95vw, 120px);
       --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
+      --project-indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.1263), 188px);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,6 +62,16 @@
       color: var(--nav-text);
       text-decoration: none;
     }
+    .nav__links { display: flex; gap: 60px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links a:hover,
+    .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
 
     /* Hero */
     .hero {
@@ -75,43 +86,42 @@
     }
     .hero em { font-style: italic; }
 
-    .content {
-      margin-left: var(--indent);
-      max-width: 768px;
+    /* Projects */
+    .projects {
+      list-style: none;
+      margin-top: 181px;
+      margin-left: var(--project-indent);
+      max-width: 1130px;
+      display: flex;
+      flex-direction: column;
+      gap: 120px;
     }
-
-    /* About */
-    .about {
-      margin-top: 70px;
-      font-size: 18px;
-      line-height: 28px;
-    }
-    .about p + p.about__spaced { margin-top: 28px; }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 156px;
-      height: 44px;
-      margin-top: 27px;
-      padding: 0 20px;
-      border-radius: 3px;
-      background: var(--ink);
-      color: #fff;
-      font-family: "Inter", var(--sans);
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.4;
+    .project {
+      display: block;
+      color: inherit;
       text-decoration: none;
-      transition: background-color .15s ease;
     }
-    .button:hover { background: #3d0a9e; }
-    .button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-
-    /* Experience */
-    .experience { margin-top: 120px; }
-    .experience h2 {
+    .project__cover {
+      aspect-ratio: 1130 / 673;
+      background: #fff;
+      overflow: hidden;
+    }
+    .project__cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .project:hover .project__cover img { transform: scale(1.02); }
+    .project__info {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: minmax(0, 601fr) minmax(0, 496fr);
+      column-gap: 2.92%;
+      align-items: start;
+    }
+    .project__title {
       font-family: var(--serif);
       font-weight: 400;
       font-size: 42.635px;
@@ -119,27 +129,14 @@
       letter-spacing: -0.017em;
       color: var(--ink);
     }
-    .jobs {
-      list-style: none;
-      margin-top: 33px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .job {
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--ink);
+    .project__title em { font-style: italic; }
+    .project__desc {
+      margin-top: 3px;
       font-size: 18px;
       line-height: 28px;
     }
-    .job:last-child { border-bottom: 0; }
-    .job__row {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .job__dates { text-align: right; white-space: nowrap; }
-    .job__role { margin-top: 8px; line-height: 27px; color: var(--text-muted); }
+    .project:hover .project__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+    .project:focus-visible { outline: 2px solid var(--ink); outline-offset: 8px; }
 
     /* Get in touch */
     .footer {
@@ -170,19 +167,18 @@
     .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
     @media (max-width: 900px) {
-      .content { margin-left: 0; }
       .hero { margin-top: 96px; }
-      .about { margin-top: 48px; }
-      .experience { margin-top: 96px; }
-      .experience h2 { font-size: 36px; }
-      .job { font-size: 17px; line-height: 24px; }
+      .projects { margin-top: 96px; margin-left: 0; gap: 80px; }
+      .project__info { margin-top: 24px; grid-template-columns: 1fr; row-gap: 16px; }
+      .project__title { font-size: 36px; }
       .footer { margin-top: 96px; }
-      .footer__links { gap: 32px; }
+      .footer__links, .nav__links { gap: 32px; }
     }
 
     @media (max-width: 480px) {
       .nav { height: 80px; }
       .hero { margin-top: 56px; font-size: 40px; }
+      .project__title { font-size: 32px; }
       .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
       .footer__title { font-size: 32px; }
     }
@@ -192,41 +188,26 @@
   <div class="page">
     <header class="nav">
       <a class="nav__name" href="/">Joana Koch Ferreira</a>
+      <nav class="nav__links">
+        <a href="/" aria-current="page">Work</a>
+        <a href="/about.html">About</a>
+      </nav>
     </header>
 
     <main>
       <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with 8+ years of experience across <em>B2B SaaS, B2C and Fintech</em></h1>
 
-      <div class="content">
-        <section class="about">
-          <p>I work across the product design process, from research and discovery to interaction design, prototyping and production. I take an AI-first approach to my work, using AI to support research, explore ideas, speed up prototyping and rethink how digital products are designed and experienced. I enjoy finding simple, useful solutions for complex problems that work for both users and businesses.</p>
-          <p class="about__spaced">I’m currently open to new roles, so feel free to send me an email and say hi.</p>
-        </section>
-
-        <a class="button" href="mailto:jkochferreira@gmail.com">Contact me</a>
-
-        <section class="experience">
-          <h2>Experience</h2>
-          <ul class="jobs">
-            <li class="job">
-              <div class="job__row"><span>PandaDoc</span><span class="job__dates">2024 - 2026</span></div>
-              <div class="job__role">Senior Product Designer</div>
-            </li>
-            <li class="job">
-              <div class="job__row"><span>Astrada (formerly Fidel API)</span><span class="job__dates">2022 - 2024</span></div>
-              <div class="job__role">Lead Product Designer</div>
-            </li>
-            <li class="job">
-              <div class="job__row"><span>Nagarro</span><span class="job__dates">2021 - 2022</span></div>
-              <div class="job__role">Product Designer: ADT SoSecure</div>
-            </li>
-            <li class="job">
-              <div class="job__row"><span>Jumia Group</span><span class="job__dates">2018 - 2021</span></div>
-              <div class="job__role">Product Designer</div>
-            </li>
-          </ul>
-        </section>
-      </div>
+      <ul class="projects">
+        <li>
+          <a class="project" href="/case-studies/monthly-to-annual.html">
+            <div class="project__cover"></div>
+            <div class="project__info">
+              <h2 class="project__title">From one renewal dialog to a broader <em>annual plan strategy</em></h2>
+              <p class="project__desc">How a first experiment at PandaDoc led to a new approach to moving monthly customers to annual.</p>
+            </div>
+          </a>
+        </li>
+      </ul>
     </main>
 
     <footer class="footer">
