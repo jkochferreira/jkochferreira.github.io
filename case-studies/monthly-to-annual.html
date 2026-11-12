@@ -366,6 +366,19 @@
 
     figcaption strong { font-weight: 600; }
 
+    /* Slides with a light shadow; the carousel gets room around them so the shadow isn't clipped */
+    .carousel--shadow {
+      padding: 12px 20px 24px;
+      margin-left: calc(var(--indent) - 20px);
+      margin-right: -20px;
+      max-width: calc(768px + 40px);
+      scroll-padding: 0 20px;
+    }
+    .carousel--shadow .media__img { box-shadow: 0 6px 20px rgba(41, 0, 114, .10), 0 1px 3px rgba(41, 0, 114, .08); }
+    @media (max-width: 900px) {
+      .carousel--shadow { margin-left: -20px; }
+    }
+
     /* Strategy pillars */
     .pillars {
       margin: 24px 0 32px;
@@ -683,7 +696,7 @@
         </section>
       </div>
 
-      <div class="carousel carousel--fit wide" aria-label="Three-month milestone campaign">
+      <div class="carousel carousel--fit carousel--shadow wide" aria-label="Three-month milestone campaign">
         <figure>
           <img class="media__img" src="/case-studies/images/m2a/milestone-email.webp" alt="Milestone email: Celebrate 3 months of PandaDoc with serious savings, offering Business annual at the current Starter price, with a Claim this offer button">
           <figcaption>1st communication: Email</figcaption>
