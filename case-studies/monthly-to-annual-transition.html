@@ -665,13 +665,14 @@
       var inner = document.getElementById('intro-inner');
       var title = document.getElementById('intro-title');
       var canvas = document.getElementById('canvas');
+      var stage = canvas.parentNode;
       var CANVAS_W = 3564, CANVAS_H = 750;
       var scale = 1, startX = 0, endX = 0, distance = 0, ticking = false;
 
       function layout() {
         var vh = window.innerHeight, vw = window.innerWidth;
         var gutter = inner.getBoundingClientRect().left + parseFloat(getComputedStyle(inner).paddingLeft);
-        var top = title.getBoundingClientRect().bottom - intro.getBoundingClientRect().top + 40;
+        var top = title.getBoundingClientRect().bottom - stage.getBoundingClientRect().top + 40;
         scale = Math.max(0.45, Math.min(1, (vh - top - 32) / CANVAS_H));
         startX = gutter;
         endX = Math.min(startX, vw - gutter - CANVAS_W * scale);
