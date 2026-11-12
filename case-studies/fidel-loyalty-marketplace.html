@@ -342,6 +342,24 @@
 
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
 
+    /* Hero with a round visual beside the title */
+    .intro__title--split {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+    }
+    .intro__visual {
+      flex: none;
+      width: clamp(240px, 30vw, 480px);
+      height: auto;
+      margin-top: clamp(16px, 4vh, 48px);
+    }
+    @media (max-width: 900px) {
+      .intro__title--split { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .intro__visual { width: min(280px, 70%); margin-top: 0; }
+    }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -419,9 +437,12 @@
             <a href="/about.html">About</a>
           </div>
         </nav>
-        <div class="intro__title">
-          <p class="eyebrow">Fidel API — Loyalty Marketplace</p>
-          <h1 class="hero">Making the Loyalty Marketplace <em>easier to navigate</em></h1>
+        <div class="intro__title intro__title--split">
+          <div>
+            <p class="eyebrow">Fidel API — Loyalty Marketplace</p>
+            <h1 class="hero">Making the Loyalty Marketplace <em>easier to navigate</em></h1>
+          </div>
+          <img class="intro__visual" src="/images/projects/fidel-hero-notification.webp" alt="Phone lock screen with a loyalty notification: You earned 12 points today by spending at Coffee Shop with your linked card" width="1000" height="1000">
         </div>
       </div>
     </div>
@@ -433,11 +454,6 @@
       <div class="content">
         <p class="lead">How I redesigned offer discovery in Fidel API's dashboard, for a product that represented 45% of the company's ARR.</p>
       </div>
-
-      <figure class="media wide">
-        <img class="media__img" src="/images/projects/fidel-loyalty-marketplace-cover.png" alt="Fidel API Marketplace with the Brand filter open">
-        <figcaption>Filtering and sorting in the Marketplace: choosing a brand, combining filters and sorting by column.</figcaption>
-      </figure>
 
       <div class="content">
         <dl class="meta">
