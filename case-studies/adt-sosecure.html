@@ -365,6 +365,29 @@
     .placeholder { aspect-ratio: 16 / 9; }
     .media__img--portrait { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 35%; }
 
+    /* Map texture behind the people, fading out towards the title */
+    .intro__map {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      width: 64%;
+      background: url("/images/projects/adt-sosecure-hero-map-lines.webp") center / cover no-repeat;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%), linear-gradient(to bottom, transparent 0%, #000 30%);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(to right, transparent 0%, #000 45%), linear-gradient(to bottom, transparent 0%, #000 30%);
+      mask-composite: intersect;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .intro__map {
+        width: 100%;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 30%, #000 65%);
+        mask-image: linear-gradient(to bottom, transparent 30%, #000 65%);
+      }
+    }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -448,7 +471,8 @@
           <h1 class="hero" id="intro-title">Turning an emergency-only<br class="br-wide"> safety app into <em>one families open every day</em></h1>
         </div>
       </div>
-      <img class="intro__cover-img" id="intro-cover-img" src="/images/projects/adt-sosecure-hero-screens.webp" alt="SoSecure screens: check-in, group members, spots, onboarding and group settings">
+      <div class="intro__map" aria-hidden="true"></div>
+      <img class="intro__cover-img" id="intro-cover-img" src="/images/projects/adt-sosecure-hero-people.webp" alt="SoSecure group members on a map, with saved spots and arrival alerts">
     </div>
   </header>
 
@@ -668,20 +692,14 @@
   </div>
   </div>
   <script>
-    // Two hero options while we decide: ?cover=screens (default) or ?cover=map.
-    // screens: the angled screens collage, full width under the title, cropped by the bottom of the hero.
-    // map: the avatars-on-a-map illustration, as large as possible without its people or notifications touching the title.
+    // Makes the people-and-notifications layer as large as possible without any of them touching the title.
     (function () {
       var stage = document.querySelector('#intro-cover .intro__stage');
       var img = document.getElementById('intro-cover-img');
       var title = document.getElementById('intro-title');
-      var mode = new URLSearchParams(location.search).get('cover') === 'map' ? 'map' : 'screens';
-      if (mode === 'map') {
-        img.src = '/images/projects/adt-sosecure-hero-map.webp';
-        img.alt = 'SoSecure map with group members, saved spots and arrival alerts';
-      }
-      var MAP_RATIO = 1125 / 2000;
-      var MAP_PARTS = [
+      var RATIO = 1125 / 2000;
+      // Parts of the image (fractions of its width/height) that must stay clear of the title
+      var PARTS = [
         [0.455, 0.27, 0.63, 0.67],   // Lisa and the Campus card
         [0.675, 0.10, 1.00, 0.24],   // Lisa notification
         [0.725, 0.27, 1.00, 0.41],   // Mike notification
@@ -705,8 +723,8 @@
       }
 
       function overlaps(w, vw, vh, t) {
-        var h = w * MAP_RATIO, left = vw - w, top = vh - h;
-        return MAP_PARTS.some(function (p) {
+        var h = w * RATIO, left = vw - w, top = vh - h;
+        return PARTS.some(function (p) {
           var x1 = left + p[0] * w, y1 = top + p[1] * h, x2 = left + p[2] * w, y2 = top + p[3] * h;
           return x1 < t.right + GAP && x2 > t.left - GAP && y1 < t.bottom + GAP && y2 > t.top - GAP;
         });
@@ -714,16 +732,8 @@
 
       function layout() {
         var s = stage.getBoundingClientRect(), vw = s.width, vh = s.height, t = titleBox(s);
-        if (mode === 'screens') {
-          img.style.top = (t.bottom + 56) + 'px';
-          img.style.bottom = 'auto';
-          img.style.right = 'auto';
-          img.style.left = '0';
-          img.style.width = vw + 'px';
-          return;
-        }
-        var maxW = (vh - 96) / MAP_RATIO;
-        var belowTitle = (vh - t.bottom - GAP) / MAP_RATIO;
+        var maxW = (vh - 96) / RATIO;
+        var belowTitle = (vh - t.bottom - GAP) / RATIO;
         var w = maxW;
         while (w > belowTitle && overlaps(w, vw, vh, t)) w -= 10;
         img.style.width = Math.max(w, belowTitle) + 'px';
