@@ -132,8 +132,10 @@
     /* Hero */
     .eyebrow {
       margin-top: clamp(32px, 9vh, 125px);
-      font-size: 16px;
+      font-size: 12px;
       line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
       color: var(--text-muted);
     }
     .hero {
@@ -194,20 +196,19 @@
 
     /* Summary meta */
     .meta {
-      margin-top: 64px;
+      margin-top: 56px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0 32px;
     }
     .meta div {
-      padding: 16px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--ink);
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 14px;
+      line-height: 22px;
     }
     .meta dt { color: var(--text-muted); }
     .meta dd { margin-top: 4px; }
-    .meta .meta__full { grid-column: span 2; }
 
     /* Results */
     .stats {
@@ -398,7 +399,6 @@
       .eyebrow { margin-top: 48px; }
       .hero { font-size: 40px; }
       .meta { grid-template-columns: 1fr; }
-      .meta .meta__full { grid-column: auto; }
       .stat__value { font-size: 48px; }
       .table { font-size: 14px; }
       .table td:first-child { white-space: normal; }
@@ -440,10 +440,8 @@
       <div class="content">
         <dl class="meta">
           <div><dt>Role</dt><dd>Lead Product Designer, Offers team. Only designer on the Marketplace filtering and sorting feature; covered discovery, strategy and design</dd></div>
-          <div><dt>Team</dt><dd><span class="confirm">[confirm: roles, e.g. PM, engineers, Customer Success]</span></dd></div>
-          <div><dt>Services</dt><dd>Product design, UX research, usability testing, design systems, prototyping</dd></div>
-          <div><dt>Industry</dt><dd>B2B SaaS, fintech (card-linked loyalty)</dd></div>
-          <div class="meta__full"><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, as on LinkedIn]</span></dd></div>
+          <div><dt>Scope</dt><dd>Product design, UX research, usability testing, design systems, prototyping</dd></div>
+          <div><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, as on LinkedIn]</span></dd></div>
         </dl>
 
         <div class="prose" style="margin-top: 56px;">

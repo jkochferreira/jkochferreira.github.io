@@ -132,8 +132,10 @@
     /* Hero */
     .eyebrow {
       margin-top: clamp(32px, 9vh, 125px);
-      font-size: 16px;
+      font-size: 12px;
       line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
       color: var(--text-muted);
     }
     .hero {
@@ -194,20 +196,19 @@
 
     /* Summary meta */
     .meta {
-      margin-top: 64px;
+      margin-top: 56px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0 32px;
     }
     .meta div {
-      padding: 16px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--ink);
-      font-size: 18px;
-      line-height: 28px;
+      font-size: 14px;
+      line-height: 22px;
     }
     .meta dt { color: var(--text-muted); }
     .meta dd { margin-top: 4px; }
-    .meta .meta__full { grid-column: span 2; }
 
     /* Results */
     .stats {
@@ -440,7 +441,6 @@
       .eyebrow { margin-top: 48px; }
       .hero { font-size: 40px; }
       .meta { grid-template-columns: 1fr; }
-      .meta .meta__full { grid-column: auto; }
       .stat__value { font-size: 48px; }
       .table { font-size: 14px; }
       .table td:first-child { white-space: normal; }
@@ -483,10 +483,8 @@
       <div class="content">
         <dl class="meta">
           <div><dt>Role</dt><dd><span class="confirm">[confirm: job title]</span> at Nagarro, one of two product designers on the SoSecure team</dd></div>
-          <div><dt>Team</dt><dd>2 product designers, the engineering team, and ADT stakeholders <span class="confirm">[confirm: PM or other roles?]</span></dd></div>
-          <div><dt>Services</dt><dd>UX research, product strategy, product design, prototyping, usability testing, design system, accessibility and ADA compliance</dd></div>
-          <div><dt>Industry</dt><dd>Home and personal security, consumer mobile (iOS and Android)</dd></div>
-          <div class="meta__full"><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, matching LinkedIn]</span></dd></div>
+          <div><dt>Scope</dt><dd>UX research, product strategy, product design, prototyping, usability testing, design system, accessibility and ADA compliance</dd></div>
+          <div><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, matching LinkedIn]</span></dd></div>
         </dl>
 
         <div class="prose" style="margin-top: 56px;">
