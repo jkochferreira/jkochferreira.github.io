@@ -353,12 +353,13 @@
       bottom: 0;
       z-index: 1;
       /* Sized so the image starts below the title: its height is the viewport minus the title area */
-      width: clamp(900px, calc((100svh - 240px) * 16 / 9), 100%);
+      width: clamp(900px, calc((100svh - 240px) * 16 / 9), 100%); /* fallback; JS sizes it to the free space */
       height: auto;
       pointer-events: none;
       user-select: none;
     }
     .intro--cover .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
+    @media (max-width: 900px) { .br-wide { display: none; } }
 
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
     .media__img--portrait { aspect-ratio: 4 / 3; object-fit: cover; object-position: center 35%; }
@@ -431,7 +432,7 @@
   </style>
 </head>
 <body>
-  <header class="intro intro--cover">
+  <header class="intro intro--cover" id="intro-cover">
     <div class="intro__stage">
       <div class="page intro__inner">
         <nav class="nav">
@@ -443,10 +444,10 @@
         </nav>
         <div class="intro__title">
           <p class="eyebrow">Nagarro — ADT SoSecure</p>
-          <h1 class="hero">Turning an emergency-only safety app into <em>one families open every day</em></h1>
+          <h1 class="hero" id="intro-title">Turning an emergency-only<br class="br-wide"> safety app into <em>one families open every day</em></h1>
         </div>
       </div>
-      <img class="intro__cover-img" src="/images/projects/adt-sosecure-cover.png" alt="SoSecure map with group members, saved spots and arrival alerts">
+      <img class="intro__cover-img" id="intro-cover-img" src="/images/projects/adt-sosecure-cover.webp" alt="SoSecure map with group members, saved spots and arrival alerts">
     </div>
   </header>
 
@@ -665,5 +666,56 @@
     </footer>
   </div>
   </div>
+  <script>
+    // Makes the cover illustration as large as possible without its people or notifications touching the title.
+    (function () {
+      var stage = document.querySelector('#intro-cover .intro__stage');
+      var img = document.getElementById('intro-cover-img');
+      var title = document.getElementById('intro-title');
+      var RATIO = 1125 / 2000;
+      // Parts of the illustration (fractions of its width/height) that must stay clear of the title
+      var PARTS = [
+        [0.455, 0.27, 0.63, 0.67],   // Lisa and the Campus card
+        [0.675, 0.10, 1.00, 0.24],   // Lisa notification
+        [0.725, 0.27, 1.00, 0.41],   // Mike notification
+        [0.69, 0.50, 0.87, 0.90]     // Mike and The Gym card
+      ];
+      var GAP = 32;
+
+      function overlaps(w, vw, vh, t) {
+        var h = w * RATIO, left = vw - w, top = vh - h;
+        return PARTS.some(function (p) {
+          var x1 = left + p[0] * w, y1 = top + p[1] * h, x2 = left + p[2] * w, y2 = top + p[3] * h;
+          return x1 < t.right + GAP && x2 > t.left - GAP && y1 < t.bottom + GAP && y2 > t.top - GAP;
+        });
+      }
+
+      function layout() {
+        var s = stage.getBoundingClientRect();
+        // Measure the text lines themselves, not the heading box or the block-level <em> (both span the full max-width)
+        var r = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity };
+        var walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+        while (walker.nextNode()) {
+          var range = document.createRange();
+          range.selectNodeContents(walker.currentNode);
+          Array.prototype.forEach.call(range.getClientRects(), function (q) {
+            r.left = Math.min(r.left, q.left); r.top = Math.min(r.top, q.top);
+            r.right = Math.max(r.right, q.right); r.bottom = Math.max(r.bottom, q.bottom);
+          });
+        }
+        var vw = s.width, vh = s.height;
+        var t = { left: r.left - s.left, right: r.right - s.left, top: r.top - s.top, bottom: r.bottom - s.top };
+        var maxW = (vh - 96) / RATIO;                         // never taller than the area under the nav
+        var belowTitle = (vh - t.bottom - GAP) / RATIO;        // always safe: starts under the title
+        var w = maxW;
+        while (w > belowTitle && overlaps(w, vw, vh, t)) w -= 10;
+        img.style.width = Math.max(w, belowTitle) + 'px';
+      }
+
+      window.addEventListener('resize', layout);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+      layout();
+    })();
+  </script>
 </body>
 </html>
