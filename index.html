@@ -151,10 +151,10 @@
       transition: opacity .25s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
     }
     @media (hover: hover) {
-      .project__cover { cursor: none; }
-      .project__cover:hover img,
-      .project__cover:hover video { filter: blur(14px); }
-      .project__cover:hover::after { opacity: 1; }
+      a.project .project__cover { cursor: none; }
+      a.project .project__cover:hover img,
+      a.project .project__cover:hover video { filter: blur(14px); }
+      a.project .project__cover:hover::after { opacity: 1; }
       .project__cover.is-hovered .project__cursor {
         opacity: 1;
         transform: translate(var(--x, 50%), var(--y, 50%)) translate(-50%, -50%) scale(1);
@@ -255,6 +255,24 @@
             </div>
           </a>
         </li>
+        <li>
+          <div class="project">
+            <div class="project__cover"></div>
+            <div class="project__info">
+              <h2 class="project__title">From endless scrolling to <em>a marketplace customers could navigate</em></h2>
+              <p class="project__desc">How I redesigned offer discovery in Fidel API's dashboard, the product behind 45% of the company's ARR.</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="project">
+            <div class="project__cover"></div>
+            <div class="project__info">
+              <h2 class="project__title">Turning an emergency-only safety app into <em>one families open every day</em></h2>
+              <p class="project__desc">How we redesigned ADT's SoSecure around real-time location sharing, without losing the customers who relied on it in an emergency.</p>
+            </div>
+          </div>
+        </li>
       </ul>
     </main>
 
@@ -268,7 +286,7 @@
   </div>
   <script>
     // Moves the "View case study" label with the pointer while it is over a project cover.
-    document.querySelectorAll('.project__cover').forEach(function (cover) {
+    document.querySelectorAll('a.project .project__cover').forEach(function (cover) {
       function place(e) {
         var r = cover.getBoundingClientRect();
         cover.style.setProperty('--x', (e.clientX - r.left) + 'px');
