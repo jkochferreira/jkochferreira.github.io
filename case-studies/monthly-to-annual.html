@@ -359,13 +359,11 @@
       .side { --side-pad: 24px; margin-left: -12px; margin-right: -12px; }
     }
 
-    /* Carousel whose slides keep each image's own shape at a shared height */
+    /* Carousel of slides exported at one scale: same height, same text size */
     .carousel--fit { grid-auto-columns: max-content; }
     .carousel--fit .media__img {
       width: auto;
-      height: clamp(200px, 30vw, 300px);
-      max-width: 80vw;
-      object-fit: contain;
+      height: clamp(160px, 26vw, 360px);
       background: #fff;
     }
 
