@@ -470,8 +470,9 @@
         <section class="section">
           <h2>The challenge</h2>
           <div class="prose">
-            <p>Monthly customers churned six times faster than annual ones (5.18% a month vs 0.88%), and only 0.3% of Business Monthly accounts switched to annual each month. The goal was to reduce churn in the 2–50 seat segment and improve net dollar retention (NDR).</p>
-            <p>Annual was also hard to find. The plan comparison page didn't mention it, the billing page link converted at 0.5%, and 60% of trials that started on annual switched to monthly before paying.</p>
+            <p>Monthly customers churned six times faster than annual customers: 5.18% a month compared with 0.88%. Most of that churn came from teams with 2–50 seats, and only 0.3% of Business Monthly accounts switched to annual each month.</p>
+            <p>The business goal was to reduce churn in the 2–50 seat segment. Moving monthly accounts to annual could help improve net dollar retention (NDR), but we needed to understand what would make more customers consider the switch.</p>
+            <p>Annual plans were also not easy to find in the product. The plan comparison page didn't mention them, the link on the billing page had a 0.5% conversion rate, and 60% of trials that started on annual switched to monthly before paying.</p>
           </div>
         </section>
 
@@ -502,14 +503,15 @@
       <div class="content">
         <div class="prose" style="margin-top: 56px;">
           <p>Showing the savings once wasn't enough. We needed to reach the right customers at the right time, with a relevant offer and more than one chance to switch.</p>
-          <p>I designed the strategy around three areas: <strong>segmentation</strong> (engaged customers, growing teams, power users and accounts at risk), <strong>timing</strong> (milestones and behaviours instead of a single message) and <strong>offers</strong> (extra discounts, annual-only perks and bundles).</p>
-          <p>I shared my proposals in Figma, and together with the PM and engineering manager we chose which touchpoints to deliver.</p>
+          <p>I designed the strategy around three areas:</p>
+          <ul>
+            <li><strong>Segmentation:</strong> Focus on engaged customers, growing teams, power users and accounts at risk of churning.</li>
+            <li><strong>Timing:</strong> Use customer milestones and behaviours, such as team growth or add-on purchases, instead of relying on a single message.</li>
+            <li><strong>Offers:</strong> Explore extra discounts, annual-only perks and bundles based on customer needs.</li>
+          </ul>
+          <p>From this point on, I led the design of the strategy and its touchpoints. I shared my proposals and worked through them with the PM and engineering manager. Together, we decided which ideas to take forward.</p>
         </div>
       </div>
-
-      <figure class="media wide">
-        <div class="placeholder">Figma board with the touchpoints chosen for delivery</div>
-      </figure>
 
       <div class="content">
         <section class="section">
@@ -530,6 +532,13 @@
           <h3>Plan comparison</h3>
           <div class="prose">
             <p>I added a monthly/annual toggle to each plan card and changed "Select plan" to Upgrade and Downgrade. An earlier study had shown that toggles could confuse people, so we tested the design in Maze before building: 93–97% task success with 30 participants, and 67% preferred the toggle inside the card. It became the standard for that page.</p>
+            <p>What participants said in the Maze study:</p>
+          </div>
+          <div class="quotes">
+            <blockquote>“Changing to annual was obvious: one quick toggle.”</blockquote>
+            <blockquote>“I liked seeing both options without leaving the page.”</blockquote>
+            <blockquote>“You save money yearly: it's clear right there.”</blockquote>
+            <blockquote>“It took only a few seconds, everything was clear.”</blockquote>
           </div>
 
           <h3>Checkout and billing</h3>
@@ -575,15 +584,32 @@
         <section class="section">
           <h2>A side project: a system for nudges</h2>
           <div class="prose">
-            <p>Most nudge ideas kept ending up as a banner or a modal. Together with another product designer, I mapped the nudge patterns in the product and wrote guidelines for which one to use, based on what triggers the message, from tooltips and toasts to callouts and email.</p>
-            <p>The biggest gap was a contextual message between a tooltip and a dialog. With the design system team, we chose a new callout component over a variant of the existing Alert, because nudges shouldn't look like system alerts. The callout has five variants (Default, Highlight, Upsell, AI and Reminder) and was used by the wider team.</p>
+            <p>While working on M2A, I noticed that most nudge ideas relied on banners or modals, with no shared guidance on which pattern to use for each message.</p>
+            <p>Together with another product designer, I reviewed the existing patterns and created guidelines to help teams choose the right one. We grouped nudges by trigger (action, signal, behaviour, time or static) and by whether they were contextual or non-contextual.</p>
+            <p>The guidelines covered when to use each pattern, how to write the message and its strengths and limitations. They also included practical rules, such as how long a toast should stay on screen and whether a dismissed nudge could appear again.</p>
+          </div>
+        </section>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder">Nudge patterns grouped by trigger type</div>
+      </figure>
+
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>The callout nudge</h3>
+          <div class="prose">
+            <p>One gap stood out: we needed a contextual message that sat between a tooltip and a dialog.</p>
+            <p>Together with the design system team, we explored whether to extend the existing Alert component or create a new one. We chose a separate callout because alerts need attention, while nudges should guide users without interrupting their work.</p>
+            <p>I worked with the team on its structure and visual details. The component supports five variants: Default, Highlight, Upsell, AI and Reminder, with different sizes and inverted versions. It was added to the design system for the wider team to use.</p>
           </div>
         </section>
       </div>
 
       <div class="carousel wide">
-        <figure><div class="placeholder">Nudge patterns by trigger</div></figure>
-        <figure><div class="placeholder">Callout component</div></figure>
+        <figure><div class="placeholder">Callout explorations</div></figure>
+        <figure><div class="placeholder">Component decisions</div></figure>
+        <figure><div class="placeholder">Final variants</div></figure>
       </div>
 
       <div class="content">
@@ -595,27 +621,6 @@
               <li>Monthly-to-annual was named the highest-impact churn initiative of FY25. Average churn dropped by about 8%, a company-wide result.</li>
               <li>The toggle became the standard on the plan comparison page, and the tooltip and callout became reusable patterns.</li>
             </ul>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2>What users said</h2>
-          <div class="prose">
-            <p><strong>On the new plan comparison page</strong> (Maze study, 30 participants, October 2025):</p>
-          </div>
-          <div class="quotes">
-            <blockquote>“Changing to annual was obvious: one quick toggle.”</blockquote>
-            <blockquote>“I liked seeing both options without leaving the page.”</blockquote>
-            <blockquote>“You save money yearly: it's clear right there.”</blockquote>
-            <blockquote>“It took only a few seconds, everything was clear.”</blockquote>
-          </div>
-          <div class="prose" style="margin-top: 56px;">
-            <p><strong>On monthly and annual plans</strong> (customer interviews from other PandaDoc studies, [confirm dates]):</p>
-          </div>
-          <div class="quotes quotes--long">
-            <blockquote>“We've always used the monthly one. But you do have, like, a big discount on the annual one… I've always thought of doing that, but I never did that.”</blockquote>
-            <blockquote>“I'm just kind of leaving it on a month to month. Just kind of seeing…”</blockquote>
-            <blockquote>“I'd probably pay the yearly for this if it had the integrations…”</blockquote>
           </div>
         </section>
 
