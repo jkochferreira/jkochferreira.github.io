@@ -448,7 +448,7 @@
           <h1 class="hero" id="intro-title">Turning an emergency-only<br class="br-wide"> safety app into <em>one families open every day</em></h1>
         </div>
       </div>
-      <img class="intro__cover-img" id="intro-cover-img" src="/images/projects/adt-sosecure-cover.webp" alt="SoSecure map with group members, saved spots and arrival alerts">
+      <img class="intro__cover-img" id="intro-cover-img" src="/images/projects/adt-sosecure-hero-screens.webp" alt="SoSecure screens: check-in, group members, spots, onboarding and group settings">
     </div>
   </header>
 
@@ -668,14 +668,20 @@
   </div>
   </div>
   <script>
-    // Makes the cover illustration as large as possible without its people or notifications touching the title.
+    // Two hero options while we decide: ?cover=screens (default) or ?cover=map.
+    // screens: the angled screens collage, full width under the title, cropped by the bottom of the hero.
+    // map: the avatars-on-a-map illustration, as large as possible without its people or notifications touching the title.
     (function () {
       var stage = document.querySelector('#intro-cover .intro__stage');
       var img = document.getElementById('intro-cover-img');
       var title = document.getElementById('intro-title');
-      var RATIO = 1125 / 2000;
-      // Parts of the illustration (fractions of its width/height) that must stay clear of the title
-      var PARTS = [
+      var mode = new URLSearchParams(location.search).get('cover') === 'map' ? 'map' : 'screens';
+      if (mode === 'map') {
+        img.src = '/images/projects/adt-sosecure-hero-map.webp';
+        img.alt = 'SoSecure map with group members, saved spots and arrival alerts';
+      }
+      var MAP_RATIO = 1125 / 2000;
+      var MAP_PARTS = [
         [0.455, 0.27, 0.63, 0.67],   // Lisa and the Campus card
         [0.675, 0.10, 1.00, 0.24],   // Lisa notification
         [0.725, 0.27, 1.00, 0.41],   // Mike notification
@@ -683,31 +689,41 @@
       ];
       var GAP = 32;
 
-      function overlaps(w, vw, vh, t) {
-        var h = w * RATIO, left = vw - w, top = vh - h;
-        return PARTS.some(function (p) {
-          var x1 = left + p[0] * w, y1 = top + p[1] * h, x2 = left + p[2] * w, y2 = top + p[3] * h;
-          return x1 < t.right + GAP && x2 > t.left - GAP && y1 < t.bottom + GAP && y2 > t.top - GAP;
-        });
-      }
-
-      function layout() {
-        var s = stage.getBoundingClientRect();
-        // Measure the text lines themselves, not the heading box or the block-level <em> (both span the full max-width)
+      function titleBox(s) {
+        // Text lines only; the heading box and the block-level <em> span the full max-width
         var r = { left: Infinity, top: Infinity, right: -Infinity, bottom: -Infinity };
         var walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
         while (walker.nextNode()) {
           var range = document.createRange();
           range.selectNodeContents(walker.currentNode);
           Array.prototype.forEach.call(range.getClientRects(), function (q) {
-            r.left = Math.min(r.left, q.left); r.top = Math.min(r.top, q.top);
-            r.right = Math.max(r.right, q.right); r.bottom = Math.max(r.bottom, q.bottom);
+            r.left = Math.min(r.left, q.left - s.left); r.top = Math.min(r.top, q.top - s.top);
+            r.right = Math.max(r.right, q.right - s.left); r.bottom = Math.max(r.bottom, q.bottom - s.top);
           });
         }
-        var vw = s.width, vh = s.height;
-        var t = { left: r.left - s.left, right: r.right - s.left, top: r.top - s.top, bottom: r.bottom - s.top };
-        var maxW = (vh - 96) / RATIO;                         // never taller than the area under the nav
-        var belowTitle = (vh - t.bottom - GAP) / RATIO;        // always safe: starts under the title
+        return r;
+      }
+
+      function overlaps(w, vw, vh, t) {
+        var h = w * MAP_RATIO, left = vw - w, top = vh - h;
+        return MAP_PARTS.some(function (p) {
+          var x1 = left + p[0] * w, y1 = top + p[1] * h, x2 = left + p[2] * w, y2 = top + p[3] * h;
+          return x1 < t.right + GAP && x2 > t.left - GAP && y1 < t.bottom + GAP && y2 > t.top - GAP;
+        });
+      }
+
+      function layout() {
+        var s = stage.getBoundingClientRect(), vw = s.width, vh = s.height, t = titleBox(s);
+        if (mode === 'screens') {
+          img.style.top = (t.bottom + 56) + 'px';
+          img.style.bottom = 'auto';
+          img.style.right = 'auto';
+          img.style.left = '0';
+          img.style.width = vw + 'px';
+          return;
+        }
+        var maxW = (vh - 96) / MAP_RATIO;
+        var belowTitle = (vh - t.bottom - GAP) / MAP_RATIO;
         var w = maxW;
         while (w > belowTitle && overlaps(w, vw, vh, t)) w -= 10;
         img.style.width = Math.max(w, belowTitle) + 'px';
