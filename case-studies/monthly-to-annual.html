@@ -89,7 +89,7 @@
       margin-left: var(--indent);
       max-width: 768px;
     }
-    .wide { max-width: var(--wide); }
+    .wide { margin-left: var(--indent); max-width: 768px; }
 
     .lead {
       margin-top: 70px;
@@ -294,7 +294,7 @@
     .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
     @media (max-width: 900px) {
-      .content { margin-left: 0; }
+      .content, .wide { margin-left: 0; }
       .eyebrow { margin-top: 72px; }
       .lead { margin-top: 48px; font-size: 18px; line-height: 28px; }
       .section { margin-top: 96px; }
