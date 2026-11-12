@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title>ADT SoSecure — Joana Koch Ferreira</title>
-  <meta name="description" content="How we redesigned ADT's SoSecure around real-time location sharing, without losing the customers who relied on it in an emergency.">
+  <meta name="description" content="How I designed real-time location sharing for ADT's SoSecure while keeping the SOS slider existing users relied on.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -462,7 +462,7 @@
           </div>
         </nav>
         <div class="intro__title">
-          <h1 class="hero" id="intro-title">Turning an emergency-only safety app into <em>one families open every day</em></h1>
+          <h1 class="hero" id="intro-title">Turning an emergency-use app into <em>a daily-use app</em></h1>
         </div>
       </div>
       <div class="intro__map" aria-hidden="true"></div>
@@ -474,152 +474,147 @@
   <div class="page">
     <main>
       <div class="content">
-        <p class="lead">How we redesigned ADT's SoSecure around real-time location sharing, without losing the customers who relied on it in an emergency.</p>
+        <p class="lead">How I designed real-time location sharing for ADT's SoSecure while keeping the SOS slider existing users relied on.</p>
       </div>
 
       <figure class="media wide">
-        <div class="placeholder"><span><strong>01</strong> — Cover: new homepage next to the Family and friends group map · 1920 × 1080</span></div>
+        <div class="placeholder"><span><strong>01</strong> — Cover: current homepage next to the “Family and friends” group map · 1920 × 1080</span></div>
       </figure>
 
       <div class="content">
         <dl class="meta">
-          <div><dt>Role</dt><dd><span class="confirm">[confirm: job title]</span> at Nagarro, one of two product designers on the SoSecure team</dd></div>
-          <div><dt>Scope</dt><dd>UX research, product strategy, product design, prototyping, usability testing, design system, accessibility and ADA compliance</dd></div>
+          <div><dt>Role</dt><dd>Product Designer at Nagarro, working on the ADT account. I owned real-time location sharing (groups, spots and check-ins), in-app chat and the homepage redesign. I also started the design system.</dd></div>
+          <div><dt>Scope</dt><dd>Product design, UX design, prototyping, usability testing, design systems, accessibility and ADA compliance</dd></div>
           <div><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, matching LinkedIn]</span></dd></div>
         </dl>
 
         <div class="prose" style="margin-top: 56px;">
-          <p>At Nagarro, I worked with ADT on SoSecure, its mobile safety app. The app gave people discreet ways to call for help, but most of them opened it once and deleted it. With one other designer, I took the app from research and strategy through wireframes, final UI, a design system and an accessibility audit. Together we redesigned SoSecure around real-time location sharing, so families had a reason to open it every day. <span class="confirm">[confirm: anything you owned on your own, e.g. the homepage or the design system]</span></p>
+          <p>At Nagarro, we worked as contractors for ADT, with their business team involved in product decisions and direction. When I joined, SoSecure already existed as ADT's mobile safety app. I designed its new real-time location sharing feature, the in-app chat and a new homepage, working closely with another designer and the engineering team.</p>
         </div>
 
         <section class="section">
-          <h2>At a glance</h2>
-          <div class="stats">
-            <div><div class="stat__value">94%</div><div class="stat__label">Of users lost after day one before the redesign</div></div>
-            <div><div class="stat__value">Up to 10</div><div class="stat__label">People per private group</div></div>
-            <div><div class="stat__value">Unlimited</div><div class="stat__label">Location-sharing groups for free</div></div>
-            <div><div class="stat__value">2</div><div class="stat__label">Platforms, iOS and Android</div></div>
+          <h2>Pain points and main goals</h2>
+          <div class="prose">
+            <ul>
+              <li><strong>Reduce churn:</strong> SoSecure lost 94% of users who opened the app on day one and then deleted it.</li>
+              <li><strong>Improve engagement:</strong> The app was mainly used in emergencies, giving people little reason to open it regularly.</li>
+              <li><strong>Attract new users:</strong> Most users were existing ADT customers, mainly from an older demographic.</li>
+            </ul>
           </div>
-          <p class="footnote"><em>Churn figure from ADT's brief for the project. <span class="confirm">[confirm: timeframe, if you know it]</span></em></p>
+          <p class="footnote"><em>Based on ADT's project brief.</em></p>
         </section>
 
         <section class="section">
           <h2>The challenge</h2>
           <div class="prose">
-            <p>SoSecure lost 94% of its users after their first day. People installed it, used it once and deleted it.</p>
-            <p>ADT wanted to reduce that churn, make the app something people used actively, and reach new users. Most of the existing users were ADT home security customers from an older demographic, and ADT wanted the app to appeal to Millennials.</p>
-            <p>The product was built entirely around emergencies. It had an SOS slider, SMS chat with an agent, video, and a hands-free secret phrase that worked from a locked screen. Those features mattered on a bad day, but they gave people no reason to open the app on a normal one.</p>
+            <p>SoSecure gave people different ways to ask for help in an emergency: an SOS slider, SMS chat, video and a hands-free option using a secret phrase, even from a locked screen.</p>
+            <p>These features were important when something went wrong, but people had little reason to open the app on a normal day. Most users opened it once and then deleted it.</p>
+            <p>ADT wanted to reach a younger, Millennial audience and turn SoSecure into an app people would use every day. The challenge was to introduce new reasons to use it without losing the safety features existing customers relied on.</p>
           </div>
-          <figure class="media">
-            <div class="placeholder"><span><strong>02</strong> — Optional: people using SoSecure day to day · 1920 × 1080</span></div>
-          </figure>
         </section>
 
         <section class="section">
-          <h2>From an SOS button to a family map</h2>
+          <h2>From emergency-use to daily-use</h2>
           <div class="prose">
-            <p>We started from the existing SoSecure app and the question of where it fit in the mobile market.</p>
+            <p>The starting point was an app built around emergencies, with the SOS slider at the centre of the homepage.</p>
           </div>
         </section>
       </div>
 
       <figure class="media wide">
-        <div class="placeholder"><span><strong>03</strong> — The old SoSecure homepage · 1920 × 1080</span></div>
+        <div class="placeholder"><span><strong>02</strong> — The old SoSecure homepage · 1920 × 1080</span></div>
       </figure>
 
       <div class="content">
         <div class="prose" style="margin-top: 56px;">
-          <p>Using customer archetypes and competitive research, we found the mobile safety market was fragmented and not clearly defined. Safety on its own wasn't enough to bring people back. So we positioned the new SoSecure between a lifestyle app and a social network, built around one new feature, real-time location sharing.</p>
-          <p>That changed who the app was for. Instead of one ADT customer, the users were now whole families, from a man caring for his elderly mother to a teenager who wanted control over her personal data. We defined three personas to keep all of them in view.</p>
-        </div>
-      </div>
-
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>04</strong> — Personas: Robert, Lisa and Bella · 1920 × 1080</span></div>
-      </figure>
-
-      <div class="content">
-        <div class="prose" style="margin-top: 56px;">
-          <p>We set three goals for the redesign:</p>
+          <p>Through customer archetypes and competitive research, Nagarro and ADT found that the mobile safety market was fragmented, with no clear product positioning. We explored how SoSecure could combine personal safety with features people already used in social apps, such as sharing their location with family and friends.</p>
+          <p>This meant moving beyond the individual ADT customer and thinking about families and groups of friends as the main users of the app.</p>
+          <p>The main goals were:</p>
           <ul>
-            <li><strong>Make it sticky:</strong> people remember and value the apps they use every day.</li>
-            <li><strong>Make it personal:</strong> put the user and their people at the centre of the app.</li>
-            <li><strong>Make it part of everyday:</strong> weave the app into normal routines, so it is already open when something goes wrong.</li>
+            <li><strong>Encourage daily use:</strong> Give people reasons to open the app beyond emergencies.</li>
+            <li><strong>Make it personal:</strong> Put the user and their groups at the centre of the experience.</li>
+            <li><strong>Fit into everyday routines:</strong> Make location sharing useful in people's day-to-day lives.</li>
           </ul>
-          <p><span class="confirm">[confirm: your role in setting this direction — what you proposed and who you decided it with]</span></p>
+          <p>ADT decided to make location sharing the main feature. Our role was to design the experience for this new audience without removing what made SoSecure different: the SOS slider.</p>
         </div>
       </div>
 
       <figure class="media wide">
-        <div class="placeholder"><span><strong>05</strong> — Goals: map with geofenced spots and arrival alerts · 1920 × 1080</span></div>
+        <div class="placeholder"><span><strong>03</strong> — Map with “Campus” and “The Gym” spots and arrival notifications · 1920 × 1080</span></div>
       </figure>
 
       <div class="content">
         <section class="section">
           <h2>Designing the experience</h2>
           <div class="prose">
-            <p>As a team of two designers working in an agile way, we ran several steps at the same time. We used wireframes for early ideation and to define the UX before moving to final designs, focusing first on patterns, flows and features. That was also when the engineering team got actively involved.</p>
+            <p>We started by defining three personas to represent the new audience:</p>
+            <ul>
+              <li><strong>Robert:</strong> A travelling businessman and primary caregiver to his mother.</li>
+              <li><strong>Lisa:</strong> A working mum who uses online tools to manage different parts of her life.</li>
+              <li><strong>Bella:</strong> A teenager who is always on her phone and values privacy and control over her personal data.</li>
+            </ul>
+            <p>As a team of two designers, we worked in parallel on different parts of the experience. We used wireframes to explore ideas, define flows and agree on the main features. The engineering team was involved early in the process.</p>
           </div>
         </section>
       </div>
 
       <div class="carousel wide">
-        <figure><div class="placeholder"><span><strong>06</strong> — Wireframes: homepage · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>07</strong> — Wireframes: groups · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>08</strong> — Wireframes: SOS detail · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>09</strong> — Wireframes: chat · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>10</strong> — Wireframes: member detail · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>04</strong> — Personas: Robert, Lisa and Bella · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>05</strong> — Wireframe flows: homepage · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>06</strong> — Wireframe flows: groups · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>07</strong> — Wireframe flows: chat · 1920 × 1080</span></div></figure>
       </div>
-
-      <div class="content">
-        <section class="section" style="margin-top: 0;">
-          <h3>The homepage</h3>
-          <div class="prose">
-            <p>The homepage had to carry the move from an emergency app to a daily one without losing the existing customers.</p>
-            <p>In our first concept, we removed the SOS slider and made groups the focus of the screen. User testing showed us the slider was the signature element of the app, and ADT wasn't ready for such a disruptive change. <span class="confirm">[confirm: how many people took part in testing?]</span></p>
-            <p>We kept the slider at the top, with the other emergency options (SOS chat and SOS video) right below it. The rest of the features moved into two blocks, My Safety Kit and My Groups. Existing customers found their emergency tools where they expected them, and new users saw their family's locations straight away.</p>
-          </div>
-        </section>
-      </div>
-
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>11</strong> — Homepage: old version, first concept, current version · 1920 × 1080</span></div>
-      </figure>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
           <h3>Real-time location sharing</h3>
           <div class="prose">
-            <p>Location sharing was the feature the whole strategy rested on. We built it around three ideas.</p>
+            <p>Location sharing was the main feature we introduced to give people a reason to use SoSecure every day.</p>
+            <p>I designed it around private groups where family and friends could see each other's locations on a map. The experience included three main features:</p>
             <ul>
-              <li><strong>Groups:</strong> private groups of up to 10 people, who see each other on a shared map.</li>
-              <li><strong>Spots:</strong> saved places such as home, school or work. With alerts on, the app sets up a geofence and tells the group when someone arrives or leaves.</li>
-              <li><strong>Check-ins:</strong> one tap shares where you are with the group, even somewhere that isn't a saved spot.</li>
+              <li><strong>Groups:</strong> Private groups of up to 10 people. Members can see each other's locations and receive alerts when someone arrives at or leaves a saved place.</li>
+              <li><strong>Spots:</strong> Places people visit regularly, such as home, school or work. Users can set up alerts for these places, and the app notifies the group when someone arrives or leaves.</li>
+              <li><strong>Check-ins:</strong> A quick way to share your location without creating a saved place. One tap lets everyone in the group know where you are.</li>
             </ul>
-            <p>People could create as many groups as they wanted for free. Because SoSecure ran on both iOS and Android, families with mixed phones could use one app.</p>
-            <p>We also designed the details that make groups work over time: joining with a six-character invite code, choosing which members' alerts you get, setting a spot's radius, snoozing group alerts, and transferring group ownership.</p>
+            <p>Users can create unlimited groups for free, and the app works across iOS and Android, so people with different phones can use it together.</p>
+            <p>I also designed the settings and flows needed to manage groups, including invite codes, alert preferences, spot radius, snoozing alerts and transferring group ownership.</p>
           </div>
         </section>
       </div>
 
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>12</strong> — Location sharing: group map, spot created, check-in · 1920 × 1080</span></div>
-      </figure>
+      <div class="carousel wide">
+        <figure><div class="placeholder"><span><strong>08</strong> — Onboarding · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>09</strong> — Groups · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>10</strong> — Spots · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>11</strong> — Check-ins · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>12</strong> — Alerts · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>13</strong> — Invite code · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>14</strong> — Transfer ownership · 1920 × 1080</span></div></figure>
+      </div>
 
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>13</strong> — Location sharing: onboarding, members, spot radius, custom alerts · 1920 × 1080</span></div>
-      </figure>
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>Homepage</h3>
+          <div class="prose">
+            <p>The homepage needed to introduce location sharing while keeping the emergency features easy to access.</p>
+            <p>Our first concept removed the SOS slider and put groups at the centre of the experience. But user testing showed us how important the slider was to existing users, and ADT wasn't ready to remove it.</p>
+            <p>We explored different layouts before settling on a balance between the old and new experiences. The slider stayed at the top, alongside the other emergency options (SOS chat and SOS video). The remaining features were organised into two sections: My Safety Kit and My Groups.</p>
+          </div>
+        </section>
+      </div>
 
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>14</strong> — Group details: invite code, join a group, notification preferences, snooze, transfer ownership · 1920 × 1080</span></div>
-      </figure>
+      <div class="carousel wide">
+        <figure><div class="placeholder"><span><strong>15</strong> — Homepage: old version · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>16</strong> — Homepage: first concept · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>17</strong> — Homepage: latest version · 1920 × 1080</span></div></figure>
+      </div>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
           <h3>In-app chat</h3>
           <div class="prose">
-            <p>Until then, people talked to an ADT agent by SMS. Once groups could share locations, we wanted members to be able to talk to each other too, so we rethought the agent conversation as well and moved it into an in-app chat.</p>
-            <p>In an emergency, the agent chat offers quick replies such as “I'm being followed” or “I had an accident”. Group chats let members share a pinned location, ask for a check-in or get driving directions.</p>
+            <p>With location sharing, we also wanted group members to be able to communicate without leaving the app.</p>
+            <p>Until then, conversations with ADT agents happened over SMS. I designed an in-app chat for both agent conversations and group chats. The agent chat included quick replies such as “I'm being followed”, while group members could share their location or ask someone to check in.</p>
           </div>
         </section>
       </div>
@@ -629,27 +624,29 @@
         <figcaption>Prototype of an SOS chat with an ADT agent, from starting the chat to the agent confirming the user's location.</figcaption>
       </figure>
 
-      <figure class="media wide">
-        <div class="placeholder"><span><strong>15</strong> — In-app chat: ADT agent, inbox, group member chat · 1920 × 1080</span></div>
-      </figure>
+      <div class="carousel wide">
+        <figure><div class="placeholder"><span><strong>18</strong> — ADT agent chat · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>19</strong> — Inbox · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>20</strong> — Group member chat · 1920 × 1080</span></div></figure>
+      </div>
 
       <div class="content">
         <section class="section">
-          <h2>A design system with accessibility built in</h2>
+          <h2>Design system and accessibility</h2>
           <div class="prose">
-            <p>We built a design system in Figma to standardise the work and make it faster: typography, colours, buttons, cards, icons and illustrations.</p>
-            <p>We wanted SoSecure to be accessible to everyone, which mattered even more for an app with many older users. We checked visual layout, text-to-speech compatibility and colour contrast against ADA standards. That covered ADT's legal requirements and helped it reach customers of all abilities.</p>
+            <p>I proposed creating a design system in Figma to make the work more consistent and easier to maintain. I built it together with the other designer, covering typography, colours, buttons, cards, icons and illustrations.</p>
+            <p>We also considered accessibility from the start. We checked visual layout, text-to-speech compatibility and colour contrast against ADA standards, which met legal requirements and helped ADT reach customers of all abilities.</p>
           </div>
         </section>
       </div>
 
       <div class="carousel wide">
-        <figure><div class="placeholder"><span><strong>16</strong> — Design system: typography · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>17</strong> — Design system: colours · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>18</strong> — Design system: buttons · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>19</strong> — Design system: icons · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>20</strong> — Design system: illustrations · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>21</strong> — Design system: ADA contrast checks · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>21</strong> — Design system: typography · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>22</strong> — Design system: colours · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>23</strong> — Design system: buttons · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>24</strong> — Design system: icons · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>25</strong> — Design system: illustrations · 1920 × 1080</span></div></figure>
+        <figure><div class="placeholder"><span><strong>26</strong> — ADA contrast checks · 1920 × 1080</span></div></figure>
       </div>
 
       <div class="content">
@@ -657,9 +654,9 @@
           <h2>Outcomes</h2>
           <div class="prose">
             <ul>
-              <li>SoSecure moved from a single-purpose emergency app to a family safety app built around real-time location sharing, on iOS and Android. <span class="confirm">[confirm: launch date and any metrics]</span></li>
-              <li>The homepage kept the SOS slider that existing customers relied on, while bringing groups and safety features into everyday view.</li>
-              <li>The Figma design system and ADA checks gave ADT a shared, accessible foundation for the app. <span class="confirm">[confirm: was it used after the project?]</span></li>
+              <li>SoSecure launched with real-time location sharing as its main feature, including groups, spots, check-ins and in-app chat, on iOS and Android. The launch happened after I left the project.</li>
+              <li>The new homepage brought location sharing into everyday view while keeping the slider existing customers relied on.</li>
+              <li>The Figma design system and ADA checks gave the app a shared, accessible foundation.</li>
             </ul>
             <p><span class="confirm">[LINK: clickable prototype]</span></p>
           </div>
@@ -668,8 +665,8 @@
         <section class="section">
           <h2>What I learned</h2>
           <div class="prose">
-            <p>Our first homepage concept went too far. We removed the SOS slider to make room for groups, and user testing showed us how much that one component meant to people and to ADT.</p>
-            <p>When a product changes its purpose, existing users need something they still recognise. Keeping the slider at the top gave them that anchor, and the new features could grow around it instead of replacing it.</p>
+            <p>Our first homepage concept went too far. Removing the slider made room for groups, but user testing showed us how much that one component meant to people and to ADT.</p>
+            <p>When a product changes its purpose, existing users need something they still recognise. Keeping the slider at the top gave them that anchor, and location sharing could grow around it instead of replacing it.</p>
           </div>
         </section>
       </div>
