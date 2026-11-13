@@ -584,8 +584,7 @@
         </dl>
 
         <div class="prose" style="margin-top: 56px;">
-          <p>Monthly customers at PandaDoc churned six times faster than annual customers, but few switched plans on their own. Before I joined, the team tested a modal offering Business Monthly admins the annual plan savings 14 days before renewal. It increased conversion to annual from 0.3% to 0.98%, but only 1.75% of users clicked it, and they only saw it once.</p>
-          <p>I joined in September 2025 and built on these learnings to define a broader strategy: reach customers at more relevant moments and give them more opportunities to switch. I designed and tested different touchpoints, from the plan comparison page and checkout to offers at key points in the customer journey.</p>
+          <p>I joined PandaDoc's monthly-to-annual work in September 2025. The team had already tested a renewal dialog: one modal, shown once, offering the annual saving. It proved some customers would switch, but it reached very few of them. I used what it taught us to define a broader strategy, then designed and tested the touchpoints that came out of it, from the plan comparison page to checkout and customer milestones.</p>
         </div>
 
         <section class="section">
@@ -596,15 +595,14 @@
             <div><div class="stat__value">+12.4%</div><div class="stat__label">Average revenue per account</div></div>
             <div><div class="stat__value">~8%</div><div class="stat__label">Lower average churn (M2A overall)</div></div>
           </div>
-          <p class="footnote"><em>The first three come from the trial checkout tooltip test after 14 days, compared with a savings card. The churn figure is company-wide, FY24 to FY25 (year to date).</em></p>
+          <p class="footnote"><em>The first three come from the checkout A/B test with trial accounts, after 14 days, comparing a tooltip with a savings card. The churn figure is company-wide, FY24 to FY25 (year to date).</em></p>
         </section>
 
         <section class="section">
           <h2>The challenge</h2>
           <div class="prose">
-            <p>The business goal was to reduce churn among teams with 2–50 seats. Moving more monthly customers to annual plans could help improve net dollar retention (NDR), but the product made it difficult for customers to explore and compare their options.</p>
-            <p>Annual plans weren't mentioned on the plan comparison page, the link on the billing page had a conversion rate of just 0.5%, and 60% of trials that started with an annual plan switched to monthly before paying.</p>
-            <p>We needed to make annual plans easier to find and compare, and understand when and how to encourage customers to switch.</p>
+            <p>Monthly customers churned six times faster than annual customers: 5.18% a month compared with 0.88%. Most of that churn came from teams of 2–50 seats, and only 0.3% of Business Monthly accounts switched to annual each month. Moving more of them to annual would help reduce churn and improve net dollar retention (NDR).</p>
+            <p>Annual plans were also hard to find. The plan comparison page didn't mention them, the link on the billing page had a 0.5% conversion rate, and 60% of trials that started on annual switched to monthly before paying.</p>
           </div>
         </section>
 
@@ -634,14 +632,13 @@
 
       <div class="content">
         <div class="prose" style="margin-top: 56px;">
-          <p>Showing the savings once wasn't enough. We needed to reach the right customers at the right time, with a relevant offer and more than one chance to switch.</p>
-          <p>I designed the strategy around three areas:</p>
+          <p>One message at renewal wasn't enough. I designed the strategy around three areas:</p>
           <div class="pillars">
             <div class="pillar"><h4>Segmentation</h4><p>Focus on engaged customers, growing teams, power users and accounts at risk of churning.</p></div>
             <div class="pillar"><h4>Timing</h4><p>Use customer milestones and behaviours, such as team growth or add-on purchases, instead of relying on a single message.</p></div>
             <div class="pillar"><h4>Offers</h4><p>Explore extra discounts, annual-only perks and bundles based on customer needs.</p></div>
           </div>
-          <p>From this point on, I led the design of the strategy and its touchpoints. I shared my proposals and worked through them with the PM and engineering manager. Together, we decided which ideas to take forward.</p>
+          <p>I shared my proposals with the PM and engineering manager, and together we decided which ideas to take forward.</p>
         </div>
       </div>
 
@@ -701,12 +698,12 @@
 
           <h3 style="margin-top: 96px;">Permanent nudges</h3>
           <div class="prose">
-            <p>The first experiment showed that a single dialog was easy to dismiss. Annual needed to be visible wherever customers already make billing decisions, without interrupting them. These permanent nudges are contextual: small, non-blocking messages placed next to the decision they relate to, on the billing page and at checkout.</p>
+            <p>These nudges are contextual: small, non-blocking messages placed next to the decision they relate to, so annual stays visible without interrupting anyone.</p>
           </div>
 
           <p class="kicker">Billing page</p>
           <div class="prose">
-            <p>On the billing page, the saving became a permanent nudge inside the plan card: each customer's own monthly saving and a direct way to switch, right next to what they pay today. It's a recommendation rather than a system alert, so it sits on its own background and only appears where it's relevant. It got fewer clicks, but more of them converted. The same pattern can carry other gentle reminders and recommendations.</p>
+            <p>On the billing page, the savings component became more prominent and showed each customer's own saving, with a direct way to switch. It got fewer clicks, but more of them converted.</p>
           </div>
           <figure class="media stack">
             <figure>
@@ -722,12 +719,7 @@
 
           <p class="kicker">Checkout</p>
           <div class="prose">
-            <p>At checkout, we ran a 50/50 A/B test with trial accounts, comparing two ways of showing the savings of an annual plan:</p>
-            <ul>
-              <li><strong>Savings card:</strong> always visible inside the annual plan card, showing the amount and percentage saved.</li>
-              <li><strong>Tooltip:</strong> appeared when someone selected a monthly plan, showing the saving in months.</li>
-            </ul>
-            <p>Each variant reached at least 3,500 accounts. There was no separate control group, as both groups saw one of the two variants.</p>
+            <p>At checkout, we ran an A/B test with trial accounts. Accounts were split 50/50, and each group saw a different nudge: a savings card on the annual plan card, showing the amount and the % discount, or a tooltip showing the saving as months saved. Each variant reached at least 3,500 accounts, with no control group because of the sample size.</p>
           </div>
           <figure class="media stack">
             <figure>
@@ -742,7 +734,7 @@
           </figure>
           <table class="table table--results">
             <thead>
-              <tr><th scope="col">Tooltip vs. savings card</th><th scope="col">7 days</th><th scope="col">14 days</th><th scope="col">30 days</th></tr>
+              <tr><th scope="col">Tooltip vs savings card</th><th scope="col">7 days</th><th scope="col">14 days</th><th scope="col">30 days</th></tr>
             </thead>
             <tbody>
               <tr><td>Paid conversions</td><td>+3.1%</td><td><strong>+6.9%</strong></td><td>+4.7%</td></tr>
@@ -751,12 +743,12 @@
             </tbody>
           </table>
           <div class="prose" style="margin-top: 32px;">
-            <p>The tooltip performed better across all three metrics at each measurement point. The strongest results came after 14 days, and the variant was rolled out to all trials. Document KPIs remained flat across both groups.</p>
+            <p>The tooltip won and was rolled out to all trials.</p>
           </div>
 
           <h3>Customer milestones</h3>
           <div class="prose">
-            <p>A quarter of the people who declined said they would switch later. At three months, a time-limited offer ran across an email, an in-app dialog and a homepage banner, with rules so the messages didn't stack.</p>
+            <p>For customers who wanted to switch later, a time-limited offer ran at three months across an email, an in-app dialog and a homepage banner, with rules so the messages didn't stack.</p>
           </div>
         </section>
       </div>
@@ -848,9 +840,10 @@
           <h2>Outcomes</h2>
           <div class="prose">
             <ul>
-              <li>The trial checkout tooltip was rolled out to all trials.</li>
-              <li>Monthly-to-annual was named the highest-impact churn initiative of FY25. Average churn dropped by about 8%, a company-wide result.</li>
-              <li>The toggle became the standard on the plan comparison page, and the tooltip and callout became reusable patterns.</li>
+              <li>The plan comparison page made it easier to compare monthly and annual plans.</li>
+              <li>The checkout tooltip was rolled out to all trial accounts.</li>
+              <li>The new callout component and nudge guidelines gave other teams patterns they could reuse.</li>
+              <li>The M2A initiative was named the highest-impact churn initiative of FY25.</li>
             </ul>
           </div>
         </section>
