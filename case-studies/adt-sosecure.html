@@ -277,15 +277,8 @@
     .carousel figure { scroll-snap-align: start; }
     .media__frame { padding: clamp(20px, 4%, 48px); border-radius: 8px; }
     .media__frame img { display: block; width: 100%; height: auto; }
-    /* Same soft gradient as the Work page covers */
-    .media__frame--gradient {
-      background-color: var(--base, #c7c2d0);
-      background-image:
-        radial-gradient(ellipse 70% 60% at 20% 0%, rgba(217,238,223,1) 0%, rgba(217,238,223,0) 100%),
-        radial-gradient(ellipse 60% 80% at 100% 20%, rgba(212,187,244,.9) 0%, rgba(212,187,244,0) 100%),
-        radial-gradient(ellipse 80% 60% at 60% 110%, rgba(162,180,250,.9) 0%, rgba(162,180,250,0) 100%),
-        radial-gradient(ellipse 50% 50% at 50% -10%, rgba(242,201,217,.8) 0%, rgba(242,201,217,0) 100%);
-    }
+    /* Same light blue-grey as the SoSecure cover on the Work page */
+    .media__frame--cover { background: #d3dde3; }
 
     /* Strategy pillars */
     .pillars {
@@ -620,7 +613,7 @@
       </div>
 
       <figure class="media wide">
-        <div class="media__frame media__frame--gradient">
+        <div class="media__frame media__frame--cover">
           <img src="/images/projects/sosecure-wireframes.webp" alt="Wireframes of the main SoSecure flows: homepage, chat, member detail, SOS alerts, groups, spots, safety and profile">
         </div>
       </figure>
