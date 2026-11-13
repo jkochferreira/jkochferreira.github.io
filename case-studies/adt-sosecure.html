@@ -394,6 +394,7 @@
     }
 
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media__img--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .1); } /* white images on the white page */
     .placeholder { aspect-ratio: 16 / 9; }
 
     .meta--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -691,14 +692,10 @@
         </section>
       </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder"><span><strong>21</strong> — Design system: typography · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>22</strong> — Design system: colours · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>23</strong> — Design system: buttons · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>24</strong> — Design system: icons · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>25</strong> — Design system: illustrations · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>26</strong> — ADA contrast checks · 1920 × 1080</span></div></figure>
-      </div>
+      <figure class="media wide">
+        <img class="media__img media__img--outline" src="/images/projects/sosecure-design-system.webp" alt="Pages from the SoSecure design system: typography, colours, icons, buttons and button states, illustrations, cards and ADA contrast checks">
+        <figcaption>Part of the SoSecure design system: typography, colours, icons, buttons, illustrations, cards and ADA contrast checks.</figcaption>
+      </figure>
 
       <div class="content">
         <section class="section">
