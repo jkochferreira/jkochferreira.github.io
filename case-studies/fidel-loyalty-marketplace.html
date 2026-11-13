@@ -439,14 +439,14 @@
     .problems .note + .shot { margin-top: 56px; }
     .note {
       position: relative;
-      padding: 30px 0 0 100px;
+      padding: 12px 0 0 84px;
     }
     .note__arrow {
       position: absolute;
       left: 0;
-      top: -40px;
-      width: 96px;
-      height: 96px;
+      top: -54px;
+      width: 76px;
+      height: 76px;
       fill: none;
       stroke: var(--text-muted);
       stroke-width: 1.5;
@@ -454,20 +454,20 @@
       stroke-linejoin: round;
     }
     .note__text {
-      max-width: 320px;
+      max-width: 260px;
       margin: 0;
       font-size: 14px;
       line-height: 22px;
       color: var(--text-muted);
     }
     /* Mirrored: the arrow curves down to the left and the line sits to its left */
-    .note--left { padding: 30px 100px 0 0; }
+    .note--left { padding: 12px 84px 0 0; }
     .note--left .note__arrow { left: auto; right: 0; transform: scaleX(-1); }
     .note--left .note__text { margin-left: auto; text-align: right; }
     @media (max-width: 600px) {
-      .note { margin-left: 18% !important; padding: 22px 0 0 72px; }
-      .note__arrow { top: -30px; width: 68px; height: 68px; }
-      .note--left { margin-left: 0 !important; margin-right: 12% !important; padding: 22px 72px 0 0; }
+      .note { margin-left: 18% !important; padding: 8px 0 0 60px; }
+      .note__arrow { top: -30px; width: 54px; height: 54px; }
+      .note--left { margin-left: 0 !important; margin-right: 12% !important; padding: 8px 60px 0 0; }
     }
 
     /* Facts still to confirm */
