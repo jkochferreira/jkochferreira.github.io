@@ -396,6 +396,9 @@
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
     .placeholder { aspect-ratio: 16 / 9; }
 
+    .meta--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 480px) { .meta--two { grid-template-columns: 1fr; } }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -527,10 +530,9 @@
       </figure>
 
       <div class="content">
-        <dl class="meta">
+        <dl class="meta meta--two">
           <div><dt>Role</dt><dd>Product Designer at Nagarro, working on the ADT account. I owned real-time location sharing (groups, spots and check-ins), in-app chat and the homepage redesign. I also started the design system.</dd></div>
           <div><dt>Scope</dt><dd>Product design, UX design, prototyping, usability testing, design systems, accessibility and ADA compliance</dd></div>
-          <div><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year, matching LinkedIn]</span></dd></div>
         </dl>
 
         <div class="prose" style="margin-top: 56px;">
@@ -701,7 +703,6 @@
               <li>The new homepage brought location sharing into everyday view while keeping the slider existing customers relied on.</li>
               <li>The Figma design system and ADA checks gave the app a shared, accessible foundation.</li>
             </ul>
-            <p><span class="confirm">[LINK: clickable prototype]</span></p>
           </div>
         </section>
 

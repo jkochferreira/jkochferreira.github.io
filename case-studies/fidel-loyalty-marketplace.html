@@ -470,6 +470,9 @@
       .note--left { margin-left: 0 !important; margin-right: 12% !important; padding: 8px 60px 0 0; }
     }
 
+    .meta--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 480px) { .meta--two { grid-template-columns: 1fr; } }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -599,10 +602,9 @@
       </div>
 
       <div class="content">
-        <dl class="meta">
+        <dl class="meta meta--two">
           <div><dt>Role</dt><dd>Lead Product Designer, Offers team. Sole designer responsible for filtering and sorting, from discovery to design.</dd></div>
           <div><dt>Scope</dt><dd>Product design, UX research, usability testing, design systems, prototyping</dd></div>
-          <div><dt>Timeline</dt><dd><span class="confirm">[confirm: Month Year – Month Year]</span></dd></div>
         </dl>
 
         <div class="prose" style="margin-top: 56px;">
@@ -659,7 +661,6 @@
             <div class="pillar"><h4>Design consistency</h4><p>Create a shared design language for the dashboard and website as the team grew.</p></div>
             <div class="pillar"><h4>Merchant onboarding</h4><p>Explore a self-onboarding flow to make it easier for merchants to join loyalty programmes.</p></div>
           </div>
-          <p><span class="confirm">[Confirm: how you helped define this scope, what you proposed and who you made these decisions with.]</span></p>
         </div>
       </div>
 
@@ -690,7 +691,7 @@
 
           <p class="kicker">Maze results</p>
           <div class="prose">
-            <p>Usability test of the filtering and sorting prototype <span class="confirm">[confirm number of participants and date]</span>.</p>
+            <p>Usability test of the filtering and sorting prototype.</p>
           </div>
           <div class="rings">
             <div class="ring-stat">
