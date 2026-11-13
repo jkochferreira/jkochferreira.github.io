@@ -11,7 +11,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #290072;
@@ -33,6 +33,8 @@
       color: var(--text);
       background-color: var(--base);
       background-image:
+        /* the gradient fades to white below the intro, so the projects sit on white */
+        linear-gradient(to bottom, rgba(255,255,255,0) 380px, #fff 820px),
         radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
         radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
         radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
@@ -86,9 +88,20 @@
     .hero em { font-style: italic; }
 
     /* Projects */
+    /* Small caps label above the projects, as on the About page */
+    .work-label {
+      max-width: 904px;
+      margin: 181px auto 0;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
     .projects {
       list-style: none;
-      margin-top: 181px;
+      margin-top: 24px;
       margin-left: auto;
       margin-right: auto;
       max-width: 904px;
@@ -222,7 +235,8 @@
 
     @media (max-width: 900px) {
       .hero { margin-top: 96px; }
-      .projects { margin-top: 96px; gap: 80px; }
+      .work-label { margin-top: 96px; }
+      .projects { gap: 80px; }
       .project__info { margin-top: 24px; grid-template-columns: 1fr; row-gap: 16px; }
       .project__title { font-size: 36px; }
       .footer { margin-top: 96px; }
@@ -251,6 +265,7 @@
     <main>
       <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with 8+ years of experience across <em>B2B SaaS, B2C and Fintech</em></h1>
 
+      <p class="work-label">Selected work</p>
       <ul class="projects">
         <li>
           <a class="project" href="/case-studies/monthly-to-annual.html">
