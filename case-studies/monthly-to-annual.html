@@ -428,6 +428,11 @@
       border-bottom: 1px solid var(--line);
     }
     .table td:first-child { white-space: nowrap; }
+    /* A/B results: numbers right-aligned, header line as light as the rows */
+    .table--results { margin-top: 48px; }
+    .table--results th { border-bottom-color: var(--line); }
+    .table--results th:not(:first-child), .table--results td:not(:first-child) { text-align: right; padding-right: 0; padding-left: 16px; font-variant-numeric: tabular-nums; }
+    .table--results strong { font-weight: 600; color: var(--ink); }
 
     /* Quotes */
     .quotes {
@@ -716,7 +721,12 @@
 
           <p class="kicker">Checkout</p>
           <div class="prose">
-            <p>At checkout, we ran an A/B test in production with trial accounts, comparing two variants 50/50: a small savings card inside the plan card, always visible, and a tooltip that appears only when someone selects a monthly plan. After 14 days, the tooltip led on paid conversions (+6.9%), new-business MRR (+12%) and average revenue per account (+12.4%), and it was rolled out to all trials.</p>
+            <p>At checkout, we ran a 50/50 A/B test with trial accounts, comparing two ways of showing the savings of an annual plan:</p>
+            <ul>
+              <li><strong>Savings card:</strong> always visible inside the annual plan card, showing the amount and percentage saved.</li>
+              <li><strong>Tooltip:</strong> appeared when someone selected a monthly plan, showing the saving in months.</li>
+            </ul>
+            <p>Each variant reached at least 3,500 accounts. There was no separate control group, as both groups saw one of the two variants.</p>
           </div>
           <figure class="media stack">
             <figure>
@@ -729,6 +739,19 @@
             </figure>
             <figcaption>The two checkout variants in the 50/50 test: a savings card that is always visible, and a tooltip that appears only on the monthly plan.</figcaption>
           </figure>
+          <table class="table table--results">
+            <thead>
+              <tr><th scope="col">Tooltip vs. savings card</th><th scope="col">7 days</th><th scope="col">14 days</th><th scope="col">30 days</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Paid conversions</td><td>+3.1%</td><td><strong>+6.9%</strong></td><td>+4.7%</td></tr>
+              <tr><td>New-business MRR</td><td>+7.8%</td><td><strong>+12.0%</strong></td><td>+8.4%</td></tr>
+              <tr><td>Average revenue per account</td><td>+7.3%</td><td><strong>+12.4%</strong></td><td>+10.2%</td></tr>
+            </tbody>
+          </table>
+          <div class="prose" style="margin-top: 32px;">
+            <p>The tooltip performed better across all three metrics at each measurement point. The strongest results came after 14 days, and the variant was rolled out to all trials. Document KPIs remained flat across both groups.</p>
+          </div>
 
           <h3>Customer milestones</h3>
           <div class="prose">
