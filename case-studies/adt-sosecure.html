@@ -289,19 +289,22 @@
 
     /* Strategy pillars */
     .pillars {
-      margin-top: 32px;
+      margin: 24px 0 32px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 24px;
+      gap: 16px;
     }
+    /* Each point in an outlined card, as in the Monthly to annual case study */
     .pillar {
-      padding-top: 16px;
-      border-top: 1px solid var(--ink);
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
       font-size: 16px;
       line-height: 24px;
     }
+    .pillar p { margin: 0; }
     .pillar h4 {
-      margin-bottom: 8px;
+      margin: 0 0 12px;
       font-family: var(--serif);
       font-style: italic;
       font-weight: 400;
@@ -309,6 +312,11 @@
       line-height: 1;
       color: var(--ink);
     }
+    /* Persona cards: round photo next to the name */
+    .persona__head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .persona__photo { flex: none; width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+    .persona__head h4 { margin: 0 0 4px; }
+    .persona__meta { font-size: 13px; line-height: 18px; white-space: nowrap; color: var(--text-muted); }
 
     /* Table */
     .table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 24px; }
@@ -538,12 +546,10 @@
 
         <section class="section">
           <h2>Pain points and main goals</h2>
-          <div class="prose">
-            <ul>
-              <li><strong>Reduce churn:</strong> SoSecure lost 94% of users who opened the app on day one and then deleted it.</li>
-              <li><strong>Improve engagement:</strong> The app was mainly used in emergencies, giving people little reason to open it regularly.</li>
-              <li><strong>Attract new users:</strong> Most users were existing ADT customers, mainly from an older demographic.</li>
-            </ul>
+          <div class="pillars">
+            <div class="pillar"><h4>Reduce churn</h4><p>SoSecure lost 94% of users who opened the app on day one and then deleted it.</p></div>
+            <div class="pillar"><h4>Improve engagement</h4><p>The app was mainly used in emergencies, giving people little reason to open it regularly.</p></div>
+            <div class="pillar"><h4>Attract new users</h4><p>Most users were existing ADT customers, mainly from an older demographic.</p></div>
           </div>
           <p class="footnote"><em>Based on ADT's project brief.</em></p>
         </section>
@@ -592,11 +598,22 @@
           <h2>Designing the experience</h2>
           <div class="prose">
             <p>We started by defining three personas to represent the new audience:</p>
-            <ul>
-              <li><strong>Robert:</strong> A travelling businessman and primary caregiver to his mother.</li>
-              <li><strong>Lisa:</strong> A working mum who uses online tools to manage different parts of her life.</li>
-              <li><strong>Bella:</strong> A teenager who is always on her phone and values privacy and control over her personal data.</li>
-            </ul>
+          </div>
+          <div class="pillars">
+            <div class="pillar persona">
+              <div class="persona__head"><img class="persona__photo" src="/images/projects/sosecure-persona-robert.webp" alt=""><div><h4>Robert</h4><p class="persona__meta">Account holder, 43</p></div></div>
+              <p>A travelling businessman and primary caregiver to his mother.</p>
+            </div>
+            <div class="pillar persona">
+              <div class="persona__head"><img class="persona__photo" src="/images/projects/sosecure-persona-lisa.webp" alt=""><div><h4>Lisa</h4><p class="persona__meta">Account holder, 40</p></div></div>
+              <p>A working mum who uses online tools to manage different parts of her life.</p>
+            </div>
+            <div class="pillar persona">
+              <div class="persona__head"><img class="persona__photo" src="/images/projects/sosecure-persona-bella.webp" alt=""><div><h4>Bella</h4><p class="persona__meta">Free account, 17</p></div></div>
+              <p>A teenager who is always on her phone and values privacy and control over her personal data.</p>
+            </div>
+          </div>
+          <div class="prose">
             <p>As a team of two designers, we worked in parallel on different parts of the experience. We used wireframes to explore ideas, define flows and agree on the main features. The engineering team was involved early in the process.</p>
           </div>
         </section>
