@@ -17,7 +17,7 @@
       --ink: #290072;
       --text: #0e0e0e;
       --text-muted: #574774;
-      --nav-text: #1a1a1a;
+      --nav-text: #3d3552; /* soft dark purple-grey instead of near-black */
       --base: #c7c2d0;
       --line: rgba(41, 0, 114, .25);
       --serif: "Instrument Serif", Georgia, serif;
@@ -118,7 +118,7 @@
       color: var(--nav-text);
       text-decoration: none;
     }
-    .nav__links { display: flex; gap: 60px; }
+    .nav__links { display: flex; gap: 36px; }
     .nav__links a {
       font-family: "Inter", var(--sans);
       font-size: 16px;
@@ -127,7 +127,7 @@
       text-decoration: none;
     }
     .nav__links a:hover,
-    .nav__links a[aria-current="page"] { text-decoration: underline; text-underline-offset: 4px; }
+    .nav__links a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
 
     /* Hero */
     .eyebrow {
@@ -492,7 +492,7 @@
       letter-spacing: -0.019em;
       color: var(--ink);
     }
-    .footer__links { display: flex; gap: 60px; }
+    .footer__links { display: flex; gap: 36px; }
     .footer__links a {
       font-size: 16px;
       line-height: 1.4;
