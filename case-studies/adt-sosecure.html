@@ -275,6 +275,17 @@
       scrollbar-color: rgba(41, 0, 114, .3) transparent;
     }
     .carousel figure { scroll-snap-align: start; }
+    .media__frame { padding: clamp(20px, 4%, 48px); border-radius: 8px; }
+    .media__frame img { display: block; width: 100%; height: auto; }
+    /* Same soft gradient as the Work page covers */
+    .media__frame--gradient {
+      background-color: var(--base, #c7c2d0);
+      background-image:
+        radial-gradient(ellipse 70% 60% at 20% 0%, rgba(217,238,223,1) 0%, rgba(217,238,223,0) 100%),
+        radial-gradient(ellipse 60% 80% at 100% 20%, rgba(212,187,244,.9) 0%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 80% 60% at 60% 110%, rgba(162,180,250,.9) 0%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 50% 50% at 50% -10%, rgba(242,201,217,.8) 0%, rgba(242,201,217,0) 100%);
+    }
 
     /* Strategy pillars */
     .pillars {
@@ -591,27 +602,11 @@
         </section>
       </div>
 
-      <div class="carousel wide">
-        <figure><div class="placeholder"><span><strong>04</strong> — Personas: Robert, Lisa and Bella · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>05</strong> — Wireframe flows: homepage · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>06</strong> — Wireframe flows: groups · 1920 × 1080</span></div></figure>
-        <figure><div class="placeholder"><span><strong>07</strong> — Wireframe flows: chat · 1920 × 1080</span></div></figure>
-      </div>
-
-      <div class="content">
-        <section class="section" style="margin-top: 0;">
-          <h3>Real-time location sharing</h3>
-          <div class="prose">
-            <p>Location sharing was the main feature we introduced to give people a reason to use SoSecure every day.</p>
-            <p>I designed it around private groups where family and friends could see each other's locations on a map. The experience included three main features:</p>
-            <ul>
-              <li><strong>Groups:</strong> Private groups of up to 10 people. Members can see each other's locations and receive alerts when someone arrives at or leaves a saved place.</li>
-              <li><strong>Spots:</strong> Places people visit regularly, such as home, school or work. Users can set up alerts for these places, and the app notifies the group when someone arrives or leaves.</li>
-              <li><strong>Check-ins:</strong> A quick way to share your location without creating a saved place. One tap lets everyone in the group know where you are.</li>
-            </ul>
-            <p>Users can create unlimited groups for free, and the app works across iOS and Android, so people with different phones can use it together.</p>
-            <p>I also designed the settings and flows needed to manage groups, including invite codes, alert preferences, spot radius, snoozing alerts and transferring group ownership.</p>
-          </div>
+      <figure class="media wide">
+        <div class="media__frame media__frame--gradient">
+          <img src="/images/projects/sosecure-wireframes.webp" alt="Wireframes of the main SoSecure flows: homepage, chat, member detail, SOS alerts, groups, spots, safety and profile">
+        </div>
+      </figure>
         </section>
       </div>
 
