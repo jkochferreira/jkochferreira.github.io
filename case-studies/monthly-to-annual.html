@@ -355,6 +355,7 @@
 
     /* Carousel of slides exported at one scale: same height, same text size */
     .carousel--fit { grid-auto-columns: max-content; }
+    .carousel--fit figure { width: min-content; } /* each slide as wide as its image; long captions wrap */
     .carousel--fit .media__img {
       width: auto;
       height: clamp(160px, 26vw, 360px);
@@ -511,6 +512,7 @@
       .pillars { grid-template-columns: 1fr; }
       .quotes { grid-template-columns: 1fr; }
       .carousel { grid-auto-columns: 85%; }
+      .carousel--fit { grid-auto-columns: max-content; }
       .footer { margin-top: 96px; }
       .footer__links, .nav__links { gap: 32px; }
     }
