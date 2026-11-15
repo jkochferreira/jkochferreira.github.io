@@ -146,6 +146,9 @@
         radial-gradient(ellipse 80% 60% at 60% 110%, rgba(162,180,250,.9) 0%, rgba(162,180,250,0) 100%),
         radial-gradient(ellipse 50% 50% at 50% -10%, rgba(242,201,217,.8) 0%, rgba(242,201,217,0) 100%);
     }
+    /* Draft cover until the real image is ready */
+    .project__cover--placeholder { display: flex; align-items: center; justify-content: center; }
+    .project__placeholder { font-size: 16px; color: var(--text-muted); }
     .project__cover::after {
       content: "";
       position: absolute;
@@ -274,6 +277,18 @@
 
       <p class="work-label">Selected work</p>
       <ul class="projects">
+        <li>
+          <a class="project" href="/case-studies/free-plan.html">
+            <div class="project__cover project__cover--gradient project__cover--placeholder">
+              <span class="project__placeholder">Cover placeholder</span>
+              <span class="project__cursor" aria-hidden="true">View case study</span>
+            </div>
+            <div class="project__info">
+              <h2 class="project__title">Placeholder title for the <em>Free plan case study</em></h2>
+              <p class="project__desc">Placeholder subtitle: one sentence on what the Free plan project was about and why it mattered.</p>
+            </div>
+          </a>
+        </li>
         <li>
           <a class="project" href="/case-studies/monthly-to-annual.html">
             <div class="project__cover">

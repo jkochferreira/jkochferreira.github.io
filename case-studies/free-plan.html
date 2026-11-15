@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Free plan — Joana Koch Ferreira</title>
+  <meta name="description" content="Placeholder description for the Free plan case study.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #290072;
+      --text: #0e0e0e;
+      --text-muted: #574774;
+      --nav-text: #3d3552; /* soft dark purple-grey instead of near-black */
+      --base: #c7c2d0;
+      --line: rgba(41, 0, 114, .25);
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(24px, 6.95vw, 120px);
+      --indent: clamp(0px, calc((100vw - 2 * var(--gutter)) * 0.2473), 368px);
+      --wide: calc(var(--indent) + 768px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--sans);
+      color: var(--text);
+      background-color: var(--base);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Intro: the stage stays pinned while vertical scroll pans the canvas of components sideways */
+    .intro { position: relative; }
+    .intro__stage {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+      background-color: var(--base);
+      background-image:
+        radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
+        radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
+        radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
+        radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+    }
+    .intro__inner { position: relative; z-index: 2; }
+    .intro .eyebrow { margin-top: clamp(8px, 3vh, 40px); }
+    .intro .hero {
+      margin-top: 16px;
+      max-width: 1000px;
+      font-size: clamp(36px, 4.4vw, 76px);
+    }
+
+    .canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3564px;
+      height: 750px;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+    .canvas__item {
+      position: absolute;
+      display: block;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    /* Opaque screenshots get a box shadow; transparent ones follow their own shape */
+    .canvas__item--box {
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(47, 47, 47, .08), 0 24px 48px -12px rgba(41, 0, 114, .22);
+    }
+    .canvas__item--shape {
+      filter: drop-shadow(0 1px 2px rgba(47, 47, 47, .08)) drop-shadow(0 20px 24px rgba(41, 0, 114, .16));
+    }
+
+    /* Sheet: white block that follows the intro */
+    .sheet {
+      position: relative;
+      background: #fff;
+      padding-top: 120px;
+    }
+    .sheet .placeholder {
+      background: #f4f2f8;
+      border-color: rgba(41, 0, 114, .2);
+    }
+    .sheet .lead { margin-top: 0; }
+
+    .page {
+      max-width: 1728px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) 39px;
+    }
+
+    /* Menu principal */
+    .nav {
+      height: 108px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__name {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links { display: flex; gap: 36px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    /* Soft highlight under the link instead of a thin underline */
+    .nav__links a {
+      padding: 0 3px;
+      margin: 0 -3px;
+      background: linear-gradient(rgba(41, 0, 114, .13), rgba(41, 0, 114, .13)) no-repeat 0 100% / 100% 0;
+      transition: background-size .2s ease;
+    }
+    .nav__links a:hover { background-size: 100% 3px; }
+    .nav__links a[aria-current="page"] { background-size: 100% 3px; }
+
+    /* Hero */
+    .eyebrow {
+      margin-top: clamp(32px, 9vh, 125px);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .hero {
+      margin-top: 24px;
+      max-width: 1104px;
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(44px, 5.16vw, 89.147px);
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .hero em { display: block; font-style: italic; }
+
+    .content {
+      margin-left: var(--indent);
+      max-width: 768px;
+    }
+    .wide { margin-left: var(--indent); max-width: 768px; }
+
+    .lead {
+      margin-top: 70px;
+      font-size: 22px;
+      line-height: 32px;
+    }
+
+    /* Text */
+    .prose { font-size: 18px; line-height: 28px; }
+    .prose > * + * { margin-top: 20px; }
+    .prose strong { font-weight: 500; }
+    .prose ul { list-style: none; }
+    .prose ul li { position: relative; padding-left: 20px; }
+    .prose ul li + li { margin-top: 8px; }
+    .prose ul li::before { content: ""; position: absolute; left: 4px; top: 12px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
+
+    .section { margin-top: 120px; }
+    .section h2,
+    .label {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 42.635px;
+      line-height: 0.98;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .section h2 + .prose { margin-top: 33px; }
+    .section h3 {
+      margin-top: 56px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.017em;
+      color: var(--ink);
+    }
+    .section h3 + .prose { margin-top: 20px; }
+
+    /* Summary meta */
+    .meta {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0 32px;
+    }
+    .meta div {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--ink);
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .meta dt { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+    .meta dd { margin-top: 4px; }
+
+    /* Results */
+    .stats {
+      margin-top: 33px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 32px;
+    }
+    .stat__value {
+      font-family: var(--serif);
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .stat__label {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--text-muted);
+    }
+    .footnote {
+      margin-top: 32px;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--text-muted);
+    }
+
+    /* Media placeholders */
+    .media { margin-top: 56px; }
+    .media + .prose, .carousel + .prose { margin-top: 56px; }
+    .placeholder {
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border: 1px dashed rgba(41, 0, 114, .35);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .28);
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 22px;
+      text-align: center;
+    }
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    /* Plan comparison screens: label above, no outline */
+    .stack__box .stack__label { margin-bottom: 12px; }
+    /* Note under a screen: an arrow drawn from the screen down to a caption-style line */
+    .note {
+      position: relative;
+      margin-left: 49%;
+      padding: 30px 0 0 100px;
+    }
+    .note__arrow {
+      position: absolute;
+      left: 0;
+      top: -28px;
+      width: 96px;
+      height: 96px;
+      fill: none;
+      stroke: var(--text-muted);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .note__text {
+      max-width: 320px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--text-muted);
+    }
+    @media (max-width: 600px) {
+      .note { margin-left: 22%; padding: 22px 0 0 72px; }
+      .note__arrow { top: -24px; width: 68px; height: 68px; }
+    }
+    /* Before/after crops stacked, each at full column width */
+    .stack figure + figure { margin-top: 32px; }
+    .stack__label {
+      margin: 0 0 10px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .stack__img,
+    .media__img--bordered { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
+    /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
+    .media__frame {
+      padding: clamp(20px, 5%, 40px) clamp(28px, 8%, 64px);
+      background: var(--frame-bg, #f4f2f8);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .media__frame img { display: block; width: 100%; height: auto; }
+    figcaption {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 22px;
+      color: var(--text-muted);
+    }
+    .carousel {
+      margin-top: 56px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: min(72%, 720px);
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(41, 0, 114, .3) transparent;
+    }
+    .carousel figure { scroll-snap-align: start; }
+
+    /* Side project: set apart in a tinted panel that reaches past the text column */
+    .side {
+      --side-pad: clamp(24px, 4vw, 64px);
+      margin: 120px 0 0 calc(var(--indent) - var(--side-pad));
+      max-width: calc(768px + 2 * var(--side-pad));
+      padding: var(--side-pad);
+      border-radius: 16px;
+      background: rgba(41, 0, 114, .045);
+    }
+    .side .content, .side .wide { margin-left: 0; }
+    .sheet .side .placeholder { background: #fff; }
+    .side__label {
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .side { --side-pad: 24px; margin-left: -12px; margin-right: -12px; }
+    }
+
+    /* Carousel of slides exported at one scale: same height, same text size */
+    .carousel--fit { grid-auto-columns: max-content; }
+    .carousel--fit figure { width: min-content; } /* each slide as wide as its image; long captions wrap */
+    .carousel--fit .media__img {
+      width: auto;
+      height: clamp(160px, 26vw, 360px);
+      background: #fff;
+    }
+
+    /* Subhead inside a section: body size, bold */
+    .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
+
+    figcaption strong { font-weight: 600; }
+
+    /* Slides with a light shadow; the carousel gets room around them so the shadow isn't clipped */
+    .carousel--shadow {
+      padding: 12px 20px 24px;
+      margin-left: calc(var(--indent) - 20px);
+      margin-right: -20px;
+      max-width: calc(768px + 40px);
+      scroll-padding: 0 20px;
+    }
+    .carousel--shadow .media__img { box-shadow: 0 6px 20px rgba(41, 0, 114, .10), 0 1px 3px rgba(41, 0, 114, .08); }
+    @media (max-width: 900px) {
+      .carousel--shadow { margin-left: -20px; }
+    }
+
+    /* Strategy pillars */
+    .pillars {
+      margin: 24px 0 32px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    /* Each area in an outlined card, the same thin line as the quotes */
+    .pillar {
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .pillar p { margin: 0; }
+    .pillar h4 {
+      margin: 0 0 12px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    /* Table */
+    .table { width: 100%; border-collapse: collapse; font-size: 16px; line-height: 24px; }
+    .table th {
+      padding: 0 16px 12px 0;
+      font-weight: 400;
+      text-align: left;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--ink);
+    }
+    .table td {
+      padding: 14px 16px 14px 0;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+    .table td:first-child { white-space: nowrap; }
+    /* A/B results: numbers right-aligned, header line as light as the rows */
+    .table--results { margin-top: 48px; }
+    .table--results th { border-bottom-color: var(--line); }
+    .table--results th:not(:first-child), .table--results td:not(:first-child) { text-align: right; padding-right: 0; padding-left: 16px; font-variant-numeric: tabular-nums; }
+    .table--results strong { font-weight: 600; color: var(--ink); }
+
+    /* Quotes */
+    .quotes {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    /* Each quote in its own card, with the same thin outline as the before/after images */
+    .quotes blockquote {
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 26px;
+      color: var(--ink);
+    }
+
+    /* Simple intro: title on the gradient, no component canvas */
+    .intro--simple .intro__stage {
+      position: relative;
+      height: auto;
+      padding-bottom: clamp(64px, 14vh, 160px);
+    }
+    .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
+
+    /* Facts still to confirm */
+    .confirm {
+      background: rgba(255, 196, 0, .28);
+      color: #5a4300;
+      font-style: normal;
+      padding: 0 4px;
+      border-radius: 3px;
+    }
+    .stats { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); row-gap: 40px; }
+
+    /* Get in touch */
+    /* Previous / next project, above the footer */
+    .project-nav {
+      max-width: var(--wide);
+      margin-top: 120px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(41, 0, 114, .12);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .project-nav a { display: block; color: inherit; text-decoration: none; }
+    .project-nav__label {
+      display: block;
+      font-size: 13px;
+      line-height: 20px;
+      color: var(--text-muted);
+    }
+    .project-nav__title {
+      display: block;
+      margin-top: 2px;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 26px;
+      color: var(--ink);
+    }
+    .project-nav__next { text-align: right; }
+    .project-nav a:hover .project-nav__title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .project-nav + .footer { margin-top: 96px; }
+    @media (max-width: 600px) {
+      .project-nav { margin-top: 80px; padding-top: 24px; }
+      .project-nav__title { font-size: 16px; }
+    }
+
+    .footer {
+      max-width: var(--wide);
+      height: 108px;
+      margin-top: 191px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .footer__title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 38px;
+      line-height: 0.98;
+      letter-spacing: -0.019em;
+      color: var(--ink);
+    }
+    .footer__links { display: flex; gap: 36px; }
+    .footer__links a {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .footer__links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+    @media (max-width: 900px) {
+      .content, .wide { margin-left: 0; }
+      .sheet { padding-top: 64px; }
+      .eyebrow { margin-top: 72px; }
+      .lead { margin-top: 48px; font-size: 18px; line-height: 28px; }
+      .section { margin-top: 96px; }
+      .section h2 { font-size: 36px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pillars { grid-template-columns: 1fr; }
+      .quotes { grid-template-columns: 1fr; }
+      .carousel { grid-auto-columns: 85%; }
+      .carousel--fit { grid-auto-columns: max-content; }
+      .footer { margin-top: 96px; }
+      .footer__links, .nav__links { gap: 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav { height: 80px; }
+      .eyebrow { margin-top: 48px; }
+      .hero { font-size: 40px; }
+      .meta { grid-template-columns: 1fr; }
+      .stat__value { font-size: 48px; }
+      .table { font-size: 14px; }
+      .table td:first-child { white-space: normal; }
+      .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
+      .footer__title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="intro intro--simple">
+    <div class="intro__stage">
+      <div class="page intro__inner">
+        <nav class="nav">
+          <a class="nav__name" href="/">Joana Koch Ferreira</a>
+          <div class="nav__links">
+            <a href="/" aria-current="page">Work</a>
+            <a href="/about.html">About</a>
+          </div>
+        </nav>
+        <div class="intro__title">
+          <p class="eyebrow">PandaDoc — Free plan</p>
+          <h1 class="hero">Placeholder title for the <em>Free plan case study</em></h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sheet">
+  <div class="page">
+    <main>
+      <div class="content">
+        <p class="lead">Placeholder subtitle: one sentence on what the Free plan project was about and why it mattered.</p>
+
+        <dl class="meta">
+          <div><dt>Role</dt><dd>Senior Product Designer</dd></div>
+          <div><dt>Scope</dt><dd>Product design, UX research</dd></div>
+          <div><dt>Timeline</dt><dd>Month Year – Month Year</dd></div>
+        </dl>
+
+        <div class="prose" style="margin-top: 56px;">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam. Sed nisi nulla quis sem at nibh elementum imperdiet.</p>
+          <p>Duis sagittis ipsum, praesent mauris fusce nec tellus sed augue semper porta. Mauris massa vestibulum lacinia arcu eget nulla, class aptent taciti sociosqu ad litora torquent.</p>
+        </div>
+
+        <section class="section">
+          <h2>Results</h2>
+          <div class="stats">
+            <div><div class="stat__value">+00%</div><div class="stat__label">Metric one</div></div>
+            <div><div class="stat__value">+00%</div><div class="stat__label">Metric two</div></div>
+            <div><div class="stat__value">+00%</div><div class="stat__label">Metric three</div></div>
+          </div>
+          <p class="footnote"><em>Placeholder note on where the numbers come from.</em></p>
+        </section>
+
+        <section class="section">
+          <h2>The challenge</h2>
+          <div class="prose">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero, sed dignissim lacinia nunc. Curabitur tortor pellentesque nibh, aenean quam in scelerisque sem at dolor.</p>
+            <p>Maecenas mattis, sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel suscipit quis, luctus non massa.</p>
+          </div>
+        </section>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder"><span><strong>01</strong> — Image placeholder · 1920 × 1080</span></div>
+      </figure>
+
+      <div class="content">
+        <section class="section">
+          <h2>Approach</h2>
+          <div class="prose">
+            <p>Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum, nulla metus metus ullamcorper vel tincidunt sed euismod in nibh. Quisque volutpat condimentum velit.</p>
+            <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Designing the experience</h2>
+          <div class="prose">
+            <p>Sed lectus integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam.</p>
+          </div>
+
+          <h3>Section one</h3>
+          <div class="prose">
+            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Morbi lacinia molestie dui, praesent blandit dolor sed non quam.</p>
+          </div>
+        </section>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder"><span><strong>02</strong> — Image placeholder · 1920 × 1080</span></div>
+      </figure>
+
+      <div class="content">
+        <section class="section" style="margin-top: 0;">
+          <h3>Section two</h3>
+          <div class="prose">
+            <p>Nulla facilisi. Ut fringilla, suspendisse potenti nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien proin quam, etiam ultrices suscipit justo.</p>
+          </div>
+        </section>
+      </div>
+
+      <figure class="media wide">
+        <div class="placeholder"><span><strong>03</strong> — Image placeholder · 1920 × 1080</span></div>
+      </figure>
+
+      <div class="content">
+        <section class="section">
+          <h2>Outcomes</h2>
+          <div class="prose">
+            <ul>
+              <li>Placeholder outcome one.</li>
+              <li>Placeholder outcome two.</li>
+              <li>Placeholder outcome three.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>What I learned</h2>
+          <div class="prose">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean commodo ligula eget dolor, aenean massa cum sociis natoque penatibus et magnis dis parturient montes.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <nav class="project-nav" aria-label="More projects">
+      <a href="/"><span class="project-nav__label">← Home</span><span class="project-nav__title">All projects</span></a>
+      <a class="project-nav__next" href="/case-studies/monthly-to-annual.html"><span class="project-nav__label">Next project →</span><span class="project-nav__title">Monthly to Annual</span></a>
+    </nav>
+
+    <footer class="footer">
+      <p class="footer__title">Get in touch</p>
+      <nav class="footer__links">
+        <a href="mailto:jkochferreira@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/joana-koch-ferreira/" target="_blank" rel="noopener">LinkedIn</a>
+      </nav>
+    </footer>
+  </div>
+  </div>
+  <script src="/assets/lightbox.js"></script>
+</body>
+</html>
