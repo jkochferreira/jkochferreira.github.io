@@ -410,6 +410,17 @@
       background: #fff;
     }
 
+    /* Ways the product talks to customers: two panels, in-app wider than out-of-app */
+    .channels { margin-top: 32px; display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+    .channel { padding: 24px; border-radius: 12px; background: rgba(41, 0, 114, .045); }
+    .channel__title { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+    .channel__sub { margin: 2px 0 16px; font-size: 13px; line-height: 20px; color: var(--text-muted); }
+    .channel__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .channel__list li { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid rgba(41, 0, 114, .14);
+      font-size: 13px; line-height: 18px; color: var(--text); }
+    .channels + .prose { margin-top: 32px; }
+    @media (max-width: 700px) { .channels { grid-template-columns: 1fr; } }
+
     /* Subhead inside a section: body size, bold */
     .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
 
@@ -690,7 +701,7 @@
         <section class="section">
           <h2>Designing the experience</h2>
           <div class="prose">
-            <p>I first mapped the customer's first year and the ways the product could talk to customers. This set when to reach people, in which format, and how loud each message should be: subtle nudges throughout, more prominent messages at milestones.</p>
+            <p>I started by mapping the customer's first year: the milestones where an offer to switch could feel timely rather than pushy, such as activation, three months of use and the run-up to renewal.</p>
           </div>
         </section>
       </div>
@@ -700,10 +711,58 @@
         <figcaption><strong>Customer's lifecycle.</strong> Defining a notification cadence: how many reminders, on which pages, through which channels (in-app, email, possibly mobile), and with what escalating or de-escalating prominence.</figcaption>
       </figure>
 
-      <figure class="media wide">
-        <img class="media__img media__img--bordered" src="/case-studies/images/m2a/product-communication-nudges.webp" alt="Types of product communication: in-app banners, tooltips, nudges, side panels, modals and walkthroughs, and out-of-app email and push notifications, with the difference between a nudge and a modal">
-        <figcaption><strong>Product communication and nudges.</strong> The ways the product can talk to customers, in-app and outside it, and the difference between a nudge and a modal.</figcaption>
-      </figure>
+      <div class="content">
+        <section class="section" style="margin-top: 56px;">
+          <div class="prose">
+            <p>Then I listed the ways the product can talk to customers, inside the product and outside it.</p>
+          </div>
+          <div class="channels">
+            <div class="channel">
+              <p class="channel__title">In-app communication</p>
+              <p class="channel__sub">Inside the product</p>
+              <ul class="channel__list">
+                <li>Banner</li>
+                <li>Inline tip or tooltip</li>
+                <li>Nudge: badge, highlight, subtle card</li>
+                <li>Side panel</li>
+                <li>Modal dialog</li>
+                <li>Full-screen walkthrough</li>
+              </ul>
+            </div>
+            <div class="channel">
+              <p class="channel__title">Out-of-app communication</p>
+              <p class="channel__sub">External channels</p>
+              <ul class="channel__list">
+                <li>Email</li>
+                <li>Push notification</li>
+              </ul>
+            </div>
+          </div>
+          <div class="prose">
+            <p>Most in-app messages are either a nudge or a modal. A <strong>nudge</strong> is a subtle design cue that respects the customer's autonomy while steering them toward a beneficial path: it guides, encourages or reinforces, without forcing. A <strong>modal</strong> interrupts the flow to get full attention and asks for an action before the customer can continue, so it has to be used sparingly.</p>
+            <p>I played with both timing and format: subtle, contextual nudges throughout the year, and more prominent messages at milestones. I drafted several combinations and tested which worked best.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel wide" aria-label="Communication tests">
+        <figure>
+          <div class="placeholder">Test 1</div>
+          <figcaption>Caption for test 1</figcaption>
+        </figure>
+        <figure>
+          <div class="placeholder">Test 2</div>
+          <figcaption>Caption for test 2</figcaption>
+        </figure>
+        <figure>
+          <div class="placeholder">Test 3</div>
+          <figcaption>Caption for test 3</figcaption>
+        </figure>
+        <figure>
+          <div class="placeholder">Test 4</div>
+          <figcaption>Caption for test 4</figcaption>
+        </figure>
+      </div>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
