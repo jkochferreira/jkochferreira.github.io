@@ -266,23 +266,23 @@
     /* Plan comparison screens: label above, no outline */
     .stack__box .stack__label { margin-bottom: 12px; }
     /* Annotated screen: notes on the lilac background, each with a straight arrow to the part of the card it explains */
-    .anatomy { position: relative; margin-top: 16px; }
+    .anatomy { position: relative; margin-top: 32px; }
     .anatomy__img { border-radius: 12px; }
     .anatomy__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-    .anatomy__lines circle { fill: var(--ink); }
-    .anatomy__lines path { fill: none; stroke: var(--ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .anatomy__lines circle { fill: var(--text-muted); }
+    .anatomy__lines path { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     .anatomy__notes { margin: 0; }
     .anatomy__note {
       position: absolute;
       top: var(--y);
       left: 58.5%;
       right: 4%;
+      max-width: 260px;
       margin: -11px 0 0;
-      font-size: 14px;
-      line-height: 20px;
-      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 22px;
+      color: var(--text);
     }
-    .anatomy__note strong { display: block; margin-bottom: 4px; font-size: 16px; line-height: 22px; font-weight: 600; color: var(--ink); }
     @media (max-width: 700px) {
       .anatomy__lines { display: none; }
       .anatomy__note { position: static; margin: 20px 0 0; }
@@ -678,15 +678,18 @@
             </figure>
           </div>
           <p class="kicker">The nudge in the card</p>
+          <div class="prose">
+            <p>The new card works as a nudge: it puts the annual option and its saving in front of the customer, at the moment they look at their plan, while leaving the choice to them.</p>
+          </div>
           <figure class="anatomy">
             <img class="media__img anatomy__img" src="/case-studies/images/m2a/plan-card-annotated.webp" alt="The Business plan card with Annual billing switched on: From $49 with $65 struck through, a Save 25% tag and a Save 25%, Switch to annual button">
             <svg class="anatomy__lines" viewBox="0 0 2000 1297" aria-hidden="true">
-              <g><circle cx="1130" cy="563" r="11"/><path d="M1130 563H990"/><path d="M1018 541L990 563L1018 585"/></g>
-              <g><circle cx="1130" cy="857" r="11"/><path d="M1130 857H990"/><path d="M1018 835L990 857L1018 879"/></g>
+              <g><circle cx="1000" cy="563" r="7"/><path d="M1000 563H1124"/><path d="M1110 552L1124 563L1110 574"/></g>
+              <g><circle cx="1000" cy="857" r="7"/><path d="M1000 857H1124"/><path d="M1110 846L1124 857L1110 868"/></g>
             </svg>
             <figcaption class="anatomy__notes">
-              <p class="anatomy__note" style="--y: 43.4%;"><strong>Annual billing, right in the card</strong>Switching it on shows the customer's own price: $49 instead of $65.</p>
-              <p class="anatomy__note" style="--y: 66.1%;"><strong>A button that names the benefit</strong>"Save 25%, Switch to annual" replaced "Manage current plan".</p>
+              <p class="anatomy__note" style="--y: 43.4%;">A toggle in each card to make annual billing visible and its price transparent</p>
+              <p class="anatomy__note" style="--y: 66.1%;">A button that names the saving, to encourage the switch from monthly to annual</p>
             </figcaption>
           </figure>
           <div class="prose" style="margin-top: 72px;">
