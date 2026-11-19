@@ -421,6 +421,31 @@
     .channels + .prose { margin-top: 32px; }
     @media (max-width: 700px) { .channels { grid-template-columns: 1fr; } }
 
+    /* Customer's lifecycle: vertical timeline of milestones and their touchpoints */
+    .lifecycle { margin: 56px 0 0; }
+    .lifecycle .kicker { margin-top: 0; margin-bottom: 24px; }
+    .lifecycle__steps { list-style: none; margin: 0; padding: 0; position: relative; }
+    .lifecycle__step:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 34px; bottom: -50px; width: 1px; background: rgba(41, 0, 114, .2); }
+    .lifecycle__step { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start; }
+    .lifecycle__step + .lifecycle__step { margin-top: 16px; }
+    .lifecycle__num { position: relative; margin-top: 20px; width: 28px; height: 28px; border-radius: 50%; background: var(--ink); color: #fff;
+      font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .lifecycle__card { padding: 20px 24px 24px; border-radius: 12px; background: rgba(41, 0, 114, .045); }
+    .lifecycle__when { margin: 0; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    .lifecycle__when span { font-weight: 400; color: var(--text-muted); }
+    .lifecycle__title { margin: 4px 0 0; font-size: 18px; line-height: 26px; font-weight: 600; color: var(--ink); }
+    .lifecycle__desc { margin: 4px 0 0; font-size: 15px; line-height: 24px; color: var(--text); }
+    .lifecycle__chips { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .lifecycle__chips li { padding: 6px 12px; border-radius: 999px; background: #fff; border: 1px solid rgba(41, 0, 114, .14);
+      font-size: 13px; line-height: 18px; color: var(--text); }
+    .lifecycle__chips li span { color: var(--text-muted); }
+    .lifecycle figcaption { margin-top: 20px; padding-left: 48px; }
+    @media (max-width: 700px) {
+      .lifecycle__step { gap: 12px; }
+      .lifecycle__card { padding: 16px 16px 20px; }
+      .lifecycle figcaption { padding-left: 0; }
+    }
+
     /* Subhead inside a section: body size, bold */
     .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
 
@@ -729,10 +754,59 @@
         </section>
       </div>
 
-      <figure class="media wide">
-        <img class="media__img media__img--bordered" src="/case-studies/images/m2a/customer-lifecycle.webp" alt="Customer's lifecycle over the first twelve months: activation, adoption, consistent non-blocking nudges, a 3-month celebration campaign, the renewal email used to trigger the offer, and a 6-month celebration campaign with a modal and an email follow-up">
-        <figcaption><strong>Customer's lifecycle.</strong> Defining a notification cadence: how many reminders, on which pages, through which channels (in-app, email, possibly mobile), and with what escalating or de-escalating prominence.</figcaption>
-      </figure>
+      <div class="content">
+        <figure class="lifecycle">
+          <p class="kicker">Customer's lifecycle</p>
+          <ol class="lifecycle__steps">
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">01</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Day 1 – Month 2 <span>· Activation</span></p>
+              <p class="lifecycle__title">The first meaningful action</p>
+              <p class="lifecycle__desc">One document completed within the first 30 days.</p>
+              <ul class="lifecycle__chips"><li>Email <span>· Onboarding</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">02</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Month 3 <span>· Activation</span></p>
+              <p class="lifecycle__title">3-month celebration campaign</p>
+              <p class="lifecycle__desc">Celebrate the milestone and introduce the offer, using the renewal email to trigger it.</p>
+              <ul class="lifecycle__chips"><li>Email <span>· Renewal offer</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">03</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Months 4–5 <span>· Adoption</span></p>
+              <p class="lifecycle__title">Build the habit</p>
+              <p class="lifecycle__desc">Consistent nudges: persistent but non-blocking placements.</p>
+              <ul class="lifecycle__chips"><li>Nudge <span>· Persistent placements</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">04</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Month 6 <span>· Adoption</span></p>
+              <p class="lifecycle__title">6-month celebration campaign</p>
+              <p class="lifecycle__desc">The existing modal dialog, followed by an email to reinforce it outside the product.</p>
+              <ul class="lifecycle__chips"><li>Modal dialog</li><li>Email <span>· Follow-up</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">05</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Months 7–12 <span>· Ongoing</span></p>
+              <p class="lifecycle__title">Stay present, not intrusive</p>
+              <p class="lifecycle__desc">Persistent placements: visible in the product, never in the way.</p>
+              <ul class="lifecycle__chips"><li>Nudge <span>· Persistent placements</span></li></ul>
+            </div>
+          </li>
+          </ol>
+          <figcaption>Defining a notification cadence: how many reminders, on which pages, through which channels, and with what escalating or de-escalating prominence.</figcaption>
+        </figure>
+      </div>
 
       <div class="content">
         <section class="section" style="margin-top: 56px;">
