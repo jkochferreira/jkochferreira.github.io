@@ -16,14 +16,14 @@
     '.carousel-nav__dot[aria-current="true"] { width: 40px; }',
     '.carousel-nav__dot[aria-current="true"]::before { width: 32px; background: #290072; }',
     '.carousel-nav__dot:focus-visible { outline: 2px solid #290072; outline-offset: 2px; border-radius: 6px; }',
-    '.carousel-nav__arrows { display: flex; gap: 12px; }',
-    '.carousel-nav__arrow { width: 48px; height: 48px; padding: 0; border: 1px solid rgba(41, 0, 114, .18); border-radius: 50%;',
+    '.carousel-nav__arrows { display: flex; gap: 8px; }',
+    '.carousel-nav__arrow { width: 36px; height: 36px; padding: 0; border: 1px solid rgba(41, 0, 114, .18); border-radius: 50%;',
     '  background: #fff; color: #290072; cursor: pointer; display: flex; align-items: center; justify-content: center;',
     '  transition: border-color .2s ease, opacity .2s ease; }',
     '.carousel-nav__arrow:hover:not([disabled]) { border-color: rgba(41, 0, 114, .45); }',
     '.carousel-nav__arrow[disabled] { opacity: .4; cursor: default; }',
     '.carousel-nav__arrow:focus-visible { outline: 2px solid #290072; outline-offset: 2px; }',
-    '.carousel-nav__arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75;',
+    '.carousel-nav__arrow svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.75;',
     '  stroke-linecap: round; stroke-linejoin: round; }'
   ].join('\n');
   document.head.appendChild(style);
