@@ -300,6 +300,21 @@
     }
     .stack__img,
     .media__img--bordered { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    /* A/B test variants: a letter badge and a name, so they don't read as before and after */
+    .variants figure + figure { margin-top: 48px; }
+    .variant { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+    .variant__badge {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--ink); color: #fff;
+      font-size: 13px; font-weight: 600; line-height: 1;
+    }
+    .variant__name { font-size: 16px; font-weight: 600; color: var(--ink); }
+    .variant__tag {
+      padding: 2px 8px; border-radius: 999px;
+      border: 1px solid rgba(41, 0, 114, .25);
+      font-size: 12px; line-height: 18px; font-weight: 500; color: var(--text-muted);
+    }
     /* Before and after side by side */
     .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
     .pair__img { border-radius: 12px; }
@@ -728,17 +743,18 @@
           <div class="prose">
             <p>At checkout, we ran an A/B test with trial accounts. Accounts were split 50/50, and each group saw a different nudge: a savings card on the annual plan card, showing the amount and the % discount, or a tooltip showing the saving as months saved. Each variant reached at least 3,500 accounts, with no control group because of the sample size.</p>
           </div>
-          <figure class="media stack">
+          <div class="media stack variants">
             <figure>
-              <figcaption class="stack__label">Version A</figcaption>
+              <p class="variant"><span class="variant__badge">A</span><span class="variant__name">Savings card</span></p>
               <img class="media__img stack__img" src="/case-studies/images/m2a/checkout-savings-card.webp" alt="Version A: at checkout, a small savings card, Save $192 per year, always visible inside the annual plan card">
+              <figcaption>A savings card inside the annual option, always visible: "Save $192 per year".</figcaption>
             </figure>
             <figure>
-              <figcaption class="stack__label">Version B</figcaption>
+              <p class="variant"><span class="variant__badge">B</span><span class="variant__name">Tooltip</span><span class="variant__tag">Winner</span></p>
               <video class="media__video stack__img" src="/case-studies/images/m2a/checkout-tooltip.mp4" poster="/case-studies/images/m2a/checkout-tooltip.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Version B: at checkout, selecting the monthly plan opens a tooltip, Save $192 per year, switch to annual"></video>
+              <figcaption>A tooltip that appears only when the customer picks the monthly plan, framing the saving as four months' worth of savings.</figcaption>
             </figure>
-            <figcaption>The two checkout variants in the 50/50 test: a savings card that is always visible, and a tooltip that appears only on the monthly plan.</figcaption>
-          </figure>
+          </div>
           <table class="table table--results">
             <thead>
               <tr><th scope="col">Tooltip vs savings card</th><th scope="col">7 days</th><th scope="col">14 days</th><th scope="col">30 days</th></tr>
