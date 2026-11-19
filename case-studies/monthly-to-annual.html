@@ -300,6 +300,35 @@
     }
     .stack__img,
     .media__img--bordered { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    /* Screen on a lilac panel with its note inside, joined by a small arrow from the part of the screen it explains */
+    .callout { background: #d5cde2; border-radius: 12px; overflow: hidden; }
+    .callout .media__img { border-radius: 0; }
+    .callout__media { position: relative; }
+    .callout__arrow {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      bottom: -14px;
+      width: 0;
+      border-left: 1px solid var(--text-muted);
+    }
+    .callout__arrow::before {
+      content: ""; position: absolute; top: -3px; left: -3.5px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+    }
+    .callout__arrow::after {
+      content: ""; position: absolute; bottom: 0; left: -4px;
+      width: 6px; height: 6px; border-right: 1px solid var(--text-muted); border-bottom: 1px solid var(--text-muted);
+      transform: rotate(45deg); transform-origin: center;
+    }
+    .callout__note {
+      margin: 0;
+      padding: 22px 6% 28px calc(var(--x) - 12%);
+      font-size: 15px;
+      line-height: 22px;
+      color: var(--text);
+    }
+    @media (max-width: 600px) { .callout__note { padding: 22px 16px 20px; } }
     /* A/B test variants: a letter badge and a name, so they don't read as before and after */
     .variants figure + figure { margin-top: 48px; }
     .variant { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
@@ -729,13 +758,23 @@
           <div class="media stack">
             <figure>
               <p class="stack__label">Before</p>
-              <img class="media__img pair__img" src="/case-studies/images/m2a/billing-card-before.webp" alt="Before: the billing page plan card, $130 per month on Business Monthly, with a small Save with annual plan link next to Manage plan">
-              <figcaption>Annual billing was a small text link next to "Manage plan", easy to miss and with no hint of how much it saved.</figcaption>
+              <div class="callout" style="--x: 25.9%; --y: 77.5%;">
+                <div class="callout__media">
+                  <img class="media__img" src="/case-studies/images/m2a/billing-card-before.webp" alt="Before: the billing page plan card, $130 per month on Business Monthly, with a small Save with annual plan link next to Manage plan">
+                  <span class="callout__arrow" aria-hidden="true"></span>
+                </div>
+                <figcaption class="callout__note">Annual billing was a small text link next to "Manage plan", easy to miss and with no hint of how much it saved.</figcaption>
+              </div>
             </figure>
             <figure>
               <p class="stack__label">After</p>
-              <img class="media__img pair__img" src="/case-studies/images/m2a/billing-card-after.webp" alt="After: the same plan card with a permanent nudge, Save $16 per month on a yearly billing, and a Switch to annual link">
-              <figcaption>A permanent nudge shows the customer's own saving, $16 a month, with a direct "Switch to annual" link.</figcaption>
+              <div class="callout" style="--x: 41.7%; --y: 64.5%;">
+                <div class="callout__media">
+                  <img class="media__img" src="/case-studies/images/m2a/billing-card-after.webp" alt="After: the same plan card with a permanent nudge, Save $16 per month on a yearly billing, and a Switch to annual link">
+                  <span class="callout__arrow" aria-hidden="true"></span>
+                </div>
+                <figcaption class="callout__note">A permanent nudge shows the customer's own saving, $16 a month, with a direct "Switch to annual" link.</figcaption>
+              </div>
             </figure>
           </div>
 
