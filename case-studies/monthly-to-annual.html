@@ -443,6 +443,10 @@
 
     .carousel--tests .media__img { border-radius: 12px; aspect-ratio: 2000 / 1147; object-fit: cover; }
 
+    /* Small uppercase label above a heading */
+    .overline { margin: 96px 0 12px; font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+    .overline + h3 { margin-top: 0; }
+
     /* Subhead inside a section: body size, bold */
     .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
 
@@ -832,6 +836,7 @@
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
+          <p class="overline">Outcomes</p>
           <h3>Plan comparison</h3>
           <div class="prose">
             <p>I added a monthly/annual toggle to each plan card and changed "Manage current plan" to "Save 25%, Switch to annual". An earlier study had shown that toggles could confuse people, so we tested the design in Maze before building: 93–97% task success with 30 participants, and 67% preferred the toggle inside the card. It became the standard for that page.</p>
