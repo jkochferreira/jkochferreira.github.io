@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archive — Joana Koch Ferreira</title>
+  <meta name="description" content="An archive of side projects, explorations and older work by Joana Koch Ferreira, Product Designer.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #290072;
+      --text: #0e0e0e;
+      --text-muted: #574774;
+      --nav-text: #3d3552;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(24px, 6.95vw, 120px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+    body {
+      overflow: hidden;
+      font-family: var(--sans);
+      color: var(--text);
+      background: #fbfafc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Menu principal, the same as on the other pages, floating over the canvas */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      height: 108px;
+      padding: 0 var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      background: linear-gradient(#fbfafc 30%, rgba(251, 250, 252, 0));
+    }
+    .nav a { pointer-events: auto; }
+    .nav__name {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links { display: flex; gap: 36px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+      padding: 0 3px;
+      margin: 0 -3px;
+      background: linear-gradient(rgba(41, 0, 114, .13), rgba(41, 0, 114, .13)) no-repeat 0 100% / 100% 0;
+      transition: background-size .2s ease;
+    }
+    .nav__links a:hover { background-size: 100% 3px; }
+    .nav__links a[aria-current="page"] { background-size: 100% 3px; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+    }
+
+    /* Canvas: the images sit on a plane that repeats in every direction and is dragged around */
+    .archive {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .archive.is-dragging { cursor: grabbing; }
+    .archive__item {
+      position: absolute;
+      top: 0; left: 0;
+      margin: 0;
+      will-change: transform;
+    }
+    .archive__item img {
+      display: block;
+      width: var(--w, 220px);
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 18px 40px rgba(20, 12, 40, .12), 0 2px 6px rgba(20, 12, 40, .06);
+      transition: transform .3s ease, box-shadow .3s ease;
+      -webkit-user-drag: none;
+    }
+    .archive__item img:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(20, 12, 40, .16), 0 2px 6px rgba(20, 12, 40, .06);
+    }
+    .archive.is-dragging .archive__item img { cursor: grabbing; }
+
+    /* Soft fade at the bottom edge, and the hint */
+    .archive-fade {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: 120px;
+      pointer-events: none;
+      background: linear-gradient(rgba(251, 250, 252, 0), #fbfafc 85%);
+    }
+    .hint {
+      position: fixed;
+      left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08), 0 4px 12px rgba(20, 12, 40, .06);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: opacity .6s ease;
+    }
+    .hint svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .hint.is-hidden { opacity: 0; }
+
+    @media (max-width: 900px) {
+      .nav__links { gap: 32px; }
+    }
+    @media (max-width: 480px) {
+      .nav { height: 80px; }
+      .nav__links { gap: 20px; }
+      .archive__item img { width: calc(var(--w, 220px) * .72); }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__name" href="/">Joana Koch Ferreira</a>
+    <nav class="nav__links">
+      <a href="/">Work</a>
+      <a href="/archive.html" aria-current="page">Archive</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="visually-hidden">Archive</h1>
+    <!-- Each item: data-x / data-y place it on the plane (0 to 1), --w sets its width.
+         The caption is shown under the image when it is opened. -->
+    <div class="archive" data-lightbox-group data-lightbox-bare aria-label="Archive. Drag to explore, or use the arrow keys.">
+      <figure class="archive__item" data-x=".04" data-y=".10" style="--w: 240px;">
+        <img src="/images/archive/placeholder-01.webp" alt="Placeholder 01" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".27" data-y=".04" style="--w: 220px;">
+        <img src="/images/archive/placeholder-02.webp" alt="Placeholder 02" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".52" data-y=".14" style="--w: 160px;">
+        <img src="/images/archive/placeholder-03.webp" alt="Placeholder 03" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".74" data-y=".06" style="--w: 230px;">
+        <img src="/images/archive/placeholder-04.webp" alt="Placeholder 04" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".14" data-y=".42" style="--w: 210px;">
+        <img src="/images/archive/placeholder-05.webp" alt="Placeholder 05" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".40" data-y=".38" style="--w: 160px;">
+        <img src="/images/archive/placeholder-06.webp" alt="Placeholder 06" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".60" data-y=".46" style="--w: 240px;">
+        <img src="/images/archive/placeholder-07.webp" alt="Placeholder 07" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".86" data-y=".36" style="--w: 220px;">
+        <img src="/images/archive/placeholder-08.webp" alt="Placeholder 08" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".02" data-y=".72" style="--w: 160px;">
+        <img src="/images/archive/placeholder-09.webp" alt="Placeholder 09" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".26" data-y=".76" style="--w: 230px;">
+        <img src="/images/archive/placeholder-10.webp" alt="Placeholder 10" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".50" data-y=".80" style="--w: 210px;">
+        <img src="/images/archive/placeholder-11.webp" alt="Placeholder 11" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+      <figure class="archive__item" data-x=".76" data-y=".72" style="--w: 160px;">
+        <img src="/images/archive/placeholder-12.webp" alt="Placeholder 12" draggable="false">
+        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
+      </figure>
+    </div>
+  </main>
+
+  <div class="archive-fade" aria-hidden="true"></div>
+  <p class="hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>
+    Drag to explore
+  </p>
+
+  <script>
+  // Infinite canvas: each image is placed on a plane (tile) that wraps around in both directions.
+  // Drag (mouse or touch), scroll with a trackpad or use the arrow keys to move it; it glides a little after a fling.
+  (function () {
+    var root = document.querySelector('.archive');
+    var hint = document.querySelector('.hint');
+    var items = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var PAD = 320;              // how far past the edge an image goes before wrapping to the other side
+    var W, H, ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
+
+    function size() {
+      // The plane is always bigger than the screen so no image shows twice at once
+      var small = innerWidth < 600; // phones: a smaller plane, so the images aren't too far apart
+      PAD = small ? 220 : 320;
+      W = Math.max(innerWidth + 2 * PAD, small ? 1000 : 1900);
+      H = Math.max(innerHeight + 2 * PAD, small ? 1250 : 1300);
+    }
+    function mod(n, m) { return ((n % m) + m) % m; }
+
+    function render() {
+      items.forEach(function (it) {
+        var x = mod(parseFloat(it.dataset.x) * W + ox + PAD, W) - PAD;
+        var y = mod(parseFloat(it.dataset.y) * H + oy + PAD, H) - PAD;
+        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      });
+    }
+
+    function move(dx, dy) { ox += dx; oy += dy; render(); }
+
+    function glide() {
+      vx *= .94; vy *= .94;
+      if (Math.abs(vx) < .1 && Math.abs(vy) < .1) { raf = null; return; }
+      move(vx, vy);
+      raf = requestAnimationFrame(glide);
+    }
+    function stop() { if (raf) cancelAnimationFrame(raf); raf = null; }
+
+    var hidden = false;
+    function hideHint() { if (!hidden) { hidden = true; hint.classList.add('is-hidden'); } }
+
+    // Drag
+    var down = false, moved = false, lx, ly, lt, sx, sy;
+    root.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      stop();
+      down = true; moved = false;
+      sx = lx = e.clientX; sy = ly = e.clientY; lt = performance.now();
+      vx = vy = 0;
+    });
+    root.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - lx, dy = e.clientY - ly, now = performance.now(), dt = Math.max(now - lt, 1);
+      if (!moved && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 6) {
+        moved = true; root.classList.add('is-dragging'); hideHint();
+        root.setPointerCapture(e.pointerId); // only once it is a drag, so a plain click still reaches the image
+      }
+      if (moved) {
+        move(dx, dy);
+        vx = dx / dt * 16; vy = dy / dt * 16;
+      }
+      lx = e.clientX; ly = e.clientY; lt = now;
+    });
+    function end(e) {
+      if (!down) return;
+      down = false;
+      root.classList.remove('is-dragging');
+      if (moved && !reduce && performance.now() - lt < 80) raf = requestAnimationFrame(glide);
+    }
+    root.addEventListener('pointerup', end);
+    root.addEventListener('pointercancel', end);
+    // A drag that ends on an image must not open it
+    root.addEventListener('click', function (e) {
+      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+    }, true);
+
+    // Trackpad and mouse wheel
+    root.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      stop();
+      move(-e.deltaX, -e.deltaY);
+      hideHint();
+    }, { passive: false });
+
+    // Arrow keys, when no image is open
+    document.addEventListener('keydown', function (e) {
+      if (document.querySelector('.lightbox')) return;
+      var k = { ArrowLeft: [1, 0], ArrowRight: [-1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+      if (!k) return;
+      e.preventDefault();
+      move(k[0] * 120, k[1] * 120);
+      hideHint();
+    });
+
+    // Tabbing to an image brings it to the middle of the screen
+    root.addEventListener('focusin', function (e) {
+      var it = e.target.closest('.archive__item');
+      if (!it || !e.target.matches(':focus-visible')) return;
+      var r = it.getBoundingClientRect();
+      move(innerWidth / 2 - (r.left + r.width / 2), innerHeight / 2 - (r.top + r.height / 2));
+    });
+
+    addEventListener('resize', function () { size(); render(); });
+    size();
+    // Start slightly offset so the first view isn't the plane's top-left corner
+    ox = -W * .03; oy = 40;
+    render();
+  })();
+  </script>
+  <script src="/assets/lightbox.js"></script>
+</body>
+</html>
