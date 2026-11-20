@@ -414,23 +414,25 @@
     .lifecycle { margin: 56px 0 0; }
     .lifecycle .kicker { margin-top: 0; margin-bottom: 24px; }
     .lifecycle__steps { list-style: none; margin: 0; padding: 0; position: relative; }
-    .lifecycle__step:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 34px; bottom: -50px; width: 1px; background: rgba(41, 0, 114, .12); }
+    .lifecycle__step:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 30px; bottom: -32px; width: 1px; background: rgba(41, 0, 114, .12); }
     .lifecycle__step { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start; }
-    .lifecycle__step + .lifecycle__step { margin-top: 16px; }
-    .lifecycle__num { position: relative; margin-top: 20px; width: 28px; height: 28px; border-radius: 50%; background: #e7e1f0; color: var(--ink);
+    .lifecycle__step + .lifecycle__step { margin-top: 12px; }
+    .lifecycle__num { position: relative; margin-top: 16px; width: 28px; height: 28px; border-radius: 50%; background: #e7e1f0; color: var(--ink);
       font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-    .lifecycle__card { padding: 20px 24px 24px; border-radius: 8px; background: rgba(41, 0, 114, .045); box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .lifecycle__card { display: grid; grid-template-columns: 1fr auto; column-gap: 24px; align-items: center; padding: 16px 20px; border-radius: 8px; background: rgba(41, 0, 114, .045); box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .lifecycle__when, .lifecycle__title, .lifecycle__desc { grid-column: 1; }
     .lifecycle__when { margin: 0; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--ink); }
     .lifecycle__when span { font-weight: 400; color: var(--text-muted); }
-    .lifecycle__title { margin: 4px 0 0; font-size: 18px; line-height: 26px; font-weight: 600; color: var(--ink); }
-    .lifecycle__desc { margin: 4px 0 0; font-size: 15px; line-height: 24px; color: var(--text); }
-    .lifecycle__chips { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .lifecycle__title { margin: 2px 0 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+    .lifecycle__desc { margin: 0; font-size: 15px; line-height: 24px; color: var(--text); }
+    .lifecycle__chips { grid-column: 2; grid-row: 1 / span 3; justify-content: flex-end; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
     .lifecycle__chips li { padding: 6px 12px; border-radius: 999px; background: #fff;
       font-size: 13px; line-height: 18px; color: var(--text); }
     .lifecycle__chips li span { color: var(--text-muted); }
     @media (max-width: 700px) {
       .lifecycle__step { gap: 12px; }
-      .lifecycle__card { padding: 16px 16px 20px; }
+      .lifecycle__card { display: block; padding: 16px; }
+      .lifecycle__chips { margin-top: 12px; justify-content: flex-start; }
     }
 
     /* Scroll reveal: added by script, so without JS (or with reduced motion) everything is simply shown */
