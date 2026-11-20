@@ -132,25 +132,9 @@
       background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
       transition: background-size .3s ease, color .2s ease;
     }
-    /* Hover: a soft line draws in from the left. Selected: the link turns ink with a solid line under it */
-    .nav__links { position: relative; }
+    /* Hover: a soft line draws in from the left. Selected: the link is darker, with no line */
     .nav__links a:hover { background-size: 100% 2px; }
-    .nav__links a[aria-current="page"] {
-      color: var(--ink);
-      background-image: linear-gradient(var(--ink), var(--ink));
-      background-size: 100% 2px;
-    }
-    /* With JavaScript one line slides from the previous section to the new one (assets/nav.js) */
-    .nav__links.has-line a[aria-current="page"] { background-size: 0 2px; }
-    .nav__line {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 2px;
-      background: var(--ink);
-      pointer-events: none;
-    }
-    .nav__line.is-moving { transition: transform .5s cubic-bezier(.65, 0, .35, 1), width .5s cubic-bezier(.65, 0, .35, 1); }
+    .nav__links a[aria-current="page"] { color: var(--ink); background-size: 0 2px; }
 
     /* Hero */
     .eyebrow {
@@ -799,6 +783,5 @@
     })();
   </script>
   <script src="/assets/lightbox.js"></script>
-  <script src="/assets/nav.js"></script>
 </body>
 </html>
