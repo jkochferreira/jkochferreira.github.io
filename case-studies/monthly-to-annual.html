@@ -126,15 +126,15 @@
       color: var(--nav-text);
       text-decoration: none;
     }
-    /* Soft highlight under the link instead of a thin underline */
     .nav__links a {
       padding: 0 3px;
       margin: 0 -3px;
-      background: linear-gradient(rgba(41, 0, 114, .13), rgba(41, 0, 114, .13)) no-repeat 0 100% / 100% 0;
-      transition: background-size .2s ease;
+      background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
+      transition: background-size .3s ease, color .2s ease;
     }
-    .nav__links a:hover { background-size: 100% 3px; }
-    .nav__links a[aria-current="page"] { background-size: 100% 3px; }
+    /* Hover: a soft line draws in from the left. Selected: the link is darker, with no line */
+    .nav__links a:hover { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] { color: var(--ink); font-weight: 500; background-size: 0 2px; }
 
     /* Hero */
     .eyebrow {
@@ -265,34 +265,27 @@
     .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Plan comparison screens: label above, no outline */
     .stack__box .stack__label { margin-bottom: 12px; }
-    /* Note under a screen: an arrow drawn from the screen down to a caption-style line */
-    .note {
-      position: relative;
-      margin-left: 49%;
-      padding: 30px 0 0 100px;
-    }
-    .note__arrow {
+    /* Annotated screen: notes on the lilac background, each with a straight arrow to the part of the card it explains */
+    .anatomy { position: relative; margin-top: 32px; }
+    .anatomy__img { border-radius: 12px; }
+    .anatomy__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .anatomy__lines circle { fill: var(--text-muted); }
+    .anatomy__lines path { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .anatomy__notes { margin: 0; }
+    .anatomy__note {
       position: absolute;
-      left: 0;
-      top: -28px;
-      width: 96px;
-      height: 96px;
-      fill: none;
-      stroke: var(--text-muted);
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      top: var(--y);
+      left: 58.5%;
+      right: 4%;
+      max-width: 240px;
+      margin: -10px 0 0;
+      font-size: 13px;
+      line-height: 20px;
+      color: var(--text);
     }
-    .note__text {
-      max-width: 320px;
-      margin: 0;
-      font-size: 14px;
-      line-height: 22px;
-      color: var(--text-muted);
-    }
-    @media (max-width: 600px) {
-      .note { margin-left: 22%; padding: 22px 0 0 72px; }
-      .note__arrow { top: -24px; width: 68px; height: 68px; }
+    @media (max-width: 700px) {
+      .anatomy__lines { display: none; }
+      .anatomy__note { position: static; margin: 20px 0 0; }
     }
     /* Before/after crops stacked, each at full column width */
     .stack figure + figure { margin-top: 32px; }
@@ -307,6 +300,54 @@
     }
     .stack__img,
     .media__img--bordered { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    /* Screen on a lilac panel with its note inside, joined by a small arrow from the part of the screen it explains */
+    .callout { background: #d5cde2; border-radius: 12px; overflow: hidden; }
+    .callout .media__img { border-radius: 0; }
+    .callout__media { position: relative; }
+    .callout__arrow {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      bottom: -14px;
+      width: 0;
+      border-left: 1px solid var(--text-muted);
+    }
+    .callout__arrow::before {
+      content: ""; position: absolute; top: -3px; left: -3.5px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+    }
+    .callout__arrow::after {
+      content: ""; position: absolute; bottom: 0; left: -4px;
+      width: 6px; height: 6px; border-right: 1px solid var(--text-muted); border-bottom: 1px solid var(--text-muted);
+      transform: rotate(45deg); transform-origin: center;
+    }
+    .callout__note {
+      margin: 0;
+      padding: 20px 6% 26px 6.2%;
+      font-size: 13px;
+      line-height: 20px;
+      color: var(--text);
+    }
+    @media (max-width: 600px) { .callout__note { padding: 22px 16px 20px; } }
+    /* A/B test variants: a letter badge and a name, so they don't read as before and after */
+    .variants figure + figure { margin-top: 48px; }
+    .variant { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+    .variant__badge {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #e7e1f0; color: var(--ink);
+      font-size: 12px; font-weight: 600; line-height: 1;
+    }
+    .variant__name { font-size: 14px; font-weight: 600; color: var(--ink); }
+    .variant__tag {
+      padding: 2px 8px; border-radius: 999px;
+      border: 1px solid rgba(41, 0, 114, .25);
+      font-size: 12px; line-height: 18px; font-weight: 500; color: var(--text-muted);
+    }
+    /* Before and after side by side */
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .pair__img { border-radius: 12px; }
+    @media (max-width: 600px) { .pair { gap: 12px; } }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
@@ -368,6 +409,45 @@
       height: clamp(160px, 26vw, 360px);
       background: #fff;
     }
+
+    /* Customer's lifecycle: vertical timeline of milestones and their touchpoints */
+    .lifecycle { margin: 56px 0 0; }
+    .lifecycle .kicker { margin-top: 0; margin-bottom: 24px; }
+    .lifecycle__steps { list-style: none; margin: 0; padding: 0; position: relative; }
+    .lifecycle__step:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 30px; bottom: -32px; width: 1px; background: rgba(41, 0, 114, .12); }
+    .lifecycle__step { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start; }
+    .lifecycle__step + .lifecycle__step { margin-top: 12px; }
+    .lifecycle__num { position: relative; margin-top: 16px; width: 28px; height: 28px; border-radius: 50%; background: #e7e1f0; color: var(--ink);
+      font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .lifecycle__card { display: grid; grid-template-columns: 1fr auto; column-gap: 24px; align-items: center; padding: 16px 20px; border-radius: 8px; background: rgba(41, 0, 114, .045); box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .lifecycle__when, .lifecycle__title, .lifecycle__desc { grid-column: 1; }
+    .lifecycle__when { margin: 0; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--ink); }
+    .lifecycle__when span { font-weight: 400; color: var(--text-muted); }
+    .lifecycle__title { margin: 2px 0 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+    .lifecycle__desc { margin: 0; font-size: 15px; line-height: 24px; color: var(--text); }
+    .lifecycle__chips { grid-column: 2; grid-row: 1 / span 3; justify-content: flex-end; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .lifecycle__chips li { padding: 6px 12px; border-radius: 999px; background: #fff;
+      font-size: 13px; line-height: 18px; color: var(--text); }
+    .lifecycle__chips li span { color: var(--text-muted); }
+    @media (max-width: 700px) {
+      .lifecycle__step { gap: 12px; }
+      .lifecycle__card { display: block; padding: 16px; }
+      .lifecycle__chips { margin-top: 12px; justify-content: flex-start; }
+    }
+
+    /* Scroll reveal: added by script, so without JS (or with reduced motion) everything is simply shown */
+    .lifecycle--anim .lifecycle__num { opacity: 0; transition: opacity 1s ease; }
+    .lifecycle--anim .lifecycle__card { opacity: 0; transform: translateY(8px); transition: opacity 1.1s cubic-bezier(.25,.1,.25,1) .1s, transform 1.1s cubic-bezier(.25,.1,.25,1) .1s; }
+    .lifecycle--anim .lifecycle__step::before { transform: scaleY(0); transform-origin: top; transition: transform 1.2s cubic-bezier(.4,0,.2,1) .3s; }
+    .lifecycle--anim .is-in .lifecycle__num { transform: none; opacity: 1; }
+    .lifecycle--anim .is-in .lifecycle__card { opacity: 1; transform: none; }
+    .lifecycle--anim .is-in::before { transform: scaleY(1); }
+
+    .carousel--tests .media__img { border-radius: 12px; aspect-ratio: 2000 / 1147; object-fit: cover; }
+
+    /* Small uppercase label above a heading */
+    .overline { margin: 96px 0 12px; font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+    .overline + h3 { margin-top: 0; }
 
     /* Subhead inside a section: body size, bold */
     .kicker { margin: 48px 0 8px; font-size: 18px; line-height: 28px; font-weight: 600; }
@@ -550,6 +630,7 @@
           <a class="nav__name" href="/">Joana Koch Ferreira</a>
           <div class="nav__links">
             <a href="/" aria-current="page">Work</a>
+            <a href="/archive.html">Archive</a>
             <a href="/about.html">About</a>
           </div>
         </nav>
@@ -649,45 +730,136 @@
         <section class="section">
           <h2>Designing the experience</h2>
           <div class="prose">
-            <p>I first mapped the customer's first year and the ways the product could talk to customers. This set when to reach people, in which format, and how loud each message should be: subtle nudges throughout, more prominent messages at milestones.</p>
+            <p>I started by mapping the customer's first year: the milestones where an offer to switch could feel timely rather than pushy, and the notification cadence around each one. How many reminders, on which pages, with what escalating or de-escalating prominence, and through which channels: in the product, from subtle nudges to modal dialogs, or outside it, through email and push notifications.</p>
           </div>
         </section>
       </div>
 
-      <figure class="media wide">
-        <img class="media__img media__img--bordered" src="/case-studies/images/m2a/customer-lifecycle.webp" alt="Customer's lifecycle over the first twelve months: activation, adoption, consistent non-blocking nudges, a 3-month celebration campaign, the renewal email used to trigger the offer, and a 6-month celebration campaign with a modal and an email follow-up">
-        <figcaption><strong>Customer's lifecycle.</strong> Defining a notification cadence: how many reminders, on which pages, through which channels (in-app, email, possibly mobile), and with what escalating or de-escalating prominence.</figcaption>
-      </figure>
+      <div class="content">
+        <div class="lifecycle">
+          <p class="kicker">Customer's lifecycle</p>
+          <ol class="lifecycle__steps">
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">01</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Day 1 – Month 2 <span>· Activation</span></p>
+              <p class="lifecycle__title">The first meaningful action</p>
+              <p class="lifecycle__desc">One document completed within the first 30 days.</p>
+              <ul class="lifecycle__chips"><li>Email <span>· Onboarding</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">02</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Month 3 <span>· Activation</span></p>
+              <p class="lifecycle__title">3-month celebration campaign</p>
+              <p class="lifecycle__desc">Celebrate the milestone and introduce the offer, using the renewal email to trigger it.</p>
+              <ul class="lifecycle__chips"><li>Email <span>· Renewal offer</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">03</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Months 4–5 <span>· Adoption</span></p>
+              <p class="lifecycle__title">Build the habit</p>
+              <p class="lifecycle__desc">Consistent nudges: persistent but non-blocking placements.</p>
+              <ul class="lifecycle__chips"><li>Nudge <span>· Persistent placements</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">04</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Month 6 <span>· Adoption</span></p>
+              <p class="lifecycle__title">6-month celebration campaign</p>
+              <p class="lifecycle__desc">The existing modal dialog, followed by an email to reinforce it outside the product.</p>
+              <ul class="lifecycle__chips"><li>Modal dialog</li><li>Email <span>· Follow-up</span></li></ul>
+            </div>
+          </li>
+          <li class="lifecycle__step">
+            <span class="lifecycle__num" aria-hidden="true">05</span>
+            <div class="lifecycle__card">
+              <p class="lifecycle__when">Months 7–12 <span>· Ongoing</span></p>
+              <p class="lifecycle__title">Stay present, not intrusive</p>
+              <p class="lifecycle__desc">Persistent placements: visible in the product, never in the way.</p>
+              <ul class="lifecycle__chips"><li>Nudge <span>· Persistent placements</span></li></ul>
+            </div>
+          </li>
+          </ol>
+        </div>
+      </div>
 
-      <figure class="media wide">
-        <img class="media__img media__img--bordered" src="/case-studies/images/m2a/product-communication-nudges.webp" alt="Types of product communication: in-app banners, tooltips, nudges, side panels, modals and walkthroughs, and out-of-app email and push notifications, with the difference between a nudge and a modal">
-        <figcaption><strong>Product communication and nudges.</strong> The ways the product can talk to customers, in-app and outside it, and the difference between a nudge and a modal.</figcaption>
-      </figure>
+
+      <div class="content">
+        <section class="section" style="margin-top: 56px;">
+          <p class="kicker">First drafts</p>
+          <div class="prose">
+            <p>I played with both timing and format: subtle, contextual nudges throughout the year, and more prominent messages at milestones. I drafted several combinations, iterating on form and placement before scaling: persistent banners, inline cards and prompts beside checkout instead of modals, and no offers during critical workflows, such as editing a document.</p>
+          </div>
+        </section>
+      </div>
+
+      <div class="carousel carousel--tests wide" aria-label="Communication tests" data-lightbox-bare>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-pricing-toggle.webp" alt="Pricing page with a Monthly and Annual segmented control, -25%, and a Save 25%, switch to annual button on the Business plan" loading="lazy">
+          <figcaption><strong>Subtle nudges.</strong> Create awareness of annual billing and increase its exposure on the pricing page.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-billing-seats-card.webp" alt="Billing page with a Save $144 by switching to annual card placed next to the seat cards" loading="lazy">
+          <figcaption><strong>Contextual nudge.</strong> The same pattern on the billing page: it feels native to the product and can sit wherever it is relevant.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-billing-banner.webp" alt="Billing page with a small banner under the seats: Save $144 by switching to annual billing, with a Switch to annual button and a close button" loading="lazy">
+          <figcaption><strong>Small banner.</strong> Gently influences behaviour in context, without being intrusive.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-seats-card.webp" alt="Users page with an Add seats for less card next to the seat cards: switch to annual and save 30% on each seat per month" loading="lazy">
+          <figcaption><strong>Signal-based nudge.</strong> Shown when the team grows, with user invites or more seats.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-promo-popover.webp" alt="Home page top bar with a 3 days only, 50% off link that opens a popover: Save $390 annually with 50% off, our biggest savings offer of the year, with a Switch to annual button" loading="lazy">
+          <figcaption><strong>Limited-time offer.</strong> A link in the top bar opens the year's biggest saving, only for a few days.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-milestone-modal.webp" alt="Milestone modal: 6 months with us! Save $685 when you switch to annual billing, with the Business annual price and a Save with annual plan button" loading="lazy">
+          <figcaption><strong>Special occasion modal.</strong> Tied to a milestone or promotion, so it can afford a more visual and engaging UI.</figcaption>
+        </figure>
+        <figure>
+          <img class="media__img" src="/case-studies/images/m2a/test-checkout-tooltip.webp" alt="Checkout with the monthly plan selected and a tooltip beside it: Save $130 per year, that's 4 months worth of saving, switch to annual?" loading="lazy">
+          <figcaption><strong>Tooltip at checkout.</strong> Appears when the customer picks monthly, framing the saving as four months' worth.</figcaption>
+        </figure>
+      </div>
 
       <div class="content">
         <section class="section" style="margin-top: 0;">
+          <p class="overline">Final designs</p>
           <h3>Plan comparison</h3>
           <div class="prose">
             <p>I added a monthly/annual toggle to each plan card and changed "Manage current plan" to "Save 25%, Switch to annual". An earlier study had shown that toggles could confuse people, so we tested the design in Maze before building: 93–97% task success with 30 participants, and 67% preferred the toggle inside the card. It became the standard for that page.</p>
           </div>
-          <figure class="media stack">
-            <figure class="stack__box">
+          <div class="media pair">
+            <figure>
               <figcaption class="stack__label">Before</figcaption>
-              <img class="media__img" src="/case-studies/images/m2a/plan-comparison-before.webp" alt="Before: the plan comparison page with no way to see or choose annual billing">
+              <img class="media__img pair__img" src="/case-studies/images/m2a/plan-card-before-panel.webp" alt="Before: the Business plan card with no billing choice, showing From $65 per seat per month and a Manage current plan button">
             </figure>
             <figure>
-              <div class="stack__box">
-                <figcaption class="stack__label">After</figcaption>
-                <img class="media__img" src="/case-studies/images/m2a/plan-comparison-after-toggle.webp" alt="After: the plan comparison page with an annual billing toggle and a Save 25% tag on each plan card, and the current plan button reading Save 25%, Switch to annual">
-              </div>
-              <div class="note">
-                <svg class="note__arrow" viewBox="0 0 100 100" aria-hidden="true">
-                  <path d="M8 2 C 4 46, 18 84, 92 92" />
-                  <path d="M80 83 L 93 92 L 79 99" />
-                </svg>
-                <p class="note__text">Behavioral design nudge that directly influences user decision-making in a positive way.</p>
-              </div>
+              <figcaption class="stack__label">After</figcaption>
+              <video class="media__video pair__img" src="/case-studies/images/m2a/plan-card-toggle.mp4" poster="/case-studies/images/m2a/plan-card-toggle.jpg" autoplay muted loop playsinline preload="metadata" aria-label="After: switching on Annual billing in the plan card drops the price from $65 to $49 and changes the button to Save 25%, Switch to annual"></video>
             </figure>
+          </div>
+          <p class="kicker">The nudge in the card</p>
+          <div class="prose">
+            <p>The new card is a behavioural design nudge that influences the customer's decision in a positive way. It puts the annual option and its saving in front of them at the moment they look at their plan, while leaving the choice to them.</p>
+          </div>
+          <figure class="anatomy">
+            <img class="media__img anatomy__img" src="/case-studies/images/m2a/plan-card-annotated.webp" alt="The Business plan card with Annual billing switched on: From $49 with $65 struck through, a Save 25% tag and a Save 25%, Switch to annual button">
+            <svg class="anatomy__lines" viewBox="0 0 2000 1297" aria-hidden="true">
+              <g><circle cx="1000" cy="563" r="7"/><path d="M1000 563H1124"/><path d="M1110 552L1124 563L1110 574"/></g>
+              <g><circle cx="1000" cy="857" r="7"/><path d="M1000 857H1124"/><path d="M1110 846L1124 857L1110 868"/></g>
+            </svg>
+            <figcaption class="anatomy__notes">
+              <p class="anatomy__note" style="--y: 43.4%;">A toggle in each card to make annual billing visible and its price transparent</p>
+              <p class="anatomy__note" style="--y: 66.1%;">A button that names the saving, to encourage the switch from monthly to annual</p>
+            </figcaption>
           </figure>
           <div class="prose" style="margin-top: 72px;">
             <p>What participants said in the Maze study:</p>
@@ -708,33 +880,45 @@
           <div class="prose">
             <p>On the billing page, the savings component became more prominent and showed each customer's own saving, with a direct way to switch. It got fewer clicks, but more of them converted.</p>
           </div>
-          <figure class="media stack">
+          <div class="media stack">
             <figure>
-              <figcaption class="stack__label">Before</figcaption>
-              <img class="media__img stack__img" src="/case-studies/images/m2a/plan-card-before.webp" alt="Before: the plan card with a small Save with annual plan link next to Manage plan">
+              <p class="stack__label">Before</p>
+              <div class="callout" style="--x: 25.9%; --y: 77.5%;">
+                <div class="callout__media">
+                  <img class="media__img" src="/case-studies/images/m2a/billing-card-before.webp" alt="Before: the billing page plan card, $130 per month on Business Monthly, with a small Save with annual plan link next to Manage plan">
+                  <span class="callout__arrow" aria-hidden="true"></span>
+                </div>
+                <figcaption class="callout__note">Annual billing was a small text link next to "Manage plan", easy to miss and with no hint of how much it saved.</figcaption>
+              </div>
             </figure>
             <figure>
-              <figcaption class="stack__label">After</figcaption>
-              <img class="media__img stack__img" src="/case-studies/images/m2a/plan-card-after.webp" alt="After: the plan card with a permanent nudge, Save $16 per month on a yearly billing, Switch to annual">
+              <p class="stack__label">After</p>
+              <div class="callout" style="--x: 41.7%; --y: 64.5%;">
+                <div class="callout__media">
+                  <img class="media__img" src="/case-studies/images/m2a/billing-card-after.webp" alt="After: the same plan card with a permanent nudge, Save $16 per month on a yearly billing, and a Switch to annual link">
+                  <span class="callout__arrow" aria-hidden="true"></span>
+                </div>
+                <figcaption class="callout__note">A permanent nudge shows the customer's own saving, $16 a month, with a direct "Switch to annual" link.</figcaption>
+              </div>
             </figure>
-            <figcaption>The billing page plan card: a small text link before, a permanent nudge with the customer's own saving after.</figcaption>
-          </figure>
+          </div>
 
           <p class="kicker">Checkout</p>
           <div class="prose">
             <p>At checkout, we ran an A/B test with trial accounts. Accounts were split 50/50, and each group saw a different nudge: a savings card on the annual plan card, showing the amount and the % discount, or a tooltip showing the saving as months saved. Each variant reached at least 3,500 accounts, with no control group because of the sample size.</p>
           </div>
-          <figure class="media stack">
+          <div class="media stack variants">
             <figure>
-              <figcaption class="stack__label">Version A</figcaption>
+              <p class="variant"><span class="variant__badge">A</span><span class="variant__name">Savings card</span></p>
               <img class="media__img stack__img" src="/case-studies/images/m2a/checkout-savings-card.webp" alt="Version A: at checkout, a small savings card, Save $192 per year, always visible inside the annual plan card">
+              <figcaption>A savings card inside the annual option, always visible: "Save $192 per year".</figcaption>
             </figure>
             <figure>
-              <figcaption class="stack__label">Version B</figcaption>
+              <p class="variant"><span class="variant__badge">B</span><span class="variant__name">Tooltip</span><span class="variant__tag">Winner</span></p>
               <video class="media__video stack__img" src="/case-studies/images/m2a/checkout-tooltip.mp4" poster="/case-studies/images/m2a/checkout-tooltip.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Version B: at checkout, selecting the monthly plan opens a tooltip, Save $192 per year, switch to annual"></video>
+              <figcaption>A tooltip that appears only when the customer picks the monthly plan, framing the saving as four months' worth of savings.</figcaption>
             </figure>
-            <figcaption>The two checkout variants in the 50/50 test: a savings card that is always visible, and a tooltip that appears only on the monthly plan.</figcaption>
-          </figure>
+          </div>
           <table class="table table--results">
             <thead>
               <tr><th scope="col">Tooltip vs savings card</th><th scope="col">7 days</th><th scope="col">14 days</th><th scope="col">30 days</th></tr>
@@ -914,6 +1098,19 @@
       layout();
     })();
   </script>
+  <script>
+    // Timeline steps appear one by one as they scroll into view
+    (function () {
+      var tl = document.querySelector('.lifecycle');
+      if (!tl || !window.IntersectionObserver || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      tl.classList.add('lifecycle--anim');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -15% 0px' });
+      tl.querySelectorAll('.lifecycle__step').forEach(function (s) { io.observe(s); });
+    })();
+  </script>
+  <script src="/assets/carousel.js"></script>
   <script src="/assets/lightbox.js"></script>
 </body>
 </html>

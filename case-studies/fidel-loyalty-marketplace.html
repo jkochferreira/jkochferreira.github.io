@@ -126,15 +126,15 @@
       color: var(--nav-text);
       text-decoration: none;
     }
-    /* Soft highlight under the link instead of a thin underline */
     .nav__links a {
       padding: 0 3px;
       margin: 0 -3px;
-      background: linear-gradient(rgba(41, 0, 114, .13), rgba(41, 0, 114, .13)) no-repeat 0 100% / 100% 0;
-      transition: background-size .2s ease;
+      background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
+      transition: background-size .3s ease, color .2s ease;
     }
-    .nav__links a:hover { background-size: 100% 3px; }
-    .nav__links a[aria-current="page"] { background-size: 100% 3px; }
+    /* Hover: a soft line draws in from the left. Selected: the link is darker, with no line */
+    .nav__links a:hover { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] { color: var(--ink); font-weight: 500; background-size: 0 2px; }
 
     /* Hero */
     .eyebrow {
@@ -440,42 +440,37 @@
     .media__frame--bleed { padding: 0 0 0 clamp(28px, 8%, 64px); }
     .media__frame--bleed img { border-radius: 0; }
 
-    /* Screens in a tinted frame, each with a note outside: a drawn arrow and a caption-style line, as in Monthly to Annual */
-    .shot { padding: clamp(12px, 3%, 24px); background: #edf1f4; border-radius: 8px; }
-    .shot .media__img { border-radius: 0; }
-    .problems .note + .shot { margin-top: 56px; }
-    .note {
-      position: relative;
-      padding: 12px 0 0 84px;
-    }
-    .note__arrow {
+    /* Screens in a tinted frame with the note inside, joined by a small arrow from the part of the screen it explains, as in Monthly to Annual */
+    .callout { --pad: clamp(12px, 3%, 24px); background: #edf1f4; border-radius: 8px; overflow: hidden; }
+    .callout + .callout { margin-top: 48px; }
+    .callout__media { padding: var(--pad) var(--pad) 0; }
+    .callout__frame { position: relative; }
+    .callout .media__img { border-radius: 0; }
+    .callout__arrow {
       position: absolute;
-      left: 0;
-      top: -54px;
-      width: 76px;
-      height: 76px;
-      fill: none;
-      stroke: var(--text-muted);
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+      left: var(--x);
+      top: var(--y);
+      bottom: -14px;
+      width: 0;
+      border-left: 1px solid var(--text-muted);
     }
-    .note__text {
-      max-width: 260px;
+    .callout__arrow::before {
+      content: ""; position: absolute; top: -3px; left: -3.5px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+    }
+    .callout__arrow::after {
+      content: ""; position: absolute; bottom: 0; left: -4px;
+      width: 6px; height: 6px; border-right: 1px solid var(--text-muted); border-bottom: 1px solid var(--text-muted);
+      transform: rotate(45deg); transform-origin: center;
+    }
+    .callout__note {
       margin: 0;
-      font-size: 14px;
-      line-height: 22px;
-      color: var(--text-muted);
+      padding: 20px 6% 26px 6.3%;
+      font-size: 13px;
+      line-height: 20px;
+      color: var(--text);
     }
-    /* Mirrored: the arrow curves down to the left and the line sits to its left */
-    .note--left { padding: 12px 84px 0 0; }
-    .note--left .note__arrow { left: auto; right: 0; transform: scaleX(-1); }
-    .note--left .note__text { margin-left: auto; text-align: right; }
-    @media (max-width: 600px) {
-      .note { margin-left: 18% !important; padding: 8px 0 0 60px; }
-      .note__arrow { top: -30px; width: 54px; height: 54px; }
-      .note--left { margin-left: 0 !important; margin-right: 12% !important; padding: 8px 60px 0 0; }
-    }
+    @media (max-width: 600px) { .callout__note { padding: 22px 16px 20px; } }
 
     .meta--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     @media (max-width: 480px) { .meta--two { grid-template-columns: 1fr; } }
@@ -587,6 +582,7 @@
           <a class="nav__name" href="/">Joana Koch Ferreira</a>
           <div class="nav__links">
             <a href="/" aria-current="page">Work</a>
+            <a href="/archive.html">Archive</a>
             <a href="/about.html">About</a>
           </div>
         </nav>
@@ -630,19 +626,19 @@
       </div>
 
       <figure class="media wide problems">
-        <div class="shot">
-          <img class="media__img" src="/case-studies/images/fidel/marketplace-list-before.webp" alt="The Marketplace before the redesign: a list of offers showing 11 of 256">
+        <div class="callout" style="--x: 28.4%; --y: 87%;">
+          <div class="callout__media"><div class="callout__frame">
+            <img class="media__img" src="/case-studies/images/fidel/marketplace-list-before.webp" alt="The Marketplace before the redesign: a list of offers showing 11 of 256">
+            <span class="callout__arrow" aria-hidden="true"></span>
+          </div></div>
+          <p class="callout__note">Because of how the database was set up, brands and offers were hidden under multiple pages that could only be uncovered with endless scrolling.</p>
         </div>
-        <div class="note" style="margin-left: 27%;">
-          <svg class="note__arrow" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 2 C 4 46, 18 84, 92 92"/><path d="M80 83 L 93 92 L 79 99"/></svg>
-          <p class="note__text">Because of how the database was set up, brands and offers were hidden under multiple pages that could only be uncovered with endless scrolling.</p>
-        </div>
-        <div class="shot">
-          <img class="media__img" src="/case-studies/images/fidel/marketplace-offer-before.webp" alt="The Marketplace before the redesign with an offer's details open and an Add to programs button">
-        </div>
-        <div class="note note--left" style="margin-right: 19%;">
-          <svg class="note__arrow" viewBox="0 0 100 100" aria-hidden="true"><path d="M8 2 C 4 46, 18 84, 92 92"/><path d="M80 83 L 93 92 L 79 99"/></svg>
-          <p class="note__text">When a new offer was created or added from the Marketplace, it landed in a random place in the list, so customers couldn't find their offers.</p>
+        <div class="callout" style="--x: 82.8%; --y: 90.5%;">
+          <div class="callout__media"><div class="callout__frame">
+            <img class="media__img" src="/case-studies/images/fidel/marketplace-offer-before.webp" alt="The Marketplace before the redesign with an offer's details open and an Add to programs button">
+            <span class="callout__arrow" aria-hidden="true"></span>
+          </div></div>
+          <p class="callout__note">When a new offer was created or added from the Marketplace, it landed in a random place in the list, so customers couldn't find their offers.</p>
         </div>
       </figure>
 
@@ -725,8 +721,28 @@
         <figcaption>The final filters: less common options under "More filters", sorting in the column headers, and a search inside each filter.</figcaption>
       </figure>
 
+      <aside class="side" aria-label="Design system">
+        <div class="content">
+          <section class="section" style="margin-top: 0;">
+            <p class="side__label">Design system</p>
+            <h2>Shared design language</h2>
+            <div class="prose">
+              <p>As the design team grew, it became clear that existing projects had been built without a design system, so each one looked and behaved slightly differently.</p>
+              <p>I proposed a shared design language for the dashboard and website and built most of it myself, to give customers a more consistent experience and designers and developers a single reference. It included foundations such as colour palettes, typography (Inter and Roboto Mono) and an icon set, as well as core components like buttons, input fields, dropdowns, notifications, and transaction and offer cards.</p>
+              <p>Another designer worked with me on the guidelines, which explained how to use each element, with do/don't examples and practical rules such as ordering content by importance, validating forms inline, keeping labels consistent and when to use tooltips.</p>
+            </div>
+          </section>
+        </div>
+
+        <figure class="media wide">
+          <img class="media__img" src="/case-studies/images/fidel/design-language-overview.webp" alt="Design language overview: content hierarchy guidelines, do and don't examples for checkboxes, buttons, input field anatomy, icons, colour palettes and dashboard typography">
+          <figcaption>Part of the shared design language: guidelines, buttons, input fields, icons, colours and typography.</figcaption>
+        </figure>
+
+      </aside>
+
       <div class="content">
-        <section class="section" style="margin-top: 0;">
+        <section class="section" style="margin-top: 120px;">
           <h3>Merchant onboarding</h3>
           <div class="prose">
             <p>Merchants found it difficult to onboard their businesses to loyalty programmes. I explored a self-onboarding flow that would let them identify their business through a small test transaction.</p>
@@ -744,25 +760,6 @@
         <figcaption>The self-onboarding flow and its states, from the welcome screen and test charge to a found transaction, errors and an expired link.</figcaption>
       </figure>
 
-      <aside class="side" aria-label="Side project">
-        <div class="content">
-          <section class="section" style="margin-top: 0;">
-            <p class="side__label">Side project</p>
-            <h2>Shared design language</h2>
-            <div class="prose">
-              <p>As the design team grew, it became clear that existing projects had been built without a design system, so each one looked and behaved slightly differently.</p>
-              <p>I proposed a shared design language for the dashboard and website and built most of it myself, to give customers a more consistent experience and designers and developers a single reference. It included foundations such as colour palettes, typography (Inter and Roboto Mono) and an icon set, as well as core components like buttons, input fields, dropdowns, notifications, and transaction and offer cards.</p>
-              <p>Another designer worked with me on the guidelines, which explained how to use each element, with do/don't examples and practical rules such as ordering content by importance, validating forms inline, keeping labels consistent and when to use tooltips.</p>
-            </div>
-          </section>
-        </div>
-
-        <figure class="media wide">
-          <img class="media__img" src="/case-studies/images/fidel/design-language-overview.webp" alt="Design language overview: content hierarchy guidelines, do and don't examples for checkboxes, buttons, input field anatomy, icons, colour palettes and dashboard typography">
-          <figcaption>Part of the shared design language: guidelines, buttons, input fields, icons, colours and typography.</figcaption>
-        </figure>
-
-      </aside>
 
       <div class="content">
         <section class="section">

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archive — Joana Koch Ferreira</title>
+  <meta name="description" content="An archive of side projects, explorations and older work by Joana Koch Ferreira, Product Designer.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #290072;
+      --text: #0e0e0e;
+      --text-muted: #574774;
+      --nav-text: #3d3552;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --gutter: clamp(24px, 6.95vw, 120px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+    body {
+      overflow: hidden;
+      font-family: var(--sans);
+      color: var(--text);
+      background-color: #c7c2d0;
+      /* The same colour fields as the Work and About pages, held to the screen while the canvas moves */
+      background-image:
+        /* fades to white towards the bottom of the screen, as the other pages do further down */
+        linear-gradient(to bottom, rgba(255,255,255,0) 35%, rgba(255,255,255,.3) 60%, rgba(255,255,255,.7) 82%, #fff 100%),
+        radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
+        radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
+        radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
+        radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+      background-attachment: fixed;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Menu principal, the same as on the other pages, floating over the canvas */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      height: 108px;
+      /* same column as the other pages: 1728px wide at most, centred, with the gutter */
+      /* --sb is the width of a scrollbar on this device: the other pages scroll and this one doesn't,
+         so it is left out of the column here to keep the menu in exactly the same place */
+      padding-left: max(var(--gutter), calc((100% - var(--sb, 0px) - 1728px) / 2 + var(--gutter)));
+      padding-right: calc(max(var(--gutter), calc((100% - var(--sb, 0px) - 1728px) / 2 + var(--gutter))) + var(--sb, 0px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .nav a { pointer-events: auto; }
+    /* Images pass under the menu softly blurred, so the links stay readable */
+    .nav::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 -24px;
+      z-index: -1;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      -webkit-mask-image: linear-gradient(#000 55%, transparent);
+      mask-image: linear-gradient(#000 55%, transparent);
+    }
+    .nav__name {
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+    }
+    .nav__links { display: flex; gap: 36px; }
+    .nav__links a {
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--nav-text);
+      text-decoration: none;
+      padding: 0 3px;
+      margin: 0 -3px;
+      background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
+      transition: background-size .3s ease, color .2s ease;
+    }
+    /* Hover: a soft line draws in from the left. Selected: the link is darker, with no line */
+    .nav__links a:hover { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] { color: var(--ink); font-weight: 500; background-size: 0 2px; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+    }
+
+    /* Canvas: the images sit on a plane that repeats in every direction and is dragged around */
+    .archive {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .archive.is-dragging { cursor: grabbing; }
+    .archive__item {
+      position: absolute;
+      top: 0; left: 0;
+      margin: 0;
+      will-change: transform;
+    }
+    .archive__item img {
+      display: block;
+      width: var(--w, 220px);
+      height: auto;
+      border-radius: 4px;
+      box-shadow: 0 18px 40px rgba(20, 12, 40, .12), 0 2px 6px rgba(20, 12, 40, .06);
+      transition: transform .3s ease, box-shadow .3s ease;
+      -webkit-user-drag: none;
+    }
+    .archive__item img:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 48px rgba(20, 12, 40, .16), 0 2px 6px rgba(20, 12, 40, .06);
+    }
+    .archive.is-dragging .archive__item img { cursor: grabbing; }
+
+    /* The hint */
+    .hint {
+      position: fixed;
+      left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08), 0 4px 12px rgba(20, 12, 40, .06);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      pointer-events: none;
+      transition: opacity .6s ease;
+    }
+    .hint svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .hint.is-hidden { opacity: 0; }
+    .hint[hidden] { display: none; }
+
+    @media (max-width: 900px) {
+      .nav__links { gap: 32px; }
+    }
+    @media (max-width: 480px) {
+      .nav { height: 80px; }
+      .nav__links { gap: 20px; }
+    }
+    @media (max-width: 599px) {
+      .archive__item img { width: calc(var(--w, 300px) * .55); }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__name" href="/">Joana Koch Ferreira</a>
+    <nav class="nav__links">
+      <a href="/">Work</a>
+      <a href="/archive.html" aria-current="page">Archive</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="visually-hidden">Archive</h1>
+    <!-- Each item: data-x / data-y place its top-left corner on the canvas, in pixels at desktop size.
+         --w sets its width. The caption is shown under the image when it is opened. -->
+    <div class="archive" data-lightbox-group data-lightbox-bare aria-label="Archive. Drag to explore, or use the arrow keys.">
+      <figure class="archive__item" data-x="0" data-y="40" style="--w: 440px;">
+        <img src="/images/archive/archive-01.webp" alt="Portugal Fashion newspaper supplement: a yellow spread with large black type and designer profiles" draggable="false">
+        <figcaption class="visually-hidden">Portugal Fashion | Newspaper supplement</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="560" data-y="0" style="--w: 520px;">
+        <img src="/images/archive/archive-06.webp" alt="Homeotics mobile app concept: home automation screens for rooms, temperature and devices" draggable="false">
+        <figcaption class="visually-hidden">Homeotics | Mobile app concept</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="1220" data-y="90" style="--w: 460px;">
+        <img src="/images/archive/archive-02.webp" alt="Dédalo magazine cover: three-dimensional letters over a sky of clouds" draggable="false">
+        <figcaption class="visually-hidden">Dédalo | Architecture and critical art magazine proposal</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="1820" data-y="20" style="--w: 560px;">
+        <img src="/images/archive/archive-08.webp" alt="To-do list and mental health app concept: green screens for daily tasks, goals and a new task form" draggable="false">
+        <figcaption class="visually-hidden">To-do list and mental health app | Mobile app concept</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="120" data-y="470" style="--w: 480px;">
+        <img src="/images/archive/archive-10.webp" alt="Wit Software internal app concept: Android screens for events, news and meeting rooms" draggable="false">
+        <figcaption class="visually-hidden">Wit Software | Internal app concept</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="720" data-y="400" style="--w: 420px;">
+        <img src="/images/archive/archive-03.webp" alt="Quadrilátero magazine: a yellow article spread with a portrait framed by square corners" draggable="false">
+        <figcaption class="visually-hidden">Quadrilátero | Magazine concept and layout</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="1280" data-y="500" style="--w: 500px;">
+        <img src="/images/archive/archive-11.webp" alt="WITLIST branding concept: a pattern of W marks and list lines beside the logo" draggable="false">
+        <figcaption class="visually-hidden">WITLIST | Branding concept</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="1930" data-y="440" style="--w: 480px;">
+        <img src="/images/archive/archive-05.webp" alt="LIKEarchitects foldable brochure: red letters spelling Arquitetura over a grid of projects and photos" draggable="false">
+        <figcaption class="visually-hidden">LIKEarchitects | Architecture brochure</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="0" data-y="860" style="--w: 540px;">
+        <img src="/images/archive/archive-07.webp" alt="Jornal T website: an article page for the Portuguese textile community" draggable="false">
+        <figcaption class="visually-hidden">Jornal T | Website, 2016</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="680" data-y="780" style="--w: 500px;">
+        <img src="/images/archive/archive-04.webp" alt="Close-up of the Dédalo cover: letters built as open boxes, reading Place: Less" draggable="false">
+        <figcaption class="visually-hidden">Dédalo | Three-dimensional cover type</figcaption>
+      </figure>
+      <figure class="archive__item" data-x="1320" data-y="880" style="--w: 560px;">
+        <img src="/images/archive/archive-09.webp" alt="Salvador Olazabal brand and website: red and white pages built around the letter A" draggable="false">
+        <figcaption class="visually-hidden">Salvador Olazabal | Brand and website, 2016–2017</figcaption>
+      </figure>
+    </div>
+  </main>
+
+  <p class="hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>
+    Drag to explore
+  </p>
+
+  <script>
+  // Scrollbar width (0 where scrollbars float over the page), used to line the menu up with the other pages
+  (function () {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:absolute;top:-999px;width:100px;height:100px;overflow:scroll';
+    document.body.appendChild(d);
+    document.documentElement.style.setProperty('--sb', (d.offsetWidth - d.clientWidth) + 'px');
+    d.remove();
+  })();
+  </script>
+  <script>
+  // Canvas: the images sit once each on a grid a bit bigger than the screen.
+  // Drag (mouse or touch), a trackpad or the arrow keys move it; it glides a little after a fling,
+  // stretches slightly past the edges and settles back inside.
+  (function () {
+    var root = document.querySelector('.archive');
+    var hint = document.querySelector('.hint');
+    var items = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scale, minX, maxX, minY, maxY;
+    var ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
+
+    function measure() {
+      var small = innerWidth < 600;
+      scale = small ? .55 : 1; // the CSS shrinks the images by the same amount on phones
+      var top = small ? 96 : 124, side = small ? 24 : 56, bottom = 96;
+      // The canvas is as big as the images' spread
+      var w = 0, h = 0;
+      items.forEach(function (it) {
+        var img = it.querySelector('img');
+        var iw = img.offsetWidth, ih = img.naturalWidth ? iw * img.naturalHeight / img.naturalWidth : iw * .5625;
+        w = Math.max(w, +it.dataset.x * scale + iw);
+        h = Math.max(h, +it.dataset.y * scale + ih);
+      });
+      // How far the grid can move: centred when it fits, otherwise edge to edge with a margin
+      if (w + 2 * side <= innerWidth) { minX = maxX = (innerWidth - w) / 2; }
+      else { maxX = side; minX = innerWidth - side - w; }
+      if (h + top + bottom <= innerHeight) { minY = maxY = top + (innerHeight - top - bottom - h) / 2; }
+      else { maxY = top; minY = innerHeight - bottom - h; }
+      hint.hidden = minX === maxX && minY === maxY;
+    }
+
+    function render() {
+      items.forEach(function (it) {
+        var x = +it.dataset.x * scale + ox, y = +it.dataset.y * scale + oy;
+        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      });
+    }
+    function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+    // Past the edge a drag only moves a third as far, so it feels like stretching
+    function over(v, a, b) { return v < a ? a - v : v > b ? v - b : 0; }
+    function move(dx, dy, elastic) {
+      if (elastic) {
+        if (over(ox, minX, maxX)) dx /= 3;
+        if (over(oy, minY, maxY)) dy /= 3;
+        ox += dx; oy += dy;
+      } else {
+        ox = clamp(ox + dx, minX, maxX); oy = clamp(oy + dy, minY, maxY);
+      }
+      render();
+    }
+
+    // After a release: keep gliding, and ease back inside if stretched past an edge
+    function settle() {
+      vx *= .93; vy *= .93;
+      ox += vx; oy += vy;
+      var tx = clamp(ox, minX, maxX), ty = clamp(oy, minY, maxY);
+      if (tx !== ox) { vx *= .5; ox += (tx - ox) * .18; }
+      if (ty !== oy) { vy *= .5; oy += (ty - oy) * .18; }
+      render();
+      if (Math.abs(vx) < .1 && Math.abs(vy) < .1 && Math.abs(tx - ox) < .5 && Math.abs(ty - oy) < .5) {
+        ox = tx; oy = ty; render(); raf = null; return;
+      }
+      raf = requestAnimationFrame(settle);
+    }
+    function stop() { if (raf) cancelAnimationFrame(raf); raf = null; }
+    function release() {
+      if (reduce) { vx = vy = 0; ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY); render(); return; }
+      raf = requestAnimationFrame(settle);
+    }
+
+    var hidden = false;
+    function hideHint() { if (!hidden) { hidden = true; hint.classList.add('is-hidden'); } }
+
+    // Drag
+    var down = false, moved = false, lx, ly, lt, sx, sy;
+    root.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      stop();
+      down = true; moved = false;
+      sx = lx = e.clientX; sy = ly = e.clientY; lt = performance.now();
+      vx = vy = 0;
+    });
+    root.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - lx, dy = e.clientY - ly, now = performance.now(), dt = Math.max(now - lt, 1);
+      if (!moved && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 6) {
+        moved = true; root.classList.add('is-dragging'); hideHint();
+        root.setPointerCapture(e.pointerId); // only once it is a drag, so a plain click still reaches the image
+      }
+      if (moved) {
+        move(dx, dy, true);
+        vx = dx / dt * 16; vy = dy / dt * 16;
+      }
+      lx = e.clientX; ly = e.clientY; lt = now;
+    });
+    function end() {
+      if (!down) return;
+      down = false;
+      root.classList.remove('is-dragging');
+      if (performance.now() - lt > 80) { vx = vy = 0; }
+      if (moved) release();
+    }
+    root.addEventListener('pointerup', end);
+    root.addEventListener('pointercancel', end);
+    // A drag that ends on an image must not open it
+    root.addEventListener('click', function (e) {
+      if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+    }, true);
+
+    // Trackpad and mouse wheel
+    root.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      stop();
+      move(-e.deltaX, -e.deltaY);
+      hideHint();
+    }, { passive: false });
+
+    // Arrow keys, when no image is open
+    document.addEventListener('keydown', function (e) {
+      if (document.querySelector('.lightbox')) return;
+      var k = { ArrowLeft: [1, 0], ArrowRight: [-1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1] }[e.key];
+      if (!k) return;
+      e.preventDefault();
+      move(k[0] * 120, k[1] * 120);
+      hideHint();
+    });
+
+    // Tabbing to an image brings it into view
+    root.addEventListener('focusin', function (e) {
+      var it = e.target.closest('.archive__item');
+      if (!it || !e.target.matches(':focus-visible')) return;
+      var r = it.getBoundingClientRect();
+      move(innerWidth / 2 - (r.left + r.width / 2), innerHeight / 2 - (r.top + r.height / 2));
+    });
+
+    addEventListener('resize', function () { measure(); ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY); render(); });
+    // Once the images have loaded their real heights are known: measure again (and re-centre if nobody has moved it yet)
+    addEventListener('load', function () {
+      measure();
+      if (!hidden) { ox = (minX + maxX) / 2; oy = (minY + maxY) / 2; }
+      ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY);
+      render();
+    });
+    measure();
+    // Start in the middle of the canvas
+    ox = (minX + maxX) / 2; oy = (minY + maxY) / 2;
+    render();
+  })();
+  </script>
+  <script src="/assets/lightbox.js"></script>
+</body>
+</html>

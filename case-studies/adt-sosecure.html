@@ -126,15 +126,15 @@
       color: var(--nav-text);
       text-decoration: none;
     }
-    /* Soft highlight under the link instead of a thin underline */
     .nav__links a {
       padding: 0 3px;
       margin: 0 -3px;
-      background: linear-gradient(rgba(41, 0, 114, .13), rgba(41, 0, 114, .13)) no-repeat 0 100% / 100% 0;
-      transition: background-size .2s ease;
+      background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
+      transition: background-size .3s ease, color .2s ease;
     }
-    .nav__links a:hover { background-size: 100% 3px; }
-    .nav__links a[aria-current="page"] { background-size: 100% 3px; }
+    /* Hover: a soft line draws in from the left. Selected: the link is darker, with no line */
+    .nav__links a:hover { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] { color: var(--ink); font-weight: 500; background-size: 0 2px; }
 
     /* Hero */
     .eyebrow {
@@ -514,6 +514,7 @@
           <a class="nav__name" href="/">Joana Koch Ferreira</a>
           <div class="nav__links">
             <a href="/" aria-current="page">Work</a>
+            <a href="/archive.html">Archive</a>
             <a href="/about.html">About</a>
           </div>
         </nav>
