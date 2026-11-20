@@ -148,6 +148,7 @@
     }
     .hint svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .hint.is-hidden { opacity: 0; }
+    .hint[hidden] { display: none; }
 
     @media (max-width: 900px) {
       .nav__links { gap: 32px; }
@@ -157,7 +158,7 @@
       .nav__links { gap: 20px; }
     }
     @media (max-width: 599px) {
-      .archive__item img { width: calc(var(--w, 220px) * .72); }
+      .archive__item img { width: calc(var(--w, 300px) * .58); }
     }
   </style>
 </head>
@@ -173,50 +174,50 @@
 
   <main>
     <h1 class="visually-hidden">Archive</h1>
-    <!-- Each item sits in a cell of a 4 × 3 grid (data-c = column, data-r = row) that repeats in every direction.
+    <!-- Each item sits in a cell of a 4 × 3 grid (data-c = column, data-r = row).
          --w sets its width. The caption is shown under the image when it is opened. -->
     <div class="archive" data-lightbox-group data-lightbox-bare aria-label="Archive. Drag to explore, or use the arrow keys.">
-      <figure class="archive__item" data-c="0" data-r="0" style="--w: 220px;">
+      <figure class="archive__item" data-c="0" data-r="0" style="--w: 308px;">
         <img src="/images/archive/archive-01.webp" alt="Archive project 01" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="0" style="--w: 256px;">
+      <figure class="archive__item" data-c="1" data-r="0" style="--w: 358px;">
         <img src="/images/archive/archive-06.webp" alt="Archive project 06" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="0" style="--w: 240px;">
+      <figure class="archive__item" data-c="2" data-r="0" style="--w: 336px;">
         <img src="/images/archive/archive-02.webp" alt="Archive project 02" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="3" data-r="0" style="--w: 256px;">
+      <figure class="archive__item" data-c="3" data-r="0" style="--w: 358px;">
         <img src="/images/archive/archive-08.webp" alt="Archive project 08" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="0" data-r="1" style="--w: 256px;">
+      <figure class="archive__item" data-c="0" data-r="1" style="--w: 358px;">
         <img src="/images/archive/archive-10.webp" alt="Archive project 10" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="1" style="--w: 240px;">
+      <figure class="archive__item" data-c="1" data-r="1" style="--w: 336px;">
         <img src="/images/archive/archive-03.webp" alt="Archive project 03" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="1" style="--w: 256px;">
+      <figure class="archive__item" data-c="2" data-r="1" style="--w: 358px;">
         <img src="/images/archive/archive-11.webp" alt="Archive project 11" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="3" data-r="1" style="--w: 240px;">
+      <figure class="archive__item" data-c="3" data-r="1" style="--w: 336px;">
         <img src="/images/archive/archive-05.webp" alt="Archive project 05" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="0" data-r="2" style="--w: 256px;">
+      <figure class="archive__item" data-c="0" data-r="2" style="--w: 358px;">
         <img src="/images/archive/archive-07.webp" alt="Archive project 07" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="2" style="--w: 240px;">
+      <figure class="archive__item" data-c="1" data-r="2" style="--w: 336px;">
         <img src="/images/archive/archive-04.webp" alt="Archive project 04" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="2" style="--w: 256px;">
+      <figure class="archive__item" data-c="2" data-r="2" style="--w: 358px;">
         <img src="/images/archive/archive-09.webp" alt="Archive project 09" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
@@ -229,72 +230,73 @@
   </p>
 
   <script>
-  // Infinite canvas: the images sit on a small grid (a tile) that repeats in every direction.
-  // Copies of the tile fill the screen; dragging (mouse or touch), a trackpad or the arrow keys move it,
-  // and it glides a little after a fling. Copies open the original image, so the lightbox goes through each image once.
+  // Canvas: the images sit once each on a grid a bit bigger than the screen.
+  // Drag (mouse or touch), a trackpad or the arrow keys move it; it glides a little after a fling,
+  // stretches slightly past the edges and settles back inside.
   (function () {
     var root = document.querySelector('.archive');
     var hint = document.querySelector('.hint');
-    var originals = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
+    var items = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     var COLS = 4, ROWS = 3;
     // Small offsets so the grid doesn't look rigid (one pair per cell, as a share of the cell)
     var JITTER = [[.10,.05],[-.06,.18],[.04,-.08],[-.10,.10],[.14,-.04],[-.02,.12],[.08,-.10],[-.12,.02],[.02,.14],[.12,-.02],[-.08,.06],[0,0]];
-    var cellW, cellH, tileW, tileH, kx, ky, W, H, nodes = [];
+    var cellW, cellH, minX, maxX, minY, maxY;
     var ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
 
     function measure() {
       var small = innerWidth < 600;
-      cellW = small ? 230 : 320;
-      cellH = small ? 170 : 236;
-      tileW = COLS * cellW; tileH = ROWS * cellH;
+      cellW = small ? 250 : 430;
+      cellH = small ? 180 : 310;
+      var top = small ? 96 : 124, side = small ? 24 : 56, bottom = 96;
+      var w = COLS * cellW, h = ROWS * cellH;
+      // How far the grid can move: centred when it fits, otherwise edge to edge with a margin
+      if (w + 2 * side <= innerWidth) { minX = maxX = (innerWidth - w) / 2; }
+      else { maxX = side; minX = innerWidth - side - w; }
+      if (h + top + bottom <= innerHeight) { minY = maxY = top + (innerHeight - top - bottom - h) / 2; }
+      else { maxY = top; minY = innerHeight - bottom - h; }
+      hint.hidden = minX === maxX && minY === maxY;
     }
 
-    // Enough copies of the tile to cover the largest this screen can get, plus a margin to wrap in
-    function build() {
-      measure();
-      var maxW = Math.max(screen.width, innerWidth) + 2 * cellW;
-      var maxH = Math.max(screen.height, innerHeight) + 2 * cellH;
-      kx = Math.max(2, Math.ceil(maxW / tileW));
-      ky = Math.max(2, Math.ceil(maxH / tileH));
-      W = kx * tileW; H = ky * tileH;
-      nodes = [];
-      for (var j = 0; j < ky; j++) for (var i = 0; i < kx; i++) {
-        originals.forEach(function (it) {
-          var el = it;
-          if (i || j) {
-            el = it.cloneNode(true);
-            var img = el.querySelector('img');
-            img.setAttribute('data-clone', '');
-            img.alt = '';
-            img.setAttribute('aria-hidden', 'true');
-            el.setAttribute('aria-hidden', 'true');
-            img.addEventListener('click', function () { it.querySelector('img').click(); });
-            root.appendChild(el);
-          }
-          var c = +it.dataset.c, r = +it.dataset.r, jt = JITTER[r * COLS + c];
-          nodes.push({ el: el, c: c + jt[0], r: r + jt[1], i: i, j: j });
-        });
-      }
-    }
-
-    function mod(n, m) { return ((n % m) + m) % m; }
     function render() {
-      nodes.forEach(function (n) {
-        var x = mod((n.i * COLS + n.c) * cellW + ox + cellW, W) - cellW;
-        var y = mod((n.j * ROWS + n.r) * cellH + oy + cellH, H) - cellH;
-        n.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      items.forEach(function (it) {
+        var c = +it.dataset.c, r = +it.dataset.r, jt = JITTER[r * COLS + c];
+        var x = (c + jt[0] * .5) * cellW + ox, y = (r + jt[1]) * cellH + oy;
+        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
       });
     }
-    function move(dx, dy) { ox += dx; oy += dy; render(); }
+    function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+    // Past the edge a drag only moves a third as far, so it feels like stretching
+    function over(v, a, b) { return v < a ? a - v : v > b ? v - b : 0; }
+    function move(dx, dy, elastic) {
+      if (elastic) {
+        if (over(ox, minX, maxX)) dx /= 3;
+        if (over(oy, minY, maxY)) dy /= 3;
+        ox += dx; oy += dy;
+      } else {
+        ox = clamp(ox + dx, minX, maxX); oy = clamp(oy + dy, minY, maxY);
+      }
+      render();
+    }
 
-    function glide() {
-      vx *= .94; vy *= .94;
-      if (Math.abs(vx) < .1 && Math.abs(vy) < .1) { raf = null; return; }
-      move(vx, vy);
-      raf = requestAnimationFrame(glide);
+    // After a release: keep gliding, and ease back inside if stretched past an edge
+    function settle() {
+      vx *= .93; vy *= .93;
+      ox += vx; oy += vy;
+      var tx = clamp(ox, minX, maxX), ty = clamp(oy, minY, maxY);
+      if (tx !== ox) { vx *= .5; ox += (tx - ox) * .18; }
+      if (ty !== oy) { vy *= .5; oy += (ty - oy) * .18; }
+      render();
+      if (Math.abs(vx) < .1 && Math.abs(vy) < .1 && Math.abs(tx - ox) < .5 && Math.abs(ty - oy) < .5) {
+        ox = tx; oy = ty; render(); raf = null; return;
+      }
+      raf = requestAnimationFrame(settle);
     }
     function stop() { if (raf) cancelAnimationFrame(raf); raf = null; }
+    function release() {
+      if (reduce) { vx = vy = 0; ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY); render(); return; }
+      raf = requestAnimationFrame(settle);
+    }
 
     var hidden = false;
     function hideHint() { if (!hidden) { hidden = true; hint.classList.add('is-hidden'); } }
@@ -316,7 +318,7 @@
         root.setPointerCapture(e.pointerId); // only once it is a drag, so a plain click still reaches the image
       }
       if (moved) {
-        move(dx, dy);
+        move(dx, dy, true);
         vx = dx / dt * 16; vy = dy / dt * 16;
       }
       lx = e.clientX; ly = e.clientY; lt = now;
@@ -325,7 +327,8 @@
       if (!down) return;
       down = false;
       root.classList.remove('is-dragging');
-      if (moved && !reduce && performance.now() - lt < 80) raf = requestAnimationFrame(glide);
+      if (performance.now() - lt > 80) { vx = vy = 0; }
+      if (moved) release();
     }
     root.addEventListener('pointerup', end);
     root.addEventListener('pointercancel', end);
@@ -352,7 +355,7 @@
       hideHint();
     });
 
-    // Tabbing to an image brings it to the middle of the screen
+    // Tabbing to an image brings it into view
     root.addEventListener('focusin', function (e) {
       var it = e.target.closest('.archive__item');
       if (!it || !e.target.matches(':focus-visible')) return;
@@ -360,18 +363,10 @@
       move(innerWidth / 2 - (r.left + r.width / 2), innerHeight / 2 - (r.top + r.height / 2));
     });
 
-    addEventListener('resize', function () {
-      var was = cellW;
-      measure();
-      if (cellW !== was) { // crossing the phone breakpoint: rebuild the copies at the new size
-        root.querySelectorAll('[aria-hidden="true"].archive__item').forEach(function (n) { n.remove(); });
-        build();
-      }
-      render();
-    });
-    build();
-    // Start so the grid is roughly centred under the menu
-    ox = (innerWidth - tileW) / 2; oy = 96;
+    addEventListener('resize', function () { measure(); ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY); render(); });
+    measure();
+    // Start in the middle of the grid
+    ox = (minX + maxX) / 2; oy = (minY + maxY) / 2;
     render();
   })();
   </script>
