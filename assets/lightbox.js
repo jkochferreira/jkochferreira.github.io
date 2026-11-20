@@ -1,7 +1,7 @@
 // Click-to-zoom for case study images and videos: opens the media large over a dimmed page.
 // Closes on Esc, on the close button or on a click outside the media.
 (function () {
-  var SELECTOR = '.sheet .media img, .sheet .media video, .sheet .carousel img';
+  var SELECTOR = '.sheet .media img, .sheet .media video, .sheet .carousel img, [data-lightbox-group] img';
 
   var style = document.createElement('style');
   style.textContent = [
@@ -116,7 +116,7 @@
     setCaption(el);
 
     // Images opened from a carousel get arrows to move through the other slides
-    var carousel = el.closest('.carousel');
+    var carousel = el.closest('.carousel, [data-lightbox-group]');
     var slides = carousel ? Array.prototype.slice.call(carousel.querySelectorAll('img, video')) : [];
     if (slides.length > 1) {
       var index = slides.indexOf(el);
@@ -145,7 +145,7 @@
         media = fresh;
         opener = slides[index];
         setCaption(slides[index]);
-        slides[index].scrollIntoView({ block: 'nearest', inline: 'start' });
+        if (carousel.classList.contains('carousel')) slides[index].scrollIntoView({ block: 'nearest', inline: 'start' });
         sync();
       };
       sync();
