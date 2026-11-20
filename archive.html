@@ -52,7 +52,10 @@
       z-index: 10;
       height: 108px;
       /* same column as the other pages: 1728px wide at most, centred, with the gutter */
-      padding: 0 max(var(--gutter), calc((100% - 1728px) / 2 + var(--gutter)));
+      /* --sb is the width of a scrollbar on this device: the other pages scroll and this one doesn't,
+         so it is left out of the column here to keep the menu in exactly the same place */
+      padding-left: max(var(--gutter), calc((100% - var(--sb, 0px) - 1728px) / 2 + var(--gutter)));
+      padding-right: calc(max(var(--gutter), calc((100% - var(--sb, 0px) - 1728px) / 2 + var(--gutter))) + var(--sb, 0px));
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -232,6 +235,16 @@
     Drag to explore
   </p>
 
+  <script>
+  // Scrollbar width (0 where scrollbars float over the page), used to line the menu up with the other pages
+  (function () {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:absolute;top:-999px;width:100px;height:100px;overflow:scroll';
+    document.body.appendChild(d);
+    document.documentElement.style.setProperty('--sb', (d.offsetWidth - d.clientWidth) + 'px');
+    d.remove();
+  })();
+  </script>
   <script>
   // Canvas: the images sit once each on a grid a bit bigger than the screen.
   // Drag (mouse or touch), a trackpad or the arrow keys move it; it glides a little after a fling,
