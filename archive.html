@@ -30,7 +30,16 @@
       overflow: hidden;
       font-family: var(--sans);
       color: var(--text);
-      background: #fbfafc;
+      background-color: #c7c2d0;
+      /* The same colour fields as the Work and About pages, held to the screen while the canvas moves */
+      background-image:
+        radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
+        radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
+        radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
+        radial-gradient(ellipse 42% 65% at 104% 91%, rgba(196,184,239,.9) 0%, rgba(196,184,239,.522) 45%, rgba(196,184,239,0) 100%),
+        radial-gradient(ellipse 19% 80% at -6% 70%, rgba(185,239,227,1) 0%, rgba(185,239,227,.58) 45%, rgba(185,239,227,0) 100%),
+        radial-gradient(ellipse 56% 35% at 4% -6%, rgba(217,238,223,1) 0%, rgba(217,238,223,.58) 45%, rgba(217,238,223,0) 100%);
+      background-attachment: fixed;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -45,9 +54,19 @@
       align-items: center;
       justify-content: space-between;
       pointer-events: none;
-      background: linear-gradient(#fbfafc 30%, rgba(251, 250, 252, 0));
     }
     .nav a { pointer-events: auto; }
+    /* Images pass under the menu softly blurred, so the links stay readable */
+    .nav::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 -24px;
+      z-index: -1;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      -webkit-mask-image: linear-gradient(#000 55%, transparent);
+      mask-image: linear-gradient(#000 55%, transparent);
+    }
     .nav__name {
       font-size: 16px;
       line-height: 1.4;
@@ -106,14 +125,7 @@
     }
     .archive.is-dragging .archive__item img { cursor: grabbing; }
 
-    /* Soft fade at the bottom edge, and the hint */
-    .archive-fade {
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      height: 120px;
-      pointer-events: none;
-      background: linear-gradient(rgba(251, 250, 252, 0), #fbfafc 85%);
-    }
+    /* The hint */
     .hint {
       position: fixed;
       left: 50%;
@@ -143,6 +155,8 @@
     @media (max-width: 480px) {
       .nav { height: 80px; }
       .nav__links { gap: 20px; }
+    }
+    @media (max-width: 599px) {
       .archive__item img { width: calc(var(--w, 220px) * .72); }
     }
   </style>
@@ -159,94 +173,119 @@
 
   <main>
     <h1 class="visually-hidden">Archive</h1>
-    <!-- Each item: data-x / data-y place it on the plane (0 to 1), --w sets its width.
-         The caption is shown under the image when it is opened. -->
+    <!-- Each item sits in a cell of a 4 × 3 grid (data-c = column, data-r = row) that repeats in every direction.
+         --w sets its width. The caption is shown under the image when it is opened. -->
     <div class="archive" data-lightbox-group data-lightbox-bare aria-label="Archive. Drag to explore, or use the arrow keys.">
-      <figure class="archive__item" data-x=".04" data-y=".10" style="--w: 240px;">
-        <img src="/images/archive/placeholder-01.webp" alt="Placeholder 01" draggable="false">
+      <figure class="archive__item" data-c="0" data-r="0" style="--w: 220px;">
+        <img src="/images/archive/archive-01.webp" alt="Archive project 01" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".27" data-y=".04" style="--w: 220px;">
-        <img src="/images/archive/placeholder-02.webp" alt="Placeholder 02" draggable="false">
+      <figure class="archive__item" data-c="1" data-r="0" style="--w: 256px;">
+        <img src="/images/archive/archive-06.webp" alt="Archive project 06" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".52" data-y=".14" style="--w: 160px;">
-        <img src="/images/archive/placeholder-03.webp" alt="Placeholder 03" draggable="false">
+      <figure class="archive__item" data-c="2" data-r="0" style="--w: 240px;">
+        <img src="/images/archive/archive-02.webp" alt="Archive project 02" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".74" data-y=".06" style="--w: 230px;">
-        <img src="/images/archive/placeholder-04.webp" alt="Placeholder 04" draggable="false">
+      <figure class="archive__item" data-c="3" data-r="0" style="--w: 256px;">
+        <img src="/images/archive/archive-08.webp" alt="Archive project 08" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".14" data-y=".42" style="--w: 210px;">
-        <img src="/images/archive/placeholder-05.webp" alt="Placeholder 05" draggable="false">
+      <figure class="archive__item" data-c="0" data-r="1" style="--w: 256px;">
+        <img src="/images/archive/archive-10.webp" alt="Archive project 10" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".40" data-y=".38" style="--w: 160px;">
-        <img src="/images/archive/placeholder-06.webp" alt="Placeholder 06" draggable="false">
+      <figure class="archive__item" data-c="1" data-r="1" style="--w: 240px;">
+        <img src="/images/archive/archive-03.webp" alt="Archive project 03" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".60" data-y=".46" style="--w: 240px;">
-        <img src="/images/archive/placeholder-07.webp" alt="Placeholder 07" draggable="false">
+      <figure class="archive__item" data-c="2" data-r="1" style="--w: 256px;">
+        <img src="/images/archive/archive-11.webp" alt="Archive project 11" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".86" data-y=".36" style="--w: 220px;">
-        <img src="/images/archive/placeholder-08.webp" alt="Placeholder 08" draggable="false">
+      <figure class="archive__item" data-c="3" data-r="1" style="--w: 240px;">
+        <img src="/images/archive/archive-05.webp" alt="Archive project 05" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".02" data-y=".72" style="--w: 160px;">
-        <img src="/images/archive/placeholder-09.webp" alt="Placeholder 09" draggable="false">
+      <figure class="archive__item" data-c="0" data-r="2" style="--w: 256px;">
+        <img src="/images/archive/archive-07.webp" alt="Archive project 07" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".26" data-y=".76" style="--w: 230px;">
-        <img src="/images/archive/placeholder-10.webp" alt="Placeholder 10" draggable="false">
+      <figure class="archive__item" data-c="1" data-r="2" style="--w: 240px;">
+        <img src="/images/archive/archive-04.webp" alt="Archive project 04" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-x=".50" data-y=".80" style="--w: 210px;">
-        <img src="/images/archive/placeholder-11.webp" alt="Placeholder 11" draggable="false">
-        <figcaption class="visually-hidden">Project name | Type of work</figcaption>
-      </figure>
-      <figure class="archive__item" data-x=".76" data-y=".72" style="--w: 160px;">
-        <img src="/images/archive/placeholder-12.webp" alt="Placeholder 12" draggable="false">
+      <figure class="archive__item" data-c="2" data-r="2" style="--w: 256px;">
+        <img src="/images/archive/archive-09.webp" alt="Archive project 09" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
     </div>
   </main>
 
-  <div class="archive-fade" aria-hidden="true"></div>
   <p class="hint" aria-hidden="true">
     <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg>
     Drag to explore
   </p>
 
   <script>
-  // Infinite canvas: each image is placed on a plane (tile) that wraps around in both directions.
-  // Drag (mouse or touch), scroll with a trackpad or use the arrow keys to move it; it glides a little after a fling.
+  // Infinite canvas: the images sit on a small grid (a tile) that repeats in every direction.
+  // Copies of the tile fill the screen; dragging (mouse or touch), a trackpad or the arrow keys move it,
+  // and it glides a little after a fling. Copies open the original image, so the lightbox goes through each image once.
   (function () {
     var root = document.querySelector('.archive');
     var hint = document.querySelector('.hint');
-    var items = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
+    var originals = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var PAD = 320;              // how far past the edge an image goes before wrapping to the other side
-    var W, H, ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
+    var COLS = 4, ROWS = 3;
+    // Small offsets so the grid doesn't look rigid (one pair per cell, as a share of the cell)
+    var JITTER = [[.10,.05],[-.06,.18],[.04,-.08],[-.10,.10],[.14,-.04],[-.02,.12],[.08,-.10],[-.12,.02],[.02,.14],[.12,-.02],[-.08,.06],[0,0]];
+    var cellW, cellH, tileW, tileH, kx, ky, W, H, nodes = [];
+    var ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
 
-    function size() {
-      // The plane is always bigger than the screen so no image shows twice at once
-      var small = innerWidth < 600; // phones: a smaller plane, so the images aren't too far apart
-      PAD = small ? 220 : 320;
-      W = Math.max(innerWidth + 2 * PAD, small ? 1000 : 1900);
-      H = Math.max(innerHeight + 2 * PAD, small ? 1250 : 1300);
+    function measure() {
+      var small = innerWidth < 600;
+      cellW = small ? 230 : 320;
+      cellH = small ? 170 : 236;
+      tileW = COLS * cellW; tileH = ROWS * cellH;
     }
-    function mod(n, m) { return ((n % m) + m) % m; }
 
+    // Enough copies of the tile to cover the largest this screen can get, plus a margin to wrap in
+    function build() {
+      measure();
+      var maxW = Math.max(screen.width, innerWidth) + 2 * cellW;
+      var maxH = Math.max(screen.height, innerHeight) + 2 * cellH;
+      kx = Math.max(2, Math.ceil(maxW / tileW));
+      ky = Math.max(2, Math.ceil(maxH / tileH));
+      W = kx * tileW; H = ky * tileH;
+      nodes = [];
+      for (var j = 0; j < ky; j++) for (var i = 0; i < kx; i++) {
+        originals.forEach(function (it) {
+          var el = it;
+          if (i || j) {
+            el = it.cloneNode(true);
+            var img = el.querySelector('img');
+            img.setAttribute('data-clone', '');
+            img.alt = '';
+            img.setAttribute('aria-hidden', 'true');
+            el.setAttribute('aria-hidden', 'true');
+            img.addEventListener('click', function () { it.querySelector('img').click(); });
+            root.appendChild(el);
+          }
+          var c = +it.dataset.c, r = +it.dataset.r, jt = JITTER[r * COLS + c];
+          nodes.push({ el: el, c: c + jt[0], r: r + jt[1], i: i, j: j });
+        });
+      }
+    }
+
+    function mod(n, m) { return ((n % m) + m) % m; }
     function render() {
-      items.forEach(function (it) {
-        var x = mod(parseFloat(it.dataset.x) * W + ox + PAD, W) - PAD;
-        var y = mod(parseFloat(it.dataset.y) * H + oy + PAD, H) - PAD;
-        it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      nodes.forEach(function (n) {
+        var x = mod((n.i * COLS + n.c) * cellW + ox + cellW, W) - cellW;
+        var y = mod((n.j * ROWS + n.r) * cellH + oy + cellH, H) - cellH;
+        n.el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
       });
     }
-
     function move(dx, dy) { ox += dx; oy += dy; render(); }
 
     function glide() {
@@ -282,7 +321,7 @@
       }
       lx = e.clientX; ly = e.clientY; lt = now;
     });
-    function end(e) {
+    function end() {
       if (!down) return;
       down = false;
       root.classList.remove('is-dragging');
@@ -321,10 +360,18 @@
       move(innerWidth / 2 - (r.left + r.width / 2), innerHeight / 2 - (r.top + r.height / 2));
     });
 
-    addEventListener('resize', function () { size(); render(); });
-    size();
-    // Start slightly offset so the first view isn't the plane's top-left corner
-    ox = -W * .03; oy = 40;
+    addEventListener('resize', function () {
+      var was = cellW;
+      measure();
+      if (cellW !== was) { // crossing the phone breakpoint: rebuild the copies at the new size
+        root.querySelectorAll('[aria-hidden="true"].archive__item').forEach(function (n) { n.remove(); });
+        build();
+      }
+      render();
+    });
+    build();
+    // Start so the grid is roughly centred under the menu
+    ox = (innerWidth - tileW) / 2; oy = 96;
     render();
   })();
   </script>
