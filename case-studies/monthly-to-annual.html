@@ -129,30 +129,28 @@
     .nav__links a {
       padding: 0 3px;
       margin: 0 -3px;
-      background: linear-gradient(rgba(61, 53, 82, .6), rgba(61, 53, 82, .6)) no-repeat 0 100% / 0 1px;
+      background: linear-gradient(rgba(41, 0, 114, .3), rgba(41, 0, 114, .3)) no-repeat 0 100% / 0 2px;
       transition: background-size .3s ease, color .2s ease;
     }
-    /* Hover: a thin line draws in from the left. Selected: the link turns ink with a small dot under it */
+    /* Hover: a soft line draws in from the left. Selected: the link turns ink with a solid line under it */
     .nav__links { position: relative; }
-    .nav__links a { position: relative; }
-    .nav__links a:hover { background-size: 100% 1px; }
-    .nav__links a[aria-current="page"] { color: var(--ink); background-size: 0 1px; }
-    .nav__links a[aria-current="page"]::after,
-    .nav__dot {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -9px;
-      width: 4px;
-      height: 4px;
-      margin-left: -2px;
-      border-radius: 50%;
-      background: var(--ink);
+    .nav__links a:hover { background-size: 100% 2px; }
+    .nav__links a[aria-current="page"] {
+      color: var(--ink);
+      background-image: linear-gradient(var(--ink), var(--ink));
+      background-size: 100% 2px;
     }
-    /* With JavaScript one dot slides from the previous section to the new one (assets/nav.js) */
-    .nav__links.has-dot a::after { display: none; }
-    .nav__dot { left: 0; margin-left: -2px; pointer-events: none; }
-    .nav__dot.is-moving { transition: transform .5s cubic-bezier(.65, 0, .35, 1); }
+    /* With JavaScript one line slides from the previous section to the new one (assets/nav.js) */
+    .nav__links.has-line a[aria-current="page"] { background-size: 0 2px; }
+    .nav__line {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--ink);
+      pointer-events: none;
+    }
+    .nav__line.is-moving { transition: transform .5s cubic-bezier(.65, 0, .35, 1), width .5s cubic-bezier(.65, 0, .35, 1); }
 
     /* Hero */
     .eyebrow {

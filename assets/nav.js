@@ -1,5 +1,5 @@
-// Main menu: a small dot marks the current section. When you go to another section,
-// the dot slides there from the link you came from (remembered for the length of the visit).
+// Main menu: a line marks the current section. When you go to another section,
+// the line slides there from the link you came from (remembered for the length of the visit).
 (function () {
   var links = document.querySelector('.nav__links');
   if (!links) return;
@@ -19,13 +19,12 @@
   if (!current) return;
 
   var dot = document.createElement('span');
-  dot.className = 'nav__dot';
+  dot.className = 'nav__line';
   dot.setAttribute('aria-hidden', 'true');
   links.appendChild(dot);
-  links.classList.add('has-dot');
+  links.classList.add('has-line');
 
-  function centre(a) { return a.offsetLeft + a.offsetWidth / 2; }
-  function place(a) { dot.style.transform = 'translateX(' + centre(a) + 'px)'; }
+  function place(a) { dot.style.width = a.offsetWidth + 'px'; dot.style.transform = 'translateX(' + a.offsetLeft + 'px)'; }
 
   place(from >= 0 && items[from] && items[from] !== current ? items[from] : current);
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -39,7 +38,7 @@
   }
   // Keep it under the link when the layout changes (fonts loading, resizing)
   function settle() { animating = false; dot.classList.remove('is-moving'); place(current); }
-  dot.addEventListener('transitionend', function () { animating = false; dot.classList.remove('is-moving'); });
+  dot.addEventListener('transitionend', function (e) { if (e.propertyName !== 'transform') return; animating = false; dot.classList.remove('is-moving'); });
   addEventListener('resize', settle);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!animating) place(current); });
 })();
