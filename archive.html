@@ -33,6 +33,8 @@
       background-color: #c7c2d0;
       /* The same colour fields as the Work and About pages, held to the screen while the canvas moves */
       background-image:
+        /* fades to white towards the bottom of the screen, as the other pages do further down */
+        linear-gradient(to bottom, rgba(255,255,255,0) 35%, rgba(255,255,255,.3) 60%, rgba(255,255,255,.7) 82%, #fff 100%),
         radial-gradient(ellipse 54% 34% at 51% -10%, rgba(242,201,217,.95) 0%, rgba(242,201,217,.551) 45%, rgba(242,201,217,0) 100%),
         radial-gradient(ellipse 37% 80% at 108% 13%, rgba(212,187,244,.85) 0%, rgba(212,187,244,.493) 45%, rgba(212,187,244,0) 100%),
         radial-gradient(ellipse 58% 30% at 55% 112%, rgba(162,180,250,1) 0%, rgba(162,180,250,.58) 45%, rgba(162,180,250,0) 100%),
