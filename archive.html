@@ -158,7 +158,7 @@
       .nav__links { gap: 20px; }
     }
     @media (max-width: 599px) {
-      .archive__item img { width: calc(var(--w, 300px) * .58); }
+      .archive__item img { width: calc(var(--w, 300px) * .55); }
     }
   </style>
 </head>
@@ -174,50 +174,50 @@
 
   <main>
     <h1 class="visually-hidden">Archive</h1>
-    <!-- Each item sits in a cell of a 4 × 3 grid (data-c = column, data-r = row).
+    <!-- Each item: data-x / data-y place its top-left corner on the canvas, in pixels at desktop size.
          --w sets its width. The caption is shown under the image when it is opened. -->
     <div class="archive" data-lightbox-group data-lightbox-bare aria-label="Archive. Drag to explore, or use the arrow keys.">
-      <figure class="archive__item" data-c="0" data-r="0" style="--w: 308px;">
+      <figure class="archive__item" data-x="0" data-y="40" style="--w: 440px;">
         <img src="/images/archive/archive-01.webp" alt="Archive project 01" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="0" style="--w: 358px;">
+      <figure class="archive__item" data-x="560" data-y="0" style="--w: 520px;">
         <img src="/images/archive/archive-06.webp" alt="Archive project 06" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="0" style="--w: 336px;">
+      <figure class="archive__item" data-x="1220" data-y="90" style="--w: 460px;">
         <img src="/images/archive/archive-02.webp" alt="Archive project 02" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="3" data-r="0" style="--w: 358px;">
+      <figure class="archive__item" data-x="1820" data-y="20" style="--w: 560px;">
         <img src="/images/archive/archive-08.webp" alt="Archive project 08" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="0" data-r="1" style="--w: 358px;">
+      <figure class="archive__item" data-x="120" data-y="470" style="--w: 480px;">
         <img src="/images/archive/archive-10.webp" alt="Archive project 10" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="1" style="--w: 336px;">
+      <figure class="archive__item" data-x="720" data-y="400" style="--w: 420px;">
         <img src="/images/archive/archive-03.webp" alt="Archive project 03" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="1" style="--w: 358px;">
+      <figure class="archive__item" data-x="1280" data-y="500" style="--w: 500px;">
         <img src="/images/archive/archive-11.webp" alt="Archive project 11" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="3" data-r="1" style="--w: 336px;">
+      <figure class="archive__item" data-x="1930" data-y="440" style="--w: 480px;">
         <img src="/images/archive/archive-05.webp" alt="Archive project 05" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="0" data-r="2" style="--w: 358px;">
+      <figure class="archive__item" data-x="0" data-y="860" style="--w: 540px;">
         <img src="/images/archive/archive-07.webp" alt="Archive project 07" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="1" data-r="2" style="--w: 336px;">
+      <figure class="archive__item" data-x="680" data-y="780" style="--w: 500px;">
         <img src="/images/archive/archive-04.webp" alt="Archive project 04" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
-      <figure class="archive__item" data-c="2" data-r="2" style="--w: 358px;">
+      <figure class="archive__item" data-x="1320" data-y="880" style="--w: 560px;">
         <img src="/images/archive/archive-09.webp" alt="Archive project 09" draggable="false">
         <figcaption class="visually-hidden">Project name | Type of work</figcaption>
       </figure>
@@ -238,18 +238,21 @@
     var hint = document.querySelector('.hint');
     var items = Array.prototype.slice.call(root.querySelectorAll('.archive__item'));
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var COLS = 4, ROWS = 3;
-    // Small offsets so the grid doesn't look rigid (one pair per cell, as a share of the cell)
-    var JITTER = [[.10,.05],[-.06,.18],[.04,-.08],[-.10,.10],[.14,-.04],[-.02,.12],[.08,-.10],[-.12,.02],[.02,.14],[.12,-.02],[-.08,.06],[0,0]];
-    var cellW, cellH, minX, maxX, minY, maxY;
+    var scale, minX, maxX, minY, maxY;
     var ox = 0, oy = 0, vx = 0, vy = 0, raf = null;
 
     function measure() {
       var small = innerWidth < 600;
-      cellW = small ? 250 : 430;
-      cellH = small ? 180 : 310;
+      scale = small ? .55 : 1; // the CSS shrinks the images by the same amount on phones
       var top = small ? 96 : 124, side = small ? 24 : 56, bottom = 96;
-      var w = COLS * cellW, h = ROWS * cellH;
+      // The canvas is as big as the images' spread
+      var w = 0, h = 0;
+      items.forEach(function (it) {
+        var img = it.querySelector('img');
+        var iw = img.offsetWidth, ih = img.naturalWidth ? iw * img.naturalHeight / img.naturalWidth : iw * .5625;
+        w = Math.max(w, +it.dataset.x * scale + iw);
+        h = Math.max(h, +it.dataset.y * scale + ih);
+      });
       // How far the grid can move: centred when it fits, otherwise edge to edge with a margin
       if (w + 2 * side <= innerWidth) { minX = maxX = (innerWidth - w) / 2; }
       else { maxX = side; minX = innerWidth - side - w; }
@@ -260,8 +263,7 @@
 
     function render() {
       items.forEach(function (it) {
-        var c = +it.dataset.c, r = +it.dataset.r, jt = JITTER[r * COLS + c];
-        var x = (c + jt[0] * .5) * cellW + ox, y = (r + jt[1]) * cellH + oy;
+        var x = +it.dataset.x * scale + ox, y = +it.dataset.y * scale + oy;
         it.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
       });
     }
@@ -364,8 +366,15 @@
     });
 
     addEventListener('resize', function () { measure(); ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY); render(); });
+    // Once the images have loaded their real heights are known: measure again (and re-centre if nobody has moved it yet)
+    addEventListener('load', function () {
+      measure();
+      if (!hidden) { ox = (minX + maxX) / 2; oy = (minY + maxY) / 2; }
+      ox = clamp(ox, minX, maxX); oy = clamp(oy, minY, maxY);
+      render();
+    });
     measure();
-    // Start in the middle of the grid
+    // Start in the middle of the canvas
     ox = (minX + maxX) / 2; oy = (minY + maxY) / 2;
     render();
   })();
