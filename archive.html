@@ -51,7 +51,8 @@
       top: 0; left: 0; right: 0;
       z-index: 10;
       height: 108px;
-      padding: 0 var(--gutter);
+      /* same column as the other pages: 1728px wide at most, centred, with the gutter */
+      padding: 0 max(var(--gutter), calc((100% - 1728px) / 2 + var(--gutter)));
       display: flex;
       align-items: center;
       justify-content: space-between;
