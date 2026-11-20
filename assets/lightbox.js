@@ -17,6 +17,8 @@
     '.lightbox.is-open .lightbox__card { transform: scale(1); }',
     '.lightbox__card img, .lightbox__card video { display: block; max-width: calc(100vw - 160px - 64px); max-height: calc(92vh - 64px - 48px);',
     '  width: auto; height: auto; border-radius: 6px; }',
+    '.lightbox__card--bare { padding: 0; background: none; }',
+    '.lightbox__card--bare img, .lightbox__card--bare video { border-radius: 12px; }',
     '.lightbox__caption { max-width: min(640px, 100%); margin: 0; padding: 4px 10px; border-radius: 6px; background: #fff;',
     '  color: #290072; font-size: 13px; line-height: 20px; text-align: center; cursor: default; box-shadow: 0 2px 8px rgba(20, 12, 40, .15); }',
     '.lightbox__btn { position: fixed; width: 36px; height: 36px; padding: 0; border: 1px solid rgba(41, 0, 114, .18); border-radius: 50%;',
@@ -71,6 +73,8 @@
     // Images framed in a coloured box keep that colour around them when enlarged
     var frame = el.closest('.media__frame');
     if (frame) card.style.setProperty('--lightbox-bg', getComputedStyle(frame).backgroundColor);
+    // Images that are already full screens show without the white card around them
+    if (el.closest('[data-lightbox-bare]')) card.classList.add('lightbox__card--bare');
 
     function makeMedia(src) {
       var m;
