@@ -349,6 +349,7 @@
     .pair__img { border-radius: 12px; }
     @media (max-width: 600px) { .pair { gap: 12px; } }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media__video--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .1); } /* white screens on the white page */
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
       padding: clamp(20px, 5%, 40px) clamp(28px, 8%, 64px);
@@ -800,7 +801,7 @@
       </div>
 
       <figure class="media wide">
-        <video class="media__video" src="/case-studies/images/free-plan/api-onboarding.mp4" poster="/case-studies/images/free-plan/api-onboarding.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Intent-based onboarding: the person answers what brings them to PandaDoc, creates a free account, then picks the tools they use, such as Google Workspace or ChatGPT and Claude"></video>
+        <video class="media__video media__video--outline" src="/case-studies/images/free-plan/api-onboarding.mp4" poster="/case-studies/images/free-plan/api-onboarding.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Intent-based onboarding: the person answers what brings them to PandaDoc, creates a free account, then picks the tools they use, such as Google Workspace or ChatGPT and Claude"></video>
         <figcaption>Intent-based onboarding: a first question on why people signed up, then the tools they use.</figcaption>
       </figure>
 
