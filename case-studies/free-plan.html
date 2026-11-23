@@ -542,6 +542,34 @@
     }
     .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
 
+    /* Expired trial: the cursor hovers the Expired label and the popover opens, on a loop */
+    .hover-demo { position: relative; aspect-ratio: 2880 / 1652; overflow: hidden; border-radius: 8px; }
+    .hover-demo > img { position: absolute; display: block; height: auto; }
+    .hover-demo__base { inset: 0; width: 100%; }
+    .hover-demo__chip {
+      position: absolute; left: 44.79%; top: 15.01%; width: 9.93%; height: 8.72%;
+      border-radius: 7.7% / 15.3%; background: #f4f4f4; mix-blend-mode: multiply;
+      animation: hd-chip 6s infinite;
+    }
+    .hover-demo__pop { left: 9.79%; top: 22.58%; width: 46.81%; animation: hd-pop 6s infinite; }
+    .hover-demo__cursor { left: 50.42%; top: 21.67%; width: 2.33%; animation: hd-cursor 6s infinite; }
+    @keyframes hd-cursor {
+      0%, 12% { opacity: 0; transform: translate(700%, 420%); }
+      16% { opacity: 1; transform: translate(700%, 420%); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+      30%, 76% { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); }
+      90% { opacity: 1; transform: translate(700%, 420%); }
+      94%, 100% { opacity: 0; transform: translate(700%, 420%); }
+    }
+    @keyframes hd-chip { 0%, 29% { opacity: 0; } 32%, 76% { opacity: 1; } 79%, 100% { opacity: 0; } }
+    @keyframes hd-pop {
+      0%, 32% { opacity: 0; transform: translateY(-1.5%); }
+      38%, 76% { opacity: 1; transform: translateY(0); }
+      81%, 100% { opacity: 0; transform: translateY(-1.5%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hover-demo__chip, .hover-demo__pop, .hover-demo__cursor { animation: none; opacity: 1; transform: none; }
+    }
+
     /* Facts still to confirm */
     .confirm {
       background: rgba(255, 196, 0, .28);
@@ -788,7 +816,18 @@
       </div>
 
       <figure class="media wide">
-        <div class="placeholder"><span><strong>05</strong> — Cancellation message, banner and Free dialog</span></div>
+        <img class="media__img" src="/case-studies/images/free-plan/free-dialog.webp" alt="Dialog on the home page: You're now on the Free plan, listing what the Free plan includes, with Get started and Reactivate subscription buttons" loading="lazy">
+        <figcaption>On the first login after the switch, a dialog introduces the Free plan.</figcaption>
+      </figure>
+
+      <figure class="media wide">
+        <div class="hover-demo" role="img" aria-label="Animation: the cursor hovers the red Expired label in the header and a popover opens: Your free trial has ended, with Start subscription now and Learn about the Free plan">
+          <img class="hover-demo__base" src="/case-studies/images/free-plan/trial-expired-base.webp" alt="" loading="lazy">
+          <span class="hover-demo__chip" aria-hidden="true"></span>
+          <img class="hover-demo__pop" src="/case-studies/images/free-plan/trial-expired-popover.webp" alt="" loading="lazy">
+          <img class="hover-demo__cursor" src="/case-studies/images/free-plan/cursor-hand.png" alt="" loading="lazy">
+        </div>
+        <figcaption>For expired trials, the Expired label explains the move to the Free plan.</figcaption>
       </figure>
 
       <div class="content">
