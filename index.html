@@ -93,33 +93,14 @@
       color: var(--ink);
     }
     .hero em { font-style: italic; }
-    /* "8+ years of experience": hovering (or focusing) it reveals the graphic design years before, in the same pill as "View case study" */
-    .hero__years { position: relative; cursor: default; }
-    .hero__years::after {
-      content: attr(data-note);
-      position: absolute;
-      left: 50%;
-      top: calc(100% + 4px);
-      z-index: 2;
-      padding: 10px 16px;
-      border-radius: 3px;
-      background: var(--ink);
-      color: #fff;
-      font-family: "Inter", var(--sans);
-      font-size: 16px;
-      font-weight: 500;
-      font-style: normal;
-      line-height: 1.4;
-      letter-spacing: 0;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transform: translate(-50%, -6px) scale(.9);
-      transition: opacity .25s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
+    /* A short line about me under the hero */
+    .intro-text {
+      margin-top: 32px;
+      max-width: 640px;
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--text-muted);
     }
-    .hero__years:hover::after,
-    .hero__years:focus-visible::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
-    .hero__years:focus-visible { outline: none; }
 
     /* Projects */
     /* Small caps label above the projects, as on the About page */
@@ -284,6 +265,7 @@
     @media (max-width: 480px) {
       .nav { height: 80px; }
       .hero { margin-top: 56px; font-size: 40px; }
+      .intro-text { margin-top: 24px; font-size: 17px; }
       .project__title { font-size: 32px; }
       .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
       .footer__title { font-size: 32px; }
@@ -402,7 +384,8 @@
     </header>
 
     <main>
-      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with <span class="hero__years" tabindex="0" data-note="And 10 years of graphic design before that">8+ years of experience</span> across <em>B2B SaaS, B2C and Fintech</em></h1>
+      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with 8+ years of experience across <em>B2B SaaS, B2C and Fintech</em></h1>
+      <p class="intro-text">I love untangling complex problems and turning them into simple products that work for people and for the business, using AI to research, prototype and test faster.</p>
 
       <p class="work-label">Selected work</p>
       <ul class="projects">
