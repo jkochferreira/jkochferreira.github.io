@@ -549,21 +549,21 @@
     .hover-demo__chip {
       position: absolute; left: 44.79%; top: 15.01%; width: 9.93%; height: 8.72%;
       border-radius: 7.7% / 15.3%; background: #f4f4f4; mix-blend-mode: multiply;
-      animation: hd-chip 6s infinite;
+      animation: hd-chip 4.5s infinite;
     }
-    .hover-demo__pop { left: 9.79%; top: 22.58%; width: 46.81%; animation: hd-pop 6s infinite; }
-    .hover-demo__cursor { left: 50.42%; top: 21.67%; width: 2.33%; animation: hd-cursor 6s infinite; }
+    .hover-demo__pop { left: 9.79%; top: 22.58%; width: 46.81%; animation: hd-pop 4.5s infinite; }
+    .hover-demo__cursor { left: 50.42%; top: 21.67%; width: 2.33%; animation: hd-cursor 4.5s infinite; }
     @keyframes hd-cursor {
-      0%, 12% { opacity: 0; transform: translate(700%, 420%); }
-      16% { opacity: 1; transform: translate(700%, 420%); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
-      30%, 76% { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); }
-      90% { opacity: 1; transform: translate(700%, 420%); }
-      94%, 100% { opacity: 0; transform: translate(700%, 420%); }
+      0% { opacity: 0; transform: translate(700%, 420%); }
+      3% { opacity: 1; transform: translate(700%, 420%); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+      16%, 76% { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.5, 0, .7, 1); }
+      89% { opacity: 1; transform: translate(700%, 420%); }
+      93%, 100% { opacity: 0; transform: translate(700%, 420%); }
     }
-    @keyframes hd-chip { 0%, 29% { opacity: 0; } 32%, 76% { opacity: 1; } 79%, 100% { opacity: 0; } }
+    @keyframes hd-chip { 0%, 16% { opacity: 0; } 18%, 76% { opacity: 1; } 79%, 100% { opacity: 0; } }
     @keyframes hd-pop {
-      0%, 32% { opacity: 0; transform: translateY(-1.5%); }
-      38%, 76% { opacity: 1; transform: translateY(0); }
+      0%, 18% { opacity: 0; transform: translateY(-1.5%); }
+      25%, 76% { opacity: 1; transform: translateY(0); }
       81%, 100% { opacity: 0; transform: translateY(-1.5%); }
     }
     @media (prefers-reduced-motion: reduce) {
