@@ -541,6 +541,19 @@
       padding-bottom: clamp(64px, 14vh, 160px);
     }
     .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
+    /* Hero illustration: a document being signed, on the right of the title */
+    .intro__art {
+      position: absolute;
+      z-index: 1;
+      right: max(var(--gutter), calc((100% - 1728px) / 2 + var(--gutter)));
+      top: 54%;
+      transform: translateY(-50%);
+      width: clamp(320px, 31vw, 600px);
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    @media (max-width: 1100px) { .intro__art { display: none; } }
 
     /* Expired trial: the cursor hovers the Expired label and the popover opens, on a loop */
     .hover-demo { position: relative; aspect-ratio: 2880 / 1652; overflow: hidden; border-radius: 8px; }
@@ -673,6 +686,7 @@
 <body>
   <header class="intro intro--simple">
     <div class="intro__stage">
+      <img class="intro__art" src="/case-studies/images/free-plan/hero-sign.webp" alt="" aria-hidden="true">
       <div class="page intro__inner">
         <nav class="nav">
           <a class="nav__name" href="/">Joana Koch Ferreira</a>
