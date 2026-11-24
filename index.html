@@ -129,8 +129,8 @@
       overflow: hidden;
       isolation: isolate;
     }
-    .project__cover img,
-    .project__cover video {
+    .project__cover > img,
+    .project__cover > video {
       display: block;
       width: 100%;
       height: 100%;
@@ -184,8 +184,9 @@
     }
     @media (hover: hover) {
       a.project .project__cover { cursor: none; }
-      a.project .project__cover:hover img,
-      a.project .project__cover:hover video { filter: blur(14px); transform: scale(1.08); } /* scaled so the blur's soft edge stays outside the rounded box */
+      a.project .project__cover:hover > img,
+      a.project .project__cover:hover > video,
+      a.project .project__cover:hover > .fp-cover { filter: blur(14px); transform: scale(1.08); } /* scaled so the blur's soft edge stays outside the rounded box */
       a.project .project__cover:hover::after { opacity: 1; }
       .project__cover.is-hovered .project__cursor {
         opacity: 1;
@@ -260,6 +261,103 @@
       .footer { height: auto; padding: 32px 0; flex-direction: column; align-items: flex-start; }
       .footer__title { font-size: 32px; }
     }
+
+    /* Free plan cover: the onboarding question, answers and AI cards on a loop. Sizes are % of the cover's width (cqw) */
+    .fp-cover {
+      position: absolute; inset: 0; overflow: hidden;
+      transition: filter .4s ease, transform .4s ease;
+      container-type: inline-size;
+      background: radial-gradient(ellipse 60% 70% at 50% 45%, #ffe8cf 0%, #fedcb8 70%, #fdd5ac 100%);
+    }
+    .fp-cover img, .fp-pick { position: absolute; display: block; height: auto; left: 50%; user-select: none; }
+    .fp-card { filter: drop-shadow(0 .3cqw .6cqw rgba(140, 80, 20, .08)) drop-shadow(0 1.8cqw 3cqw rgba(140, 80, 20, .14)); }
+    .fp-q { width: 54cqw; margin-left: -27cqw; top: -16.25cqw; animation: q 12s infinite; }
+    .fp-o { width: 64cqw; margin-left: -32cqw; background: #fff; border-radius: .6cqw; }
+    .fp-o0 { top: 4.4cqw;  animation: o0 12s infinite; }
+    .fp-o1 { top: 16.4cqw; animation: o1 12s infinite; }
+    .fp-o2 { top: 28.4cqw; animation: o2 12s infinite; }
+    .fp-pick { width: 64cqw; margin-left: -32cqw; top: 40.4cqw; animation: pick 12s infinite; }
+    .fp-pick img { position: absolute; left: 0; top: 0; width: 100%; margin: 0; }
+    .fp-pick .fp-o3 { position: relative; }
+    .fp-pick .fp-sel { width: 100.9%; left: -.45%; top: -2.6%; animation: selon 12s infinite; }
+    .fp-cur { width: 2.6cqw; left: 75cqw !important; top: 45cqw; animation: cur 12s infinite; transform-origin: 30% 10%; }
+    .fp-c1 { width: 41cqw; margin-left: -20.5cqw; top: 7.1cqw;  animation: c1 12s infinite; }
+    .fp-c2 { width: 41cqw; margin-left: -20.5cqw; top: 29.4cqw; animation: c2 12s infinite; }
+    @keyframes q {
+      0% { opacity: 0; transform: translateY(41.35cqw); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      5%, 8% { opacity: 1; transform: translateY(38.35cqw); animation-timing-function: cubic-bezier(.45,0,.25,1); }
+      16% { opacity: .5; }
+      24%, 100% { opacity: 0; transform: translateY(0); }
+    }
+    @keyframes o0 {
+      0%, 8% { opacity: 0; transform: translateY(38.35cqw); animation-timing-function: cubic-bezier(.45,0,.25,1); }
+      12% { opacity: 1; }
+      24% { opacity: 1; transform: translateY(0); }
+      38% { opacity: 1; }
+      42% { opacity: .35; }
+      47% { opacity: .35; transform: translateY(0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      55%, 100% { opacity: 0; transform: translateY(-12cqw); }
+    }
+    @keyframes o1 {
+      0%, 9.2% { opacity: 0; transform: translateY(38.35cqw); animation-timing-function: cubic-bezier(.45,0,.25,1); }
+      13.2% { opacity: 1; }
+      25.2% { opacity: 1; transform: translateY(0); }
+      38% { opacity: 1; }
+      42% { opacity: .35; }
+      48% { opacity: .35; transform: translateY(0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      56%, 100% { opacity: 0; transform: translateY(-12cqw); }
+    }
+    @keyframes o2 {
+      0%, 10.4% { opacity: 0; transform: translateY(38.35cqw); animation-timing-function: cubic-bezier(.45,0,.25,1); }
+      14.4% { opacity: 1; }
+      26.4% { opacity: 1; transform: translateY(0); }
+      38% { opacity: 1; }
+      42% { opacity: .35; }
+      49% { opacity: .35; transform: translateY(0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      57%, 100% { opacity: 0; transform: translateY(-12cqw); }
+    }
+    @keyframes o3 {
+      0%, 29% { opacity: 0; transform: translateY(18cqw); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      36% { opacity: 1; transform: translateY(0); }
+      58% { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      63%, 100% { opacity: 0; transform: translateY(-6cqw); }
+    }
+    @keyframes pick {
+      0%, 11.6% { opacity: 0; transform: translateY(38.35cqw) scale(1); animation-timing-function: cubic-bezier(.45,0,.25,1); }
+      15.6% { opacity: 1; }
+      27.6%, 38% { opacity: 1; transform: translateY(0) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      43% { transform: translateY(0) scale(1.06); }
+      50% { opacity: 1; transform: translateY(0) scale(1.06); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      58%, 100% { opacity: 0; transform: translateY(-12cqw) scale(1.06); }
+    }
+    @keyframes selon {
+      0%, 36.5% { opacity: 0; }
+      38%, 100% { opacity: 1; }
+    }
+    @keyframes cur {
+      0%, 29% { opacity: 0; transform: translate(10cqw, 9cqw); }
+      30.5% { opacity: 1; transform: translate(10cqw, 9cqw); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      35.5% { opacity: 1; transform: translate(0, 0) scale(1); }
+      36.7% { transform: translate(0, 0) scale(.85); }
+      38% { transform: translate(0, 0) scale(1); }
+      43% { opacity: 1; transform: translate(0, 0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      48%, 100% { opacity: 0; transform: translate(11cqw, 10cqw); }
+    }
+    @keyframes c1 {
+      0%, 59% { opacity: 0; transform: translateY(14cqw); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      68%, 73% { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(.5,0,.75,0); }
+      79%, 100% { opacity: 0; transform: translateY(-4cqw); }
+    }
+    @keyframes c2 {
+      0%, 61.5% { opacity: 0; transform: translateY(14cqw) scale(1); animation-timing-function: cubic-bezier(.2,.8,.2,1); }
+      70.5%, 74% { opacity: 1; transform: translateY(0) scale(1); animation-timing-function: cubic-bezier(.3,0,.3,1); }
+      93%, 100% { opacity: 0; transform: translateY(-11cqw) scale(2.6); }
+    }
+    /* Reduced motion: the cover rests on the last screen, the two AI cards */
+    @media (prefers-reduced-motion: reduce) {
+      .fp-cover * { animation: none !important; }
+      .fp-q, .fp-o, .fp-pick, .fp-cur { opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -280,8 +378,20 @@
       <ul class="projects">
         <li>
           <a class="project" href="/case-studies/free-plan.html">
-            <div class="project__cover project__cover--gradient project__cover--placeholder">
-              <span class="project__placeholder">Cover placeholder</span>
+            <div class="project__cover">
+              <div class="fp-cover" role="img" aria-label="Animation: What's your main goal with PandaDoc? gives way to four answers; Send documents for signature from ChatGPT or Claude is picked, then Connect with Claude and Connect with ChatGPT appear">
+                <img class="fp-q" src="/images/projects/free-plan-cover/question.webp" alt="">
+                <img class="fp-o fp-o0 fp-card" src="/images/projects/free-plan-cover/opt-sign.webp" alt="">
+                <img class="fp-o fp-o1 fp-card" src="/images/projects/free-plan-cover/opt-explore.webp" alt="">
+                <img class="fp-o fp-o2 fp-card" src="/images/projects/free-plan-cover/opt-api.webp" alt="">
+                <div class="fp-pick">
+                  <img class="fp-o fp-o3 fp-card" src="/images/projects/free-plan-cover/opt-ai.webp" alt="">
+                  <img class="fp-sel fp-card" src="/images/projects/free-plan-cover/opt-ai-selected.webp" alt="">
+                </div>
+                <img class="fp-cur" src="/case-studies/images/free-plan/cursor-hand.png" alt="">
+                <img class="fp-c1 fp-card" src="/images/projects/free-plan-cover/card-claude.webp" alt="">
+                <img class="fp-c2 fp-card" src="/images/projects/free-plan-cover/card-chatgpt.webp" alt="">
+              </div>
               <span class="project__cursor" aria-hidden="true">View case study</span>
             </div>
             <div class="project__info">
