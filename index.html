@@ -93,6 +93,37 @@
       color: var(--ink);
     }
     .hero em { font-style: italic; }
+    /* "8+ years": hovering (or focusing) it reveals the graphic design years before, in the same pill as "View case study" */
+    .hero__years {
+      position: relative;
+      cursor: default;
+      background: linear-gradient(rgba(41, 0, 114, .25), rgba(41, 0, 114, .25)) no-repeat 0 92% / 100% 2px;
+      transition: background-size .3s ease;
+    }
+    .hero__years::after {
+      content: attr(data-note);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      padding: 10px 16px;
+      border-radius: 3px;
+      background: var(--ink);
+      color: #fff;
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      line-height: 1.4;
+      letter-spacing: 0;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, 8px) scale(.9);
+      transition: opacity .25s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
+    }
+    .hero__years:hover::after,
+    .hero__years:focus-visible::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    .hero__years:focus-visible { outline: none; background-size: 100% 3px; }
 
     /* Projects */
     /* Small caps label above the projects, as on the About page */
@@ -375,7 +406,7 @@
     </header>
 
     <main>
-      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with 8+ years of experience across <em>B2B SaaS, B2C and Fintech</em></h1>
+      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with <span class="hero__years" tabindex="0" data-note="…and 10 years of graphic design before that">8+ years</span> of experience across <em>B2B SaaS, B2C and Fintech</em></h1>
 
       <p class="work-label">Selected work</p>
       <ul class="projects">
