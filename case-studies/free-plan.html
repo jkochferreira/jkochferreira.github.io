@@ -262,7 +262,7 @@
       line-height: 22px;
       text-align: center;
     }
-    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); } /* discreet outline on every image, as in M2A */
     /* Plan comparison screens: label above, no outline */
     .stack__box .stack__label { margin-bottom: 12px; }
     /* Annotated screen: notes on the lilac background, each with a straight arrow to the part of the card it explains */
@@ -349,7 +349,7 @@
     .pair__img { border-radius: 12px; }
     @media (max-width: 600px) { .pair { gap: 12px; } }
     .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
-    .media__video--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .1); } /* white screens on the white page */
+    .media__video--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); } /* white screens on the white page */
     /* Wide images sit in a box filled with their own background colour, with more room at the sides than above and below */
     .media__frame {
       padding: clamp(20px, 5%, 40px) clamp(28px, 8%, 64px);
@@ -560,7 +560,7 @@
     @media (max-width: 1100px) { .intro__art { display: none; } }
 
     /* Expired trial: the cursor hovers the Expired label and the popover opens, on a loop */
-    .hover-demo { position: relative; aspect-ratio: 2880 / 1652; overflow: hidden; border-radius: 8px; }
+    .hover-demo { position: relative; aspect-ratio: 2880 / 1652; overflow: hidden; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     .hover-demo > img { position: absolute; display: block; height: auto; }
     .hover-demo__base { inset: 0; width: 100%; }
     .hover-demo__chip {
