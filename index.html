@@ -93,32 +93,31 @@
       color: var(--ink);
     }
     .hero em { font-style: italic; }
-    /* "8+ years": hovering (or focusing) it reveals the graphic design years before, in a white label like the Archive captions */
+    /* "8+ years of experience": hovering (or focusing) it reveals the graphic design years before, in the same pill as "View case study" */
     .hero__years { position: relative; cursor: default; }
     .hero__years::after {
       content: attr(data-note);
       position: absolute;
       left: 50%;
-      bottom: calc(100% + 8px);
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: #fff;
-      color: var(--ink);
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 400;
+      bottom: calc(100% + 10px);
+      padding: 10px 16px;
+      border-radius: 3px;
+      background: var(--ink);
+      color: #fff;
+      font-family: "Inter", var(--sans);
+      font-size: 16px;
+      font-weight: 500;
       font-style: normal;
-      line-height: 20px;
+      line-height: 1.4;
       letter-spacing: 0;
       white-space: nowrap;
-      box-shadow: 0 2px 8px rgba(20, 12, 40, .15);
       pointer-events: none;
       opacity: 0;
-      transform: translate(-50%, 6px);
+      transform: translate(-50%, 8px) scale(.9);
       transition: opacity .25s ease, transform .25s cubic-bezier(.2, .8, .2, 1);
     }
     .hero__years:hover::after,
-    .hero__years:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+    .hero__years:focus-visible::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
     .hero__years:focus-visible { outline: none; }
 
     /* Projects */
@@ -402,7 +401,7 @@
     </header>
 
     <main>
-      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with <span class="hero__years" tabindex="0" data-note="…and 10 years of graphic design before that">8+ years of experience</span> across <em>B2B SaaS, B2C and Fintech</em></h1>
+      <h1 class="hero">I’m a Product Designer based in Porto, Portugal, with <span class="hero__years" tabindex="0" data-note="And 10 years of graphic design before that">8+ years of experience</span> across <em>B2B SaaS, B2C and Fintech</em></h1>
 
       <p class="work-label">Selected work</p>
       <ul class="projects">
