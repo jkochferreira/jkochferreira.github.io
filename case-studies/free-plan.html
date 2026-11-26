@@ -737,21 +737,21 @@
         <section class="section">
           <h2>The challenge</h2>
           <div class="prose">
-            <p>PandaDoc's Free plan was generous, at 60 documents a year, but most people used it once. In 2025, about 15% of free accounts that sent a document sent another the following month.</p>
-            <p>But the product gave people little reason to come back. New free users had no onboarding at all. Trial sign-ups answered questions about their use case, but free sign-ups skipped them, so everyone got the same upload-and-send path. After the first document was sent, nothing happened. And when paid customers cancelled, Free wasn't offered anywhere, so they left thinking there was no lower tier. Every month, about 2K paying small businesses left, and none of them were offered Free.</p>
+            <p>PandaDoc's Free plan was generous, with 60 documents a year, but most users only used it once and didn't return. In 2025, only about 15% of free accounts that sent a document went on to send another one the following month.</p>
+            <p>Part of the reason was that the product gave people very little reason to come back. New free users had no onboarding at all. People who signed up for a trial were asked about their use case, but free sign-ups skipped those questions, so everyone was sent down the same path: upload a document and send it. Once that first document was sent, nothing else happened. And when paying customers cancelled, Free wasn't offered anywhere, so many left thinking there was no cheaper option. Every month, around 2,000 small businesses cancelled their paid plan without ever being offered the switch to a Free plan.</p>
           </div>
         </section>
 
         <section class="section">
-          <h2>From an inherited roadmap to a retention strategy</h2>
+          <h2>Learning from real users</h2>
           <div class="prose">
-            <p>When the retention team joined the Free plan work in December 2025, the previous designer handed over the free eSign work. The first-send experience was already improving. Removing template upsells and giving free users the new editor helped more of them send a document within two days of signing up: from 2.3% in October 2025 to 8.3% in January 2026.</p>
+            <p>When the retention team joined the Free plan work in December 2025, the previous designer handed over the free eSign work. By then, the first-send experience was already getting better. Removing template upsells and giving free users the new editor had helped more of them send a document within two days of signing up, from 2.3% in October 2025 to 8.3% in January 2026.</p>
           </div>
         </section>
 
         <section class="section" style="margin-top: 20px;">
           <div class="prose">
-            <p>Although more people were sending a first document, most didn't come back, and nobody knew why. From January to March 2026 we ran 17 moderated interviews with 9 active and 8 inactive free users.</p>
+            <p>But although more people were sending a first document, most of them didn't come back, and nobody really knew why. So between January and March 2026, we ran 17 moderated interviews with 9 active and 8 inactive free users.</p>
           </div>
           <div class="pillars">
             <div class="pillar"><h4>8 of 8</h4><p><strong>inactive users weren't unhappy.</strong></p><p>They had paused because of their business: an occasional need, an early test or personal use.</p></div>
@@ -763,8 +763,13 @@
         <section class="section">
           <h2>Designing the experience</h2>
           <div class="prose">
-            <p>The research and the handover work gave me a clear starting point. People weren't leaving because they were unhappy with the product, but they didn't know what else it could do, and nothing told them at a moment they would notice. Guidance had to come at the moment of need and match what each person came for.</p>
-            <p>I focused on three moments: the first steps after signing up, the moment a customer cancels, and the moment someone connects ChatGPT or Claude.</p>
+            <p>The research, together with the handover, gave me a clear starting point. People weren't leaving because they were unhappy with the product - they simply didn't know what else it could do, and nothing in the product told them at a moment when they would notice. So guidance had to show up when people needed it, and match what each of them had come to do.</p>
+            <p>I focused on three moments:</p>
+            <ul>
+              <li>the first steps after someone signs up</li>
+              <li>the moment a customer cancels</li>
+              <li>the moment someone connects ChatGPT or Claude</li>
+            </ul>
           </div>
         </section>
       </div>
@@ -778,8 +783,13 @@
         <section class="section" style="margin-top: 88px;">
           <h3>Moving churned customers to Free</h3>
           <div class="prose">
-            <p>Cancelling customers were never offered Free, and the plan comparison screen they saw after expiry didn't show it. I designed the path to Free: a message at the end of the cancellation flow saying the account would move to Free, a banner with a reactivate option until the renewal date, and a dialog introducing Free on the first login after the switch. A follow-up email from the marketing team repeated the same message.</p>
-            <p>We ran two versions. For cancelled accounts, the first version covered 1–50 employee accounts on Starter, Business and Launch plans, and reached 100% in March 2026. By mid-April, 739 accounts had moved to Free: 22% were active, 6.6% had sent a document and 9 had reactivated a paid plan. Later, fewer customers reactivated a paid plan, possibly because Free was enough for them. For expired trials, we ran a parallel test, but the results were inconclusive, so we paused it.</p>
+            <p>Customers who cancelled were never offered the Free plan, and the plan comparison screen they saw once their plan expired didn't show it either. I designed the path to Free in three steps:</p>
+            <ul>
+              <li>a message at the end of the cancellation flow explaining that the account would move to Free</li>
+              <li>a banner with an option to reactivate until the renewal date</li>
+              <li>and a dialog introducing Free the first time they logged in after the switch (the marketing team then sent a follow-up email with the same message)</li>
+            </ul>
+            <p>We ran two versions. The first, for cancelled accounts, covered companies with 1–50 employees on the Starter, Business and Launch plans, and was rolled out to everyone in March 2026. By mid-April, 739 accounts had moved to Free. Of those, 22% were still active, 6.6% had sent a document, and 9 had gone back to a paid plan. Over time, fewer customers reactivated a paid plan, possibly because Free was already enough for them. For expired trials, we ran a parallel test, but the results were inconclusive, so we paused it.</p>
           </div>
         </section>
       </div>
@@ -803,8 +813,9 @@
         <section class="section" style="margin-top: 88px;">
           <h3>Onboarding that follows intent</h3>
           <div class="prose">
-            <p>Every free user got the same path: upload a document and send it. Unlike trial sign-ups, free users had never been asked why they joined. An earlier test of skippable questions after the first send showed a small lift in month-1 retention. In the acquisition team, I worked in a trio with the product manager and the engineering manager, and designed intent-based onboarding. A first question asks what the person wants to do (sign something quickly, explore, or integrate via the API), and a second experiment adds connecting ChatGPT or Claude. Each answer leads to its own welcome screen. API sign-ups, for example, can generate their key straight after creating the account.</p>
-            <p>The flow targeted the two largest free sources, users routed from the trial sign-up and the pricing page, together 61% of free sign-ups. We expected it to get about 1,000 more people a month to send their first document within two days of signing up. Before launch I wrote a research plan to test whether people understood the options, especially API versus connecting an AI tool, and what they expected after choosing. The experiment was planned for Q3 2026.</p>
+            <p>Until then, every free user got the same path: upload a document and send it. Unlike people who signed up for a trial, free users had never been asked why they joined. An earlier test, which asked a few skippable questions after the first document was sent, had already shown a small lift in the number of people coming back the following month.</p>
+            <p>In the acquisition team, I worked in a trio with the product manager and the engineering manager to design an onboarding based on intent. It starts with a question about what the person wants to do: sign something quickly, explore the product, or integrate through the API. A second experiment added the option to connect ChatGPT or Claude. Each answer leads to its own welcome screen. People who sign up from the API page, for example, can generate their key straight after creating their account.</p>
+            <p>The flow was aimed at the two biggest sources of free sign-ups, users routed from the trial sign-up and users coming from the pricing page, which together made up 61% of all free sign-ups. We expected it to help about 1,000 more people a month send their first document within two days of signing up. Before launch, I wrote a research plan to check whether people understood the options, especially the difference between using the API and connecting an AI tool, and what they expected to happen after choosing. The experiment was planned for Q3 2026.</p>
           </div>
         </section>
       </div>
@@ -818,12 +829,12 @@
         <section class="section" style="margin-top: 88px;">
           <h3>Promoting ChatGPT and Claude from day one</h3>
           <div class="prose">
-            <p>When PandaDoc launched its ChatGPT app and Claude connector, free users got a new way to create documents without starting from a blank page. But 30–35% of people who connected one dropped off afterwards.</p>
+            <p>When PandaDoc launched its ChatGPT app and Claude connector, free users got a new way to create documents without starting from a blank page. But between 30% and 35% of the people who connected one of them dropped off afterwards.</p>
           </div>
 
           <p class="kicker">A new welcome screen</p>
           <div class="prose">
-            <p>The welcome screen now introduces ChatGPT and Claude to new free sign-ups as another way to create documents. I argued for a straight rollout instead of an A/B test, and leadership agreed.</p>
+            <p>The welcome screen now introduces ChatGPT and Claude to new free users as another way to create documents. I argued for rolling it out to everyone straight away rather than running an A/B test, and leadership agreed.</p>
           </div>
         </section>
       </div>
@@ -845,7 +856,7 @@
         <section class="section" style="margin-top: 56px;">
           <p class="kicker" style="margin-top: 0;">Connector cards</p>
           <div class="prose">
-            <p>ChatGPT and Claude were added as connector cards in the Marketplace and Settings, next to the tools people already used, so existing users could find them too.</p>
+            <p>We added ChatGPT and Claude as connector cards in the Marketplace and in Settings, next to the tools people already used, so that existing users could find them too.</p>
           </div>
         </section>
       </div>
@@ -859,7 +870,7 @@
         <section class="section" style="margin-top: 56px;">
           <p class="kicker" style="margin-top: 0;">A suggested first prompt</p>
           <div class="prose">
-            <p>After connecting ChatGPT or Claude, many people landed in an empty chat and didn't know what to ask. I designed two moments that hand them a ready-to-run prompt: one right after they connect, and a reminder for those who connected but never made a request.</p>
+            <p>After connecting ChatGPT or Claude, many people landed in an empty chat and didn't know what to ask. To help with that, I designed two moments that give them a ready-to-run prompt: one right after they connect, and a reminder for people who connected but never made a request.</p>
           </div>
         </section>
       </div>
@@ -878,7 +889,7 @@
       <div class="content">
         <section class="section" style="margin-top: 56px;">
           <div class="prose">
-            <p>Some ideas stayed plans. In July I proposed a personalised home page and a “what's next” screen after the first send, but the company changed strategy before they were built. I also pushed back on adding one more standalone banner promoting the Claude connector: one-off nudges compete with each other, and the journey needed to be defined first.</p>
+            <p>Some ideas stayed as plans. In July I proposed a personalised home page and a “what's next” screen after the first document was sent, but the company changed strategy before they could be built. I also pushed back on adding yet another standalone banner promoting the Claude connector, because one-off nudges end up competing with each other, and the journey needed to be defined first.</p>
           </div>
         </section>
       </div>
@@ -889,7 +900,7 @@
             <p class="side__label">Working with AI</p>
             <h2>The way we worked changed at the same time</h2>
             <div class="prose">
-              <p>In 2026 Growth made a big bet on AI. With AI taking on much of the prototyping and research synthesis, the hard part became deciding what was worth building. From May, teams worked prototype-first, testing ideas as working prototypes before they used up engineering time. Everyone in a team built, whatever their title. My part shifted from drawing screens from scratch to raising the quality of prototypes the whole team made, and judging whether an idea was convincing enough to build.</p>
+              <p>In 2026, Growth made a big bet on AI. With AI taking on much of the prototyping and research synthesis, the hard part became deciding what was worth building. From May, teams worked prototype-first, testing ideas as working prototypes before spending engineering time on them. Everyone in the team built things, whatever their title. My role shifted from drawing screens from scratch to raising the quality of the prototypes the whole team made, and judging whether an idea was convincing enough to build.</p>
             </div>
           </section>
         </div>
@@ -900,9 +911,9 @@
           <h2>Outcomes</h2>
           <div class="prose">
             <ul>
-              <li>In six months, the team tripled activation and more than doubled month-1 retention, from 14% to 32%. Accounts sending at least one document a month grew by 58%, and monthly active accounts by 42%, partly because churned and trial accounts now landed on Free.</li>
-              <li>With 20% of engineering capacity set aside for improvements, we shipped 14 small UX fixes across the Free plan in Q3 2026.</li>
-              <li>In August 2026 the company adopted a new north star, paid accounts completing 5+ documents a month, and wound down investment in Free.</li>
+              <li>In six months, the team tripled activation and more than doubled the share of people who came back the month after their first document, from 14% to 32%. The number of accounts sending at least one document a month grew by 58%, and monthly active accounts grew by 42%, partly because churned and trial accounts were now moved to Free instead of being lost.</li>
+              <li>With 20% of engineering capacity set aside for improvements, we also shipped 14 small UX fixes across the Free plan in Q3 2026.</li>
+              <li>In August 2026, the company adopted a new north star, paid accounts completing five or more documents a month, and started to wind down its investment in Free.</li>
             </ul>
           </div>
         </section>
@@ -910,7 +921,7 @@
         <section class="section">
           <h2>What I learned</h2>
           <div class="prose">
-            <p><strong>Business strategy moved faster than our experiments.</strong> The Free plan went from a top priority in December to a pause in August, and some experiments stopped before they could tell us anything. Small, cheap experiments on surfaces we already owned were the work most likely to teach us something in time, and working prototype-first with AI made them quicker to put in front of people.</p>
+            <p><strong>Business strategy moved faster than our experiments.</strong> The Free plan went from being a top priority in December to being paused in August, and some experiments were stopped before they could tell us anything. Looking back, the small, cheap experiments on surfaces we already owned were the ones most likely to teach us something in time, and working prototype-first with AI made it much quicker to put them in front of people.</p>
           </div>
         </section>
       </div>
