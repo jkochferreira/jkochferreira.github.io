@@ -120,7 +120,7 @@
     }
     .nav__links { display: flex; gap: 36px; }
     .nav__links a {
-      font-family: "Inter", var(--sans);
+      font-family: var(--sans);
       font-size: 16px;
       line-height: 1.4;
       color: var(--nav-text);
@@ -350,8 +350,8 @@
     }
     .intro--simple .eyebrow { margin-top: clamp(32px, 9vh, 125px); }
 
-    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
-    .media__video { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .media__video { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
 
     /* Hero with a round visual beside the title */
     .intro__title--split {
@@ -434,6 +434,7 @@
       background: var(--frame-bg, #f4f2f8);
       border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(41, 0, 114, .08);
     }
     .media__frame img { display: block; width: 100%; height: auto; border-radius: 4px; }
 
@@ -442,11 +443,11 @@
     .media__frame--bleed img { border-radius: 0; }
 
     /* Screens in a tinted frame with the note inside, joined by a small arrow from the part of the screen it explains, as in Monthly to Annual */
-    .callout { --pad: clamp(12px, 3%, 24px); background: #edf1f4; border-radius: 8px; overflow: hidden; }
+    .callout { --pad: clamp(12px, 3%, 24px); background: #edf1f4; border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     .callout + .callout { margin-top: 48px; }
     .callout__media { padding: var(--pad) var(--pad) 0; }
     .callout__frame { position: relative; }
-    .callout .media__img { border-radius: 0; }
+    .callout .media__img { border-radius: 0; box-shadow: none; }
     .callout__arrow {
       position: absolute;
       left: var(--x);

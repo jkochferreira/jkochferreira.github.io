@@ -120,7 +120,7 @@
     }
     .nav__links { display: flex; gap: 36px; }
     .nav__links a {
-      font-family: "Inter", var(--sans);
+      font-family: var(--sans);
       font-size: 16px;
       line-height: 1.4;
       color: var(--nav-text);
@@ -248,7 +248,7 @@
 
     /* Media placeholders */
     .media { margin-top: 56px; }
-    .media video { display: block; width: 100%; height: auto; border-radius: 8px; }
+    .media video { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     .media + .prose, .carousel + .prose { margin-top: 56px; }
     .placeholder {
       aspect-ratio: 16 / 10;
@@ -283,10 +283,10 @@
       scrollbar-color: rgba(41, 0, 114, .3) transparent;
     }
     .carousel figure { scroll-snap-align: start; }
-    .media__frame { padding: clamp(20px, 4%, 48px); border-radius: 8px; }
+    .media__frame { padding: clamp(20px, 4%, 48px); border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
     .media__frame img { display: block; width: 100%; height: auto; }
     /* No fill, only a thin outline like the cards */
-    .media__frame--cover { box-shadow: 0 0 0 1px rgba(41, 0, 114, .1); }
+    .media__frame--cover { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
 
     /* Strategy pillars */
     .pillars {
@@ -401,8 +401,8 @@
       .intro--cover .hero { max-width: none; }
     }
 
-    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; }
-    .media__img--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .1); } /* white images on the white page */
+    .media__img { display: block; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .media__img--outline { box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); } /* white images on the white page */
     .placeholder { aspect-ratio: 16 / 9; }
 
     .meta--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
