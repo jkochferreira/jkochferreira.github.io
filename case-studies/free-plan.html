@@ -179,6 +179,14 @@
     .prose ul li { position: relative; padding-left: 20px; }
     .prose ul li + li { margin-top: 8px; }
     .prose ul li::before { content: ""; position: absolute; left: 4px; top: 12px; width: 5px; height: 5px; border-radius: 50%; background: var(--ink); }
+    /* Steps: lilac cards with numbered circles, as in the M2A lifecycle */
+    .prose ol.steps { list-style: none; margin: 16px 0 40px; padding: 0; }
+    .prose ol.steps li { position: relative; display: grid; grid-template-columns: 28px 1fr; gap: 20px; align-items: start; padding: 0; }
+    .prose ol.steps li + li { margin-top: 12px; }
+    .prose ol.steps li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 42px; bottom: -26px; width: 1px; background: rgba(41, 0, 114, .12); }
+    .steps__num { margin-top: 14px; width: 28px; height: 28px; border-radius: 50%; background: #e7e1f0; color: var(--ink); font-size: 12px; line-height: 1; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .prose p.steps__title { margin-top: 32px; }
+    .steps__card { padding: 16px 20px; border-radius: 8px; background: rgba(41, 0, 114, .045); box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); font-size: 16px; line-height: 24px; color: var(--text); }
 
     .section { margin-top: 120px; }
     .section h2,
@@ -304,6 +312,18 @@
     /* Screen on a lilac panel with its note inside, joined by a small arrow from the part of the screen it explains */
     .callout { background: #d5cde2; border-radius: 12px; overflow: hidden; }
     .callout .media__img { border-radius: 0; }
+    /* Screen on a peach panel with a note on the right, joined by an arrow to the part it explains */
+    .side-note { position: relative; }
+    .side-note .media__img { border-radius: 12px; box-shadow: 0 0 0 1px rgba(41, 0, 114, .08); }
+    .side-note__lines { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 2150 / 2152; pointer-events: none; }
+    .side-note__lines circle { fill: var(--text-muted); }
+    .side-note__lines path { fill: none; stroke: var(--text-muted); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .side-note__notes { margin: 0; }
+    .side-note__text { position: absolute; top: var(--y); left: 68.5%; right: 3%; margin: 0; transform: translateY(-50%); font-size: clamp(11px, 1.7vw, 13px); line-height: 1.5; color: var(--text); }
+    @media (max-width: 440px) {
+      .side-note__lines { display: none; }
+      .side-note__text { position: static; transform: none; margin-top: 8px; font-size: 13px; }
+    }
     .callout__media { position: relative; }
     .callout__arrow {
       position: absolute;
@@ -722,7 +742,14 @@
         <div class="prose" style="margin-top: 56px;">
           <p>In December 2025 I joined the team working on PandaDoc's Free plan, as the designer for both the retention and the acquisition teams. In 2026, the company made the Free eSign its main acquisition channel. The goal was clear: grow the number of monthly active accounts, and get half of the users who sent a document to come back and send another one the following month. The problem was that most users sent a single document and never returned. To understand why, we interviewed 17 free users. I then used what we learned to redesign how people start on the Free plan, with an onboarding that adapts to what each person wants to get done, and to give customers who cancel a paid plan a way to stay on Free.</p>
         </div>
+      </div>
 
+      <figure class="media wide">
+        <video class="media__video media__video--outline" src="/case-studies/images/free-plan/api-onboarding.mp4" poster="/case-studies/images/free-plan/api-onboarding.jpg" autoplay muted loop playsinline preload="auto" aria-label="Intent-based onboarding: the person answers what brings them to PandaDoc, creates a free account, then picks the tools they use, such as Google Workspace or ChatGPT and Claude"></video>
+        <figcaption>Intent-based onboarding: a first question on why people signed up, then the tools they use.</figcaption>
+      </figure>
+
+      <div class="content">
         <section class="section">
           <h2>Results</h2>
           <div class="stats">
@@ -764,7 +791,7 @@
           <h2>Designing the experience</h2>
           <div class="prose">
             <p>The research, together with the handover, gave me a clear starting point. People weren't leaving because they were unhappy with the product - they simply didn't know what else it could do, and nothing in the product told them at a moment when they would notice. So guidance had to show up when people needed it, and match what each of them had come to do.</p>
-            <p>I focused on three moments:</p>
+            <p><strong>I focused on three moments:</strong></p>
             <ul>
               <li>the first steps after someone signs up</li>
               <li>the moment a customer cancels</li>
@@ -783,12 +810,13 @@
         <section class="section" style="margin-top: 88px;">
           <h3>Moving churned customers to Free</h3>
           <div class="prose">
-            <p>Customers who cancelled were never offered the Free plan, and the plan comparison screen they saw once their plan expired didn't show it either. I designed the path to Free in three steps:</p>
-            <ul>
-              <li>a message at the end of the cancellation flow explaining that the account would move to Free</li>
-              <li>a banner with an option to reactivate until the renewal date</li>
-              <li>and a dialog introducing Free the first time they logged in after the switch (the marketing team then sent a follow-up email with the same message)</li>
-            </ul>
+            <p>Customers who cancelled were never offered the Free plan, and the plan comparison screen they saw once their plan expired didn't show it either.</p>
+            <p class="steps__title"><strong>I designed the path to Free in three steps:</strong></p>
+            <ol class="steps">
+              <li><span class="steps__num" aria-hidden="true">01</span><span class="steps__card">A message at the end of the cancellation flow explaining that the account would move to Free</span></li>
+              <li><span class="steps__num" aria-hidden="true">02</span><span class="steps__card">A banner with an option to reactivate until the renewal date</span></li>
+              <li><span class="steps__num" aria-hidden="true">03</span><span class="steps__card">A dialog introducing Free the first time they logged in after the switch (the marketing team then sent a follow-up email with the same message)</span></li>
+            </ol>
             <p>We ran two versions. The first, for cancelled accounts, covered companies with 1–50 employees on the Starter, Business and Launch plans, and was rolled out to everyone in March 2026. By mid-April, 739 accounts had moved to Free. Of those, 22% were still active, 6.6% had sent a document, and 9 had gone back to a paid plan. Over time, fewer customers reactivated a paid plan, possibly because Free was already enough for them. For expired trials, we ran a parallel test, but the results were inconclusive, so we paused it.</p>
           </div>
         </section>
@@ -820,9 +848,14 @@
         </section>
       </div>
 
-      <figure class="media wide">
-        <video class="media__video media__video--outline" src="/case-studies/images/free-plan/api-onboarding.mp4" poster="/case-studies/images/free-plan/api-onboarding.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Intent-based onboarding: the person answers what brings them to PandaDoc, creates a free account, then picks the tools they use, such as Google Workspace or ChatGPT and Claude"></video>
-        <figcaption>Intent-based onboarding: a first question on why people signed up, then the tools they use.</figcaption>
+      <figure class="media wide side-note">
+        <img class="media__img" src="/case-studies/images/free-plan/onboarding-goal-ai.webp" alt="Two onboarding screens. Step 3 of 3: Which of these tools do you use? Four options, with Send documents for signature from ChatGPT or Claude selected. Below, Get started with PandaDoc AI, with Connect with Claude and Connect with ChatGPT cards and a link to set up the PandaDoc MCP server" loading="lazy">
+        <svg class="side-note__lines" viewBox="0 0 2150 2152" aria-hidden="true"><g><circle cx="790" cy="383" r="8"/><path d="M790 383H1450"/><path d="M1434 371L1450 383L1434 395"/></g><g><circle cx="812" cy="802" r="8"/><path d="M812 802H1450"/><path d="M1434 790L1450 802L1434 814"/></g><g><circle cx="990" cy="1658" r="8"/><path d="M990 1658H1450"/><path d="M1434 1646L1450 1658L1434 1670"/></g></svg>
+        <figcaption class="side-note__notes">
+          <p class="side-note__text" style="--y: 17.8%;">The last of the three onboarding questions.</p>
+          <p class="side-note__text" style="--y: 37.27%;">Each answer leads people down a different path.</p>
+          <p class="side-note__text" style="--y: 77.04%;">The empty state people see when they choose to sign documents with AI.</p>
+        </figcaption>
       </figure>
 
       <div class="content">
